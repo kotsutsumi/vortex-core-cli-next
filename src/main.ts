@@ -1,8 +1,14 @@
-import hoge from './hoge'
+import { program } from 'commander'
+import packageJson from '../package.json'
 
 const main = () => {
-    console.log(hoge())
-    console.log('Hello World')
+    // set current package version
+    const version = packageJson.version
+    program.version(version, '-v, --version').parse(process.argv)
+
+    console.log('Vortex Core CLI for Next.js')
+
+    //
 }
 
 main()
