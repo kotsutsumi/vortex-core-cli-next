@@ -1,12 +1,24 @@
-import { program } from 'commander'
-import packageJson from '../package.json'
+import * as yargs from 'yargs'
+import format from './enums/format'
+import { create } from './commands/create'
 
 const main = () => {
-    // set current package version
-    const version = packageJson.version
-    program.version(version, '-v, --version').parse(process.argv)
-
-    console.log('Vortex Core CLI for Next.js')
+    const argv = yargs
+        .command('create', 'create a new project', (argv) => {
+            create({
+                format:
+                    // @ts-ignore
+                    format.JSON == argv.argv.format ? format.JSON : format.TEXT
+            })
+        })
+        .option('format', {
+            alias: 'f',
+            description: 'output format: "json" or "text", default to "text"',
+            default: format.TEXT,
+            demandOption: true
+        })
+        .demandCommand(1)
+        .help().argv
 
     //
 }
