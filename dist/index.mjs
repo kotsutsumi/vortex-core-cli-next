@@ -1,0 +1,2 @@
+#!/usr/bin/env node
+var e="undefined"!=typeof globalThis?globalThis:"undefined"!=typeof window?window:"undefined"!=typeof global?global:"undefined"!=typeof self?self:{},o={},l={};Object.defineProperty(l,"__esModule",{value:!0}),l.default=function(){return"Hoge"};var n=e&&e.__importDefault||function(e){return e&&e.__esModule?e:{default:e}};Object.defineProperty(o,"__esModule",{value:!0});const d=n(l);console.log((0,d.default)()),console.log("Hello World");export{o as default};
