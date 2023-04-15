@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import hoge from './hoge'
 
 const main = () => {
@@ -6,3 +8,5 @@ const main = () => {
 }
 
 main()
+
+// EOF

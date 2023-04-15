@@ -3,6 +3,9 @@
     "version": "0.0.1",
     "description": "Vortex Core CLI for Next.js",
     "main": "src/index.js",
+    "bin": {
+        "vortex-core-cli-next": "./dist/main.js"
+    },
     "scripts": {
         "start": "node dist/main.js",
         "build": "tsc",
