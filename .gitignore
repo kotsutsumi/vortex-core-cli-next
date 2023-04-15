@@ -1,3 +1,6 @@
+# .npmrc
+.gitignore
+
 # Logs
 logs
 *.log
