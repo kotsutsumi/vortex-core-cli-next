@@ -12,18 +12,6 @@ export function json() {
     // console.log('create.ts')
 }
 
-export function header() {
-    const versionText = 'v' + packageJson.version
-
-    console.log('')
-    console.log(`${Title.x45} ${versionText.white}`)
-    console.log('')
-}
-
-export function footer() {
-    console.log('done.'.black_bt)
-}
-
 export function stdout() {
     //
 }

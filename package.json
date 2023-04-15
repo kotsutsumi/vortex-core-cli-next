@@ -37,11 +37,17 @@
         "@rollup/plugin-node-resolve": "^15.0.2",
         "@rollup/plugin-terser": "^0.4.1",
         "@types/cli-color": "^2.0.2",
+        "@types/cli-spinner": "^0.2.1",
         "@types/yargs": "^17.0.24",
         "colors-cli": "^1.0.32",
         "rollup": "^3.20.2",
         "ts-node": "^10.9.1",
         "typescript": "^5.0.4",
         "yargs": "^17.7.1"
+    },
+    "dependencies": {
+        "cli-spinner": "^0.2.10",
+        "node-pty": "^0.10.1",
+        "progress": "^2.0.3"
     }
 }
