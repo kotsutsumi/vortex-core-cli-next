@@ -1,8 +1,9 @@
-// index.d.ts
-
-import format from './enums/format'
+//
+// for commands
+//
 
 export type TBaseCommandArg = {
+    projectName: string
     format: format
 }
 
