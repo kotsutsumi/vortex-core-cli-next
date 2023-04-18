@@ -1,4 +1,4 @@
-import { TUsePrimeReactArg } from './idnex'
+import { TUsePrimeReactArg } from '.'
 
 export function usePrimeReact(args: TUsePrimeReactArg) {
     console.log('usePrimeReact')

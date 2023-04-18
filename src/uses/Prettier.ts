@@ -1,15 +1,19 @@
 import { runner } from '../commands/runner'
-import { TUsePrettierArg } from './idnex'
+import { TUsePrettierArg } from './index'
 
 export function usePrettier(args: TUsePrettierArg) {
     //
 
     runner(args, async (complete: Function) => {
+        //
+
+        // TODO: create ".prettierrc"
+
         // complete
         complete()
-    })
 
-    // TODO: create ".prettierrc"
+        //
+    })
 
     //
 }

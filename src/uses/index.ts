@@ -1,11 +1,10 @@
 //
 // for uses
-//
-export type TBaseUseArg = {
-    caption: string
-    done: string
-    format: format
-}
+
+import { TBaseArg } from '..'
+
+// usePrimeReact
+export type TBaseUseArg = TBaseArg & {}
 
 // usePrimeReact
 export type TUsePrimeReactArg = TBaseUseArg & {}

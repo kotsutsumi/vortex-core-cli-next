@@ -5,7 +5,7 @@ import format from '../enums/format'
 import packageJson from '../../package.json'
 import rl from 'readline'
 import { TBaseCommandArg } from '.'
-import { TBaseUseArg } from '../uses/idnex'
+import { TBaseUseArg } from '../uses'
 
 export function runner(args: TBaseCommandArg | TBaseUseArg, target: Function) {
     // create spinner

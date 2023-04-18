@@ -91,6 +91,9 @@ const main = () => {
 
             // apply feature
             feature({
+                // done
+                done: `applied ${featureName} feature.`,
+
                 // Format
                 format:
                     // @ts-ignore

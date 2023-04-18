@@ -2,13 +2,12 @@
 // for commands
 //
 
-export type TBaseCommandArg = {
-    caption: string
-    done: string
-    projectName: string
-    format: format
-}
+import { TBaseArg } from '..'
 
-export type TCreateCommandArg = TBaseCommandArg & {}
+export type TBaseCommandArg = TBaseArg & {}
+
+export type TCreateCommandArg = TBaseCommandArg & {
+    projectName: string
+}
 
 // EOF
