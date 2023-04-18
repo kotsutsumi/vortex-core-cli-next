@@ -25,7 +25,7 @@ export function create(args: TCreateCommandArg) {
             '--eslint',
             '--no-src-dir',
             '--no-tailwind',
-            '--experimental-app',
+            '--no-experimental-app',
             '--import-alias',
             '"@/*"'
         ]

@@ -3,6 +3,8 @@
 //
 
 export type TBaseCommandArg = {
+    caption: string
+    done: string
     projectName: string
     format: format
 }

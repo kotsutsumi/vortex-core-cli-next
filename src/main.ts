@@ -1,127 +1,28 @@
+// main.ts
+
 import * as yargs from 'yargs'
 import format from './enums/format'
+import packageJson from '../package.json'
 import uses from './enums/uses'
 import { create } from './commands/create'
-import { usePrimeReact } from './uses/PrimeReact'
 import { useDashboard } from './uses/Dashboard'
 import { useFirebaseAuth } from './uses/FirebaseAuth'
 import { usePrettier } from './uses/Prettier'
+import { usePrimeReact } from './uses/PrimeReact'
+
+// show header
+const showHeader = () => {
+    // show title
+    const versionText = 'v' + packageJson.version
+
+    console.log('')
+    console.log(`${packageJson.description.x45} ${versionText.white}`)
+    console.log('')
+
+    //
+}
 
 const main = () => {
-    // define options
-    // const opts = {
-    //     // TyepScript
-    //     ts: {
-    //         description: 'Initialize as a TypeScript project. (default: true)',
-    //         default: true,
-    //         demandOption: true
-    //     },
-    //     'no-ts': {
-    //         description:
-    //             'Disable initialize as a TypeScript project. (default: false)',
-    //         default: false,
-    //         demandOption: true
-    //     },
-
-    //     // JavaScript
-    //     js: {
-    //         description: 'Initialize as a JavaScript project. (default: false)',
-    //         default: false,
-    //         demandOption: true
-    //     },
-    //     tailwind: {
-    //         description: 'Initialize with Tailwind CSS config. (default: true)',
-    //         default: true,
-    //         demandOption: true
-    //     },
-
-    //     // ESLint
-    //     eslint: {
-    //         description: 'Initialize with eslint config. (default: true)',
-    //         default: true,
-    //         demandOption: true
-    //     },
-    //     'no-eslint': {
-    //         description:
-    //             'Disable initialize with eslint config. (default: false)',
-    //         default: false,
-    //         demandOption: true
-    //     },
-
-    //     'experimental-app': {
-    //         description:
-    //             'Initialize as a `app/` directory project. (default: false)',
-    //         default: false,
-    //         demandOption: true
-    //     },
-
-    //     // src directory
-    //     'src-dir': {
-    //         description:
-    //             'Initialize inside a `src/` directory. (default: false)',
-    //         default: false,
-    //         demandOption: true
-    //     },
-    //     'no-src-dir': {
-    //         description:
-    //             'Initialize inside a `src/` directory. (default: true)',
-    //         default: true,
-    //         demandOption: true
-    //     },
-
-    //     'import-alias <alias-to-configure>': {
-    //         description: 'Specify import alias to use (default "@/*").',
-    //         default: '@/*',
-    //         demandOption: true
-    //     },
-
-    //     // Use npm
-    //     'use-npm': {
-    //         description:
-    //             'Explicitly tell the CLI to bootstrap the app using npm. (default: true)',
-    //         default: true,
-    //         demandOption: true
-    //     },
-    //     'no-use-npm': {
-    //         description:
-    //             'Disdable explicitly tell the CLI to bootstrap the app using npm. (default: false)',
-    //         default: false,
-    //         demandOption: true
-    //     },
-
-    //     // Use pnpm
-    //     'use-pnpm': {
-    //         description:
-    //             'Explicitly tell the CLI to bootstrap the app using pnpm. (default: false)',
-    //         default: true,
-    //         demandOption: true
-    //     },
-    //     'example [name]|[github-url]': {
-    //         alias: 'e',
-    //         description:
-    //             'An example to bootstrap the app with. You can use an example name ' +
-    //             'from the official Next.js repo or a GitHub URL. The URL can use ' +
-    //             'any branch and/or subdirectory (default: false)',
-    //         default: true,
-    //         demandOption: true
-    //     },
-    //     'example-path <path-to-example>': {
-    //         description:
-    //             'In a rare case, your GitHub URL might contain a branch name with' +
-    //             'a slash (e.g. bug/fix-1) and the path to the example (e.g. foo/bar).' +
-    //             'In this case, you must specify the path to the example separately:' +
-    //             '--example-path foo/bar',
-    //         default: true,
-    //         demandOption: true
-    //     },
-    //     'reset-preferences': {
-    //         description:
-    //             'Explicitly tell the CLI to reset any stored preferences. (default: false)',
-    //         default: true,
-    //         demandOption: true
-    //     }
-    // }
-
     const useFeatures = {
         dashboard: useDashboard,
         prettier: usePrettier,
@@ -131,12 +32,31 @@ const main = () => {
 
     const argv = yargs
         .command('create <project>', 'create a new project', (argv) => {
+            // show header
+            showHeader()
+
             // set params
             const params: any = argv.argv
 
+            // set project name
+            const projectName = params['_'][1]
+
+            // validate project name
+            if (projectName === undefined) {
+                console.log('')
+                console.error('project name is required.'.red.bold)
+                process.exit(1)
+            }
+
             create({
+                // caption
+                caption: 'creating a new project...',
+
+                // done
+                done: `created ${projectName} project.`,
+
                 // project name
-                projectName: params['_'][1],
+                projectName: projectName,
 
                 // Format
                 format:
@@ -151,6 +71,9 @@ const main = () => {
             demandOption: true
         })
         .command('use <feature>', 'use a feature', (argv) => {
+            // show header
+            showHeader()
+
             // set params
             const params: any = argv.argv
 
@@ -162,7 +85,7 @@ const main = () => {
 
             if (feature === undefined) {
                 // show error message
-                console.log(`❌ unknown feature: ${featureName}`)
+                console.log(`unknown feature: ${featureName}`.red.bold)
                 return
             }
 
@@ -178,8 +101,6 @@ const main = () => {
         })
         .demandCommand(1)
         .help().argv
-
-    // console.log(argv.command('use'))
 
     //
 }

@@ -2,6 +2,8 @@
 // for uses
 //
 export type TBaseUseArg = {
+    caption: string
+    done: string
     format: format
 }
 

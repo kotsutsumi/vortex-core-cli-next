@@ -7,33 +7,14 @@ import rl from 'readline'
 import { TBaseCommandArg } from '.'
 import { TBaseUseArg } from '../uses/idnex'
 
-const Title = packageJson.description
-
-export function runner(
-    args: TBaseCommandArg | TBaseUseArg,
-    target: Function,
-    caption?: string
-) {
+export function runner(args: TBaseCommandArg | TBaseUseArg, target: Function) {
     // create spinner
-    const spinner = new (require('cli-spinner').Spinner)('processing.. %s')
+    const spinner = new (require('cli-spinner').Spinner)(`%s ${args.caption}`)
 
     // show header
     if (args.format == format.TEXT) {
-        // show title
-        const versionText = 'v' + packageJson.version
-
-        console.log('')
-        console.log(`${Title.x45} ${versionText.white}`)
-
-        if (caption) {
-            console.log('')
-            console.log(`⚡ ${caption.blue.bold}`)
-        }
-
-        console.log('')
-
         // show spinner
-        spinner.setSpinnerString('|/-\\')
+        spinner.setSpinnerString('⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏')
         spinner.start()
 
         //
@@ -49,7 +30,7 @@ export function runner(
         rl.cursorTo(process.stdout, 0)
 
         if (success != false) {
-            console.log('done.'.black_bt)
+            console.log('|', args.done.green)
         }
 
         //
