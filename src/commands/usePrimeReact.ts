@@ -1,0 +1,3 @@
+// usePrimeReact.ts
+
+// EOF

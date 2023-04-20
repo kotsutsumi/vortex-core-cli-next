@@ -1,38 +1,46 @@
 {
-  "name": "vortex-core-cli-next",
-  "version": "0.0.11",
-  "description": "Vortex Core CLI for Next.js",
-  "main": "dist/index.mjs",
-  "bin": {
-    "vortex-core-cli-next": "./bin/vortex-core-cli-next.js"
-  },
-  "type": "module",
-  "scripts": {
-    "dev": "webpack --mode development",
-    "build": "webpack --mode production"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kotsutsumi/vortex-core-cli-next.git"
-  },
-  "keywords": [
-    "Next.js",
-    "node",
-    "React",
-    "PrimeFlex",
-    "PrimeReact"
-  ],
-  "author": "Kazuhiro Kotsutsumi <kotsutsumi@gmail.com>",
-  "license": "Apache-2.0",
-  "bugs": {
-    "url": "https://github.com/kotsutsumi/vortex-core-cli-next/issues"
-  },
-  "homepage": "https://github.com/kotsutsumi/vortex-core-cli-next#readme",
-  "devDependencies": {
-    "@types/node": "^18.15.11",
-    "ts-loader": "^9.4.2",
-    "typescript": "^5.0.4",
-    "webpack": "^5.79.0",
-    "webpack-cli": "^5.0.1"
-  }
+    "name": "vortex-core-cli-next",
+    "version": "0.0.13",
+    "description": "Vortex Core CLI for Next.js",
+    "bin": {
+        "vortex-core-cli-next": "./bin/vortex-core-cli-next.js"
+    },
+    "type": "commonjs",
+    "scripts": {
+        "build": "webpack --mode production"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kotsutsumi/vortex-core-cli-next.git"
+    },
+    "keywords": [
+        "Next.js",
+        "node",
+        "React",
+        "PrimeFlex",
+        "PrimeReact"
+    ],
+    "author": "Kazuhiro Kotsutsumi <kotsutsumi@gmail.com>",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/kotsutsumi/vortex-core-cli-next/issues"
+    },
+    "homepage": "https://github.com/kotsutsumi/vortex-core-cli-next#readme",
+    "devDependencies": {
+        "@types/node": "^18.15.11",
+        "@types/yargs": "^17.0.24",
+        "colors-cli": "^1.0.32",
+        "ts-loader": "^9.4.2",
+        "typescript": "^5.0.4",
+        "webpack": "^5.79.0",
+        "webpack-cli": "^5.0.1"
+    },
+    "dependencies": {
+        "cli-color": "^2.0.3",
+        "cli-spinners": "^2.8.0",
+        "eta": "^2.0.1",
+        "log-update": "^5.0.1",
+        "ora": "^6.3.0",
+        "yargs": "^17.7.1"
+    }
 }
