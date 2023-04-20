@@ -1,8 +1,12 @@
 // usePrettier.ts
 
-import { TUseCommandArg } from '..'
+import { log } from 'console'
+import { TUsePrettierCommandArg } from '../index.d'
 
-export function usePrettier(args: TUseCommandArg) {
+export function usePrettier(args: TUsePrettierCommandArg) {
+    log('usePrettier!')
+    log(args)
+
     //
 }
 

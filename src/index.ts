@@ -7,14 +7,19 @@ import packageJson from '../package.json'
 import yargs from 'yargs'
 import { log } from 'console'
 import FORMAT from './enums/format'
+import { TCreateCommandArg, TUseCommandArg } from './index.d'
+import { create } from './commands/create'
+import { usePrettier } from './commands/usePrettier'
+import { useDashboard } from './commands/useDashboard'
+import { useFirebaseAuth } from './commands/useFirebaseAuth'
+import { usePrimeReact } from './commands/usePrimeReact'
+
 //
 import cliSpinners from 'cli-spinners'
 import * as Eta from 'eta'
 import fs from 'fs'
 import ora from 'ora'
 import COMMAND from './enums/command'
-import { create } from './commands/create'
-import { usePrettier } from './commands/usePrettier'
 
 // set app name
 const appName = packageJson.name
@@ -28,30 +33,16 @@ const __dirname = path.dirname(__filename)
 // set views directory
 const viewsPath = path.join(__dirname, '../views')
 
-// define TCommandArg type
-export type TCommandArg = {
-    command: typeof COMMAND.CREATE | typeof COMMAND.USE
-    start: string
-    end: string
-    format: typeof FORMAT.TEXT | typeof FORMAT.JSON
-    views?: string
-}
-
-export type TCreateCommandArg = TCommandArg & {
-    projectName: string
-}
-
-export type TUseCommandArg = TCommandArg & {
-    featureName: string
-}
-
 // init commands
 const commands: Array<TCreateCommandArg | TUseCommandArg> = []
 
 // set runners
 const runners = {
     create: create,
-    'use-prettier': usePrettier
+    'use-dashboard': useDashboard,
+    'use-firebase-auth': useFirebaseAuth,
+    'use-prettier': usePrettier,
+    'use-prime-react': usePrimeReact
 }
 
 // parse command
@@ -68,6 +59,23 @@ const parseCommand = (params: yargs.Argv<{ format: 'text' }>) => {
         (_opts.format as string) === FORMAT.JSON ? FORMAT.JSON : FORMAT.TEXT
 
     return [_args, _opts, _format]
+
+    //
+}
+
+// push feature command
+const pushFeatureCommand = (
+    featureName: string,
+    format: typeof FORMAT.TEXT | typeof FORMAT.JSON
+) => {
+    commands.push({
+        command: `use-${featureName}`,
+        end: `applied ${featureName} feature.`,
+        featureName: featureName,
+        format: format,
+        start: `applying ${featureName} feature...`,
+        views: viewsPath
+    })
 
     //
 }
@@ -100,6 +108,16 @@ const args = yargs
             start: 'creating a new project...'
         })
 
+        // dependencies feature
+        for (const featureName of [
+            'prettier',
+            'prime-react',
+            'firebase-auth',
+            'dashboard'
+        ]) {
+            pushFeatureCommand(featureName, v[2])
+        }
+
         //
     })
 
@@ -112,20 +130,13 @@ const args = yargs
         const featureName = v[0][1]
 
         // push command
-        commands.push({
-            command: 'use',
-            end: `applied ${featureName} feature.`,
-            featureName: featureName,
-            format: v[2],
-            start: `applying ${featureName} feature...`,
-            views: viewsPath
-        })
+        pushFeatureCommand(featureName, v[2])
 
         //
     })
 
     // ---
-    .demandCommand(1)
+    .demandCommand(2)
     .parseSync()
 
 // set output format
@@ -145,11 +156,6 @@ for (const c of commands) {
     runner(c)
     //
 }
-
-for (const runner in runners) {
-}
-
-log(commands)
 
 // create spinner
 // const spinner = ora('xxxx').start()
