@@ -1,3 +1,5 @@
+const path = require('path')
+
 module.exports = {
     entry: './src/index.ts',
     target: 'node',
@@ -7,7 +9,7 @@ module.exports = {
             {
                 test: /\.ts$/,
                 use: ['ts-loader'],
-                exclude: /node_modules/
+                exclude: [/node_modules/, path.join(__dirname, 'views/')]
             }
         ]
     },
