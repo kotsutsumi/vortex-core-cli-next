@@ -1,6 +1,6 @@
 {
-    "tabWidth": 4,
-    "singleQuote": true,
-    "semi": false,
-    "trailingComma": "none"
+    "tabWidth": <%= it.tabWidth %>,
+    "singleQuote": <%= it.singleQuote %>,
+    "semi": <%= it.semi %>,
+    "trailingComma": "<%= it.trailingComma %>"
 }

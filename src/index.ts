@@ -2,24 +2,13 @@
 
 import 'colors-cli/toxic'
 import * as path from 'path'
+import FORMAT from './enums/format'
 import format from './enums/format'
 import packageJson from '../package.json'
+import runners, { run } from './commands'
 import yargs from 'yargs'
-import { log } from 'console'
-import FORMAT from './enums/format'
 import { TCreateCommandArg, TUseCommandArg } from './index.d'
-import { create } from './commands/create'
-import { usePrettier } from './commands/usePrettier'
-import { useDashboard } from './commands/useDashboard'
-import { useFirebaseAuth } from './commands/useFirebaseAuth'
-import { usePrimeReact } from './commands/usePrimeReact'
-
-//
-import cliSpinners from 'cli-spinners'
-import * as Eta from 'eta'
-import fs from 'fs'
-import ora from 'ora'
-import COMMAND from './enums/command'
+import { log } from 'console'
 
 // set app name
 const appName = packageJson.name
@@ -35,15 +24,6 @@ const viewsPath = path.join(__dirname, '../views')
 
 // init commands
 const commands: Array<TCreateCommandArg | TUseCommandArg> = []
-
-// set runners
-const runners = {
-    create: create,
-    'use-dashboard': useDashboard,
-    'use-firebase-auth': useFirebaseAuth,
-    'use-prettier': usePrettier,
-    'use-prime-react': usePrimeReact
-}
 
 // parse command
 const parseCommand = (params: yargs.Argv<{ format: 'text' }>) => {
@@ -136,6 +116,7 @@ const args = yargs
     })
 
     // ---
+
     .demandCommand(2)
     .parseSync()
 
@@ -144,32 +125,19 @@ const outputFormat = args.format
 
 // display header
 if (outputFormat == format.TEXT) {
-    log(`${appName.blue.bold} v${appVersion}`)
+    log(`${appName.blue.bold} v${appVersion}\n`)
 }
 
 // run commands
 for (const c of commands) {
-    // set runner
-    // @ts-ignore
-    const runner = runners[c.command]
+    // start runner
+    run(c.start, c.format == format.TEXT ? c.end : null, () => {
+        // @ts-ignore
+        runners[c.command](c)
+    })
 
-    runner(c)
     //
 }
-
-// create spinner
-// const spinner = ora('xxxx').start()
-
-// log(cliSpinners.dots)
-
-// const num: number = +process.argv[2]
-// log('hoge'.red)
-
-// const tpl = Eta.compile(fs.readFileSync(`${viewsPath}/.prettierrc`, 'utf8'))
-
-// render
-// const rendered = tpl({}, Eta.config)
-// log(rendered)
 
 // display done
 if (outputFormat == format.TEXT) {
