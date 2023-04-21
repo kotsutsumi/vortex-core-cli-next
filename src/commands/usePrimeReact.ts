@@ -2,7 +2,9 @@
 
 import { TUsePrimeReactCommandArg } from '../index.d'
 
-export function usePrimeReact(args: TUsePrimeReactCommandArg) {
+export async function usePrimeReact(args: TUsePrimeReactCommandArg) {
+    // TODO: npm install primerreact primeflexd icon
+    // TODO: add to index.tsx
     //
 }
 

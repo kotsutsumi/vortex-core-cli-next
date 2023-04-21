@@ -5,7 +5,7 @@ import * as path from 'path'
 import FORMAT from './enums/format'
 import format from './enums/format'
 import packageJson from '../package.json'
-import runners, { run } from './commands'
+import runners from './commands'
 import yargs from 'yargs'
 import { TCreateCommandArg, TUseCommandArg } from './index.d'
 import { log } from 'console'
@@ -129,19 +129,17 @@ if (outputFormat == format.TEXT) {
 }
 
 // run commands
-for (const c of commands) {
-    // start runner
-    run(c.start, c.format == format.TEXT ? c.end : null, () => {
+;(async () => {
+    for (const c of commands) {
+        // start runner
         // @ts-ignore
-        runners[c.command](c)
-    })
+        await runners[c.command](c)
+    }
 
-    //
-}
-
-// display done
-if (outputFormat == format.TEXT) {
-    log('\ndone.'.black_bt)
-}
+    // display done
+    if (outputFormat == format.TEXT) {
+        log('\ndone.'.black_bt)
+    }
+})()
 
 // EOF

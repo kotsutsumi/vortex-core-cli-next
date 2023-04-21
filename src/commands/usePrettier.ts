@@ -3,8 +3,12 @@
 import * as Eta from 'eta'
 import fs from 'fs'
 import { TUsePrettierCommandArg } from '../index.d'
+import ora from 'ora'
 
-export function usePrettier(args: TUsePrettierCommandArg) {
+export async function usePrettier(args: TUsePrettierCommandArg) {
+    // create spinner
+    const spinner = ora(args.start).start()
+
     // set views path
     const viewsPath = args.views
 
@@ -30,6 +34,12 @@ export function usePrettier(args: TUsePrettierCommandArg) {
 
     // output file
     fs.writeFileSync(`${cwd}/${filename}`, rendered)
+
+    // stop spinner
+    spinner.stop()
+
+    // show complete message
+    console.log('|'.yellow, args.end)
 
     //
 }

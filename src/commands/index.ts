@@ -17,26 +17,4 @@ export default {
     'use-prime-react': usePrimeReact
 }
 
-export const run = (
-    startText: string,
-    endText: string | null,
-    process: Function
-) => {
-    // create spinner
-    const spinner = ora(startText).start()
-
-    // proccess
-    process()
-
-    // stop spinner
-    spinner.stop()
-
-    // show complete message
-    if (endText !== null) {
-        log('|'.yellow, endText)
-    }
-
-    //
-}
-
 // EOF

@@ -2,7 +2,7 @@
 
 import { TUseFirebaseAuthCommandArg } from '../index.d'
 
-export function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
+export async function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
     //
 }
 // EOF

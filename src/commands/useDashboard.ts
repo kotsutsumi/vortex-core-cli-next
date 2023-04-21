@@ -2,7 +2,7 @@
 
 import { TUseDashboardCommandArg } from '../index.d'
 
-export function useDashboard(args: TUseDashboardCommandArg) {
+export async function useDashboard(args: TUseDashboardCommandArg) {
     //
 }
 
