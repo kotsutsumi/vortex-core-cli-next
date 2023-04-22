@@ -43,6 +43,10 @@ export async function usePrimeReact(args: TUsePrimeReactCommandArg) {
         {
             filename: 'styles/Home.module.css',
             values: {}
+        },
+        {
+            filename: 'components/Themes.tsx',
+            values: {}
         }
     ]
 
