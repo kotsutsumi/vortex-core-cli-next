@@ -19,7 +19,9 @@ export async function usePrettier(args: TUsePrettierCommandArg) {
     const filename = '.prettierrc'
 
     // create template
-    const tpl = Eta.compile(fs.readFileSync(`${viewsPath}/${filename}`, 'utf8'))
+    const tpl = Eta.compile(
+        fs.readFileSync(`${viewsPath}/${filename}.eta`, 'utf8')
+    )
 
     // render
     const rendered = tpl(

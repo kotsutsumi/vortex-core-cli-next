@@ -1,0 +1,7 @@
+// app.d.ts
+
+export type TPageProps = {
+    darkmode: boolean
+}
+
+// EOF

@@ -85,19 +85,33 @@ export async function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
                 nextauth: true
             }
         },
-        { filename: '@types/next-auth.d.ts', values: {} },
-        { filename: 'components/ClientComponent.tsx', values: {} },
-        { filename: 'libs/firebase/client.ts', values: {} },
-        { filename: 'libs/firebase/admin.ts', values: {} },
-        { filename: 'pages/api/auth/[...nextauth].ts', values: {} },
-        { filename: 'pages/signin/index.tsx', values: {} },
-        { filename: 'pages/signout/index.tsx', values: {} }
+        {
+            filename: 'pages/index.tsx',
+            values: {
+                nextauth: true
+            }
+        },
+        { filename: '@types/next-auth.d.ts', values: { nextauth: true } },
+        { filename: '@types/app.d.ts', values: { nextauth: true } },
+        {
+            filename: 'components/ClientComponent.tsx',
+            values: { nextauth: true }
+        },
+        { filename: 'components/Themes.tsx', values: { nextauth: true } },
+        { filename: 'libs/firebase/client.ts', values: { nextauth: true } },
+        { filename: 'libs/firebase/admin.ts', values: { nextauth: true } },
+        {
+            filename: 'pages/api/auth/[...nextauth].ts',
+            values: { nextauth: true }
+        },
+        { filename: 'pages/signin/index.tsx', values: { nextauth: true } },
+        { filename: 'pages/signout/index.tsx', values: { nextauth: true } }
     ]
 
     for (const target of targets) {
         // create template
         const tpl = Eta.compile(
-            fs.readFileSync(`${viewsPath}/${target.filename}`, 'utf8')
+            fs.readFileSync(`${viewsPath}/${target.filename}.eta`, 'utf8')
         )
 
         // render

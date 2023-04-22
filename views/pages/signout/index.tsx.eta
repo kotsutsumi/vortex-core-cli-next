@@ -2,8 +2,9 @@
 
 import { signOut } from 'next-auth/react'
 import { useEffect } from 'react'
+import { TPageProps } from '@/@types/app'
 
-const SignOut = () => {
+const SignOut = (pageProps: TPageProps) => {
     // componentDidMount, componentDidUpdate イベントハンドラ
     useEffect(() => {
         // サインアウト後、サインインページへリダイレクト

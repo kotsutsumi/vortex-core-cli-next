@@ -1,0 +1,61 @@
+// _app.tsx
+
+import '@/styles/globals.css'
+import 'primeflex/primeflex.css'
+import 'primeicons/primeicons.css'
+import 'primereact/resources/primereact.min.css'
+import 'primereact/resources/themes/saga-blue/theme.css'
+import type { AppProps } from 'next/app'
+import { useEffect, useState } from 'react'
+<% if (it.nextauth === true) { %>
+import { SessionProvider } from 'next-auth/react';
+<% } %>
+import Theme from '@/components/Themes'
+
+<% if (it.nextauth === true) { %>
+export default function App({
+    Component,
+    pageProps: { session, ...pageProps }
+}: AppProps) {
+<% } else { %>
+export default function App({ Component, pageProps }: AppProps) {
+<% } %>
+    // darkmode
+    const [darkmode, setDarkmode] = useState<boolean>(false)
+
+    // add darkmode to pageProps
+    pageProps = { ...pageProps, darkmode }
+
+    // similar to componentDidMount and componentDidUpdate
+    useEffect(() => {
+        // update darkmode
+        setDarkmode(
+            localStorage.getItem('theme') === 'true' ??
+                window.matchMedia('(prefers-color-scheme: dark)').matches
+        )
+
+        //
+    }, [])
+
+    return (
+<% if (it.nextauth === true) { %>
+        <SessionProvider session={session}>
+<% } else { %>
+        <>
+<% } %>
+            {/* Theme */}
+            <Theme darkmode={darkmode} />
+
+            {/* Component */}
+            <Component {...pageProps} />
+<% if (it.nextauth === true) { %>
+        </SessionProvider>
+<% } else { %>
+        </>
+<% } %>
+    )
+
+    //
+}
+
+// EOF

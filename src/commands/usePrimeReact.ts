@@ -49,7 +49,7 @@ export async function usePrimeReact(args: TUsePrimeReactCommandArg) {
     for (const target of targets) {
         // create template
         const tpl = Eta.compile(
-            fs.readFileSync(`${viewsPath}/${target.filename}`, 'utf8')
+            fs.readFileSync(`${viewsPath}/${target.filename}.eta`, 'utf8')
         )
 
         // render

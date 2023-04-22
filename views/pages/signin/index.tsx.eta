@@ -6,8 +6,9 @@ import { InputText } from 'primereact/inputtext'
 import { Checkbox } from 'primereact/checkbox'
 import { Button } from 'primereact/button'
 import NextImage from 'next/image'
+import { TPageProps } from '@/@types/app'
 
-const SingIn = () => {
+const SingIn = (pageProps: TPageProps) => {
     const logoUrl = '/next.svg'
     const logoAlt = 'Logo'
     const [email, setEmail] = useState('')
