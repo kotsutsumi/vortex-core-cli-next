@@ -92,7 +92,7 @@ const args = yargs
         for (const featureName of [
             'prettier',
             'prime-react',
-            'firebase-auth',
+            // 'firebase-auth',
             'dashboard'
         ]) {
             pushFeatureCommand(featureName, v[2])
