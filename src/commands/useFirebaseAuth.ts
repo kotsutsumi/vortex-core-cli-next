@@ -97,7 +97,7 @@ export async function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
             filename: 'components/ClientComponent.tsx',
             values: { nextauth: true }
         },
-        { filename: 'components/Themes.tsx', values: { nextauth: true } },
+        { filename: 'components/Themes.tsx' },
         { filename: 'libs/firebase/client.ts', values: { nextauth: true } },
         { filename: 'libs/firebase/admin.ts', values: { nextauth: true } },
         {
@@ -109,19 +109,29 @@ export async function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
     ]
 
     for (const target of targets) {
-        // create template
-        const tpl = Eta.compile(
-            fs.readFileSync(`${viewsPath}/${target.filename}.eta`, 'utf8')
-        )
+        // make directory
+        fs.mkdirSync(`${path.dirname(target.filename)}`, {
+            recursive: true
+        })
 
-        // render
-        const rendered = tpl(target.values, Eta.config)
+        if (target.values === undefined) {
+            // non template
+            fs.copyFileSync(
+                `${viewsPath}/${target.filename}`,
+                `${cwd}/${target.filename}`
+            )
+        } else {
+            // create template
+            const tpl = Eta.compile(
+                fs.readFileSync(`${viewsPath}/${target.filename}.eta`, 'utf8')
+            )
 
-        // exec command
-        const res = await exec(`mkdir -p ${path.dirname(target.filename)}`)
+            // render
+            const rendered = tpl(target.values, Eta.config)
 
-        // output file
-        fs.writeFileSync(`${cwd}/${target.filename}`, rendered)
+            // write file
+            fs.writeFileSync(`${cwd}/${target.filename}`, rendered)
+        }
 
         //
     }
