@@ -1,0 +1,20 @@
+// Plain.tsx
+
+import { ReactNode } from 'react'
+import Screen from './FitScreen'
+
+export interface Props {
+    children: ReactNode
+}
+
+export default function Plain({ children }: Props) {
+    // -------------------------------------------------------------
+
+    return (
+        <>
+            <Screen>{children}</Screen>
+        </>
+    )
+}
+
+// EOF

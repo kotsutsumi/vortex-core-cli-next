@@ -1,0 +1,12 @@
+// PrimeReactThemeContext.ts
+
+import React, { Dispatch } from 'react'
+
+export const PrimeReactThemeContext = React.createContext(
+    {} as {
+        isDarkMode: boolean
+        setIsDarkMode: Dispatch<React.SetStateAction<boolean>>
+    }
+)
+
+// EOF

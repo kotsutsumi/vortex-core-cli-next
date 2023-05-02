@@ -1,0 +1,83 @@
+// ThemeSwitcher.tsx
+
+import { PrimeReactThemeContext } from '@/contexts/PrimeReactThemeContext'
+import { Button } from 'primereact/button'
+import { useContext, useEffect } from 'react'
+
+export function isCurrentDarkTheme() {
+    return (
+        localStorage.getItem('darkmode') === 'true' ??
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+    )
+}
+
+export function getCurrentThemeName() {
+    return isCurrentDarkTheme() ? 'dark' : 'light'
+}
+
+export function getReveseThemeName() {
+    return isCurrentDarkTheme() ? 'light' : 'dark'
+}
+
+export default function ThemeSwitcher(props: {
+    tooltip: string
+    linkElementId: string
+    lightThemeName: string
+    darkThemeName: string
+}) {
+    // darkmode context
+    const { isDarkMode, setIsDarkMode } = useContext(PrimeReactThemeContext)
+
+    // similar to componentDidMount and componentDidUpdate
+    useEffect(() => {
+        setIsDarkMode(isCurrentDarkTheme())
+    }, [setIsDarkMode])
+
+    // change theme event handler process
+    const onChange = (darkmode: boolean) => {
+        // set darkmode
+        setIsDarkMode(darkmode)
+
+        // set localstorage
+        localStorage.setItem('darkmode', darkmode as unknown as string)
+    }
+
+    // ------------------------------------------------------------------------
+
+    return (
+        <>
+            {!isDarkMode && (
+                <Button
+                    icon="pi pi-moon"
+                    rounded
+                    text
+                    severity="secondary"
+                    aria-label="Dark Mode"
+                    tooltip={props.tooltip as string}
+                    tooltipOptions={{ position: 'bottom' }}
+                    onClick={() => {
+                        onChange(true)
+                    }}
+                />
+            )}
+            {isDarkMode === true && (
+                <Button
+                    icon="pi pi-sun"
+                    rounded
+                    text
+                    severity="secondary"
+                    aria-label="Light Mode"
+                    tooltip={props.tooltip as string}
+                    tooltipOptions={{ position: 'bottom' }}
+                    onClick={() => {
+                        onChange(false)
+                    }}
+                />
+            )}
+        </>
+    )
+
+    //
+}
+
+// EOF

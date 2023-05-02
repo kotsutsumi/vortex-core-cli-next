@@ -9,6 +9,7 @@ import runners from './commands'
 import yargs from 'yargs'
 import { TCreateCommandArg, TUseCommandArg } from './index.d'
 import { log } from 'console'
+import { exit } from 'process'
 
 // set app name
 const appName = packageJson.name
@@ -48,6 +49,15 @@ const pushFeatureCommand = (
     featureName: string,
     format: typeof FORMAT.TEXT | typeof FORMAT.JSON
 ) => {
+    // @ts-ignore
+    if (runners[`use-${featureName}`] === undefined) {
+        console.log(
+            '| Error: '.red,
+            `${featureName.white.bold} is invalid feature name.`
+        )
+        process.exit(1)
+    }
+
     commands.push({
         command: `use-${featureName}`,
         end: `applied ${featureName} feature.`,
@@ -91,8 +101,10 @@ const args = yargs
         // dependencies feature
         for (const featureName of [
             'prettier',
+            'eslint',
+            'jest',
             'prime-react',
-            // 'firebase-auth',
+            'firebase-auth',
             'dashboard'
         ]) {
             pushFeatureCommand(featureName, v[2])
@@ -140,6 +152,8 @@ if (outputFormat == format.TEXT) {
     if (outputFormat == format.TEXT) {
         log('\ndone.'.black_bt)
     }
+
+    //
 })()
 
 // EOF

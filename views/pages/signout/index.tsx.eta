@@ -1,19 +1,39 @@
-'use client'
+// signout.tsx
 
+import Layout from '@/layouts/Layout'
+import NestedLayout from '@/layouts/Plain'
+import styles from '@/styles/signout/index.module.css'
+import { NextPageWithLayout } from '../_app'
+import { ReactElement, useEffect } from 'react'
 import { signOut } from 'next-auth/react'
-import { useEffect } from 'react'
-import { TPageProps } from '@/@types/app'
 
-const SignOut = (pageProps: TPageProps) => {
-    // componentDidMount, componentDidUpdate イベントハンドラ
+const Page: NextPageWithLayout = () => {
+    // similar to componentDidMount and componentDidUpdate
+
     useEffect(() => {
-        // サインアウト後、サインインページへリダイレクト
+        // redirect to `signin`
         signOut({ callbackUrl: `/signin` })
     })
 
+    // -------------------------------------------------------------
     return <></>
+
+    //
 }
 
-export default SignOut
+Page.getLayout = function getLayout(page: ReactElement) {
+    // ------------------------------------------------------------------------
+
+    return (
+        <Layout>
+            {/* Plain Layout */}
+            <NestedLayout>{page}</NestedLayout>
+        </Layout>
+    )
+
+    //
+}
+
+export default Page
 
 // EOF

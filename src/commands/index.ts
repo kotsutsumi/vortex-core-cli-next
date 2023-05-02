@@ -1,12 +1,12 @@
 // index.ts
 
-import ora from 'ora'
 import { create } from './create'
 import { useDashboard } from './useDashboard'
 import { useFirebaseAuth } from './useFirebaseAuth'
 import { usePrettier } from './usePrettier'
+import { useEslint } from './useEslint'
 import { usePrimeReact } from './usePrimeReact'
-import { log } from 'console'
+import { useJest } from './useJest'
 
 // set runners
 export default {
@@ -14,6 +14,8 @@ export default {
     'use-dashboard': useDashboard,
     'use-firebase-auth': useFirebaseAuth,
     'use-prettier': usePrettier,
+    'use-eslint': useEslint,
+    'use-jest': useJest,
     'use-prime-react': usePrimeReact
 }
 

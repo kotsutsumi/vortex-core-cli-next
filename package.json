@@ -1,6 +1,6 @@
 {
     "name": "vortex-core-cli-next",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "description": "Vortex Core CLI for Next.js",
     "bin": {
         "vortex-core-cli-next": "./bin/vortex-core-cli-next.js"
@@ -41,6 +41,9 @@
         "eta": "^2.0.1",
         "log-update": "^5.0.1",
         "ora": "^6.3.0",
+        "primeflex": "^3.3.0",
+        "primeicons": "^6.0.1",
+        "primereact": "^9.3.1",
         "yargs": "^17.7.1"
     }
 }

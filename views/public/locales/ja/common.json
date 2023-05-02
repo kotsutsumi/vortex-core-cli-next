@@ -1,0 +1,13 @@
+{
+    "title": "タイトル",
+    "japanese": "日本語",
+    "english": "英語",
+    "dark-mode": "ダークモード",
+    "light-mode": "ライトモード",
+    "email": "メールアドレス",
+    "email-address": "メールアドレス",
+    "password": "パスワード",
+    "signin": "サインイン",
+    "signout": "サインアウト",
+    "signin-error": "メールアドレス、またはパスワードが違います。"
+}

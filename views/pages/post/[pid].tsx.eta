@@ -1,0 +1,59 @@
+// [pid].tsx
+
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { ReactElement } from 'react'
+import { NextPageWithLayout } from '../_app'
+import { GetStaticProps } from 'next'
+import NestedLayout from '@/layouts/Dashboard'
+import Layout from '@/layouts/Layout'
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale!, ['common']))
+    }
+})
+
+export async function getStaticPaths() {
+    return {
+        paths: [],
+        fallback: true
+    }
+}
+
+const Page: NextPageWithLayout = () => {
+    // use i18n
+    const { t } = useTranslation('common')
+
+    // use router
+    const router = useRouter()
+
+    // set pid
+    const { pid } = router.query
+
+    // ------------------------------------------------------------------------
+    return (
+        <>
+            <h1>{t('title')} : Post</h1>
+            <p>PID: {pid}</p>
+        </>
+    )
+}
+
+Page.getLayout = function getLayout(page: ReactElement) {
+    // ------------------------------------------------------------------------
+
+    return (
+        <Layout>
+            {/* Dashboard Layout */}
+            <NestedLayout>{page}</NestedLayout>
+        </Layout>
+    )
+
+    //
+}
+
+export default Page
+
+// EOF

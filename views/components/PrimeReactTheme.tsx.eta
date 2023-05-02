@@ -1,0 +1,299 @@
+import aryaBlue from '@/components/prime-react-themes/aryaBlue'
+import aryaGreen from '@/components/prime-react-themes/aryaGreen'
+import aryaOrange from '@/components/prime-react-themes/aryaOrange'
+import aryaPurple from '@/components/prime-react-themes/aryaPurple'
+import bootstrap4DarkBlue from '@/components/prime-react-themes/bootstrap4DarkBlue'
+import bootstrap4DarkPurple from '@/components/prime-react-themes/bootstrap4DarkPurple'
+import bootstrap4LightBlue from '@/components/prime-react-themes/bootstrap4LightBlue'
+import bootstrap4LightPurple from '@/components/prime-react-themes/bootstrap4LightPurple'
+import fluentLight from '@/components/prime-react-themes/fluentLight'
+import laraDarkBlue from '@/components/prime-react-themes/laraDarkBlue'
+import laraDarkIndigo from '@/components/prime-react-themes/laraDarkIndigo'
+import laraDarkPurple from '@/components/prime-react-themes/laraDarkPurple'
+import laraDarkTeal from '@/components/prime-react-themes/laraDarkTeal'
+import laraLightBlue from '@/components/prime-react-themes/laraLightBlue'
+import laraLightIndigo from '@/components/prime-react-themes/laraLightIndigo'
+import laraLightPurple from '@/components/prime-react-themes/laraLightPurple'
+import laraLightTeal from '@/components/prime-react-themes/laraLightTeal'
+import lunaAmber from '@/components/prime-react-themes/lunaAmber'
+import lunaBlue from '@/components/prime-react-themes/lunaBlue'
+import lunaGreen from '@/components/prime-react-themes/lunaGreen'
+import lunaPink from '@/components/prime-react-themes/lunaPink'
+import mdDarkDeeppurple from '@/components/prime-react-themes/mdDarkDeeppurple'
+import mdDarkIndigo from '@/components/prime-react-themes/mdDarkIndigo'
+import mdLightDeeppurple from '@/components/prime-react-themes/mdLightDeeppurple'
+import mdLightIndigo from '@/components/prime-react-themes/mdLightIndigo'
+import mdcDarkDeeppurple from '@/components/prime-react-themes/mdcDarkDeeppurple'
+import mdcDarkIndigo from '@/components/prime-react-themes/mdcDarkIndigo'
+import mdcLightDeeppurple from '@/components/prime-react-themes/mdcLightDeeppurple'
+import mdcLightIndigo from '@/components/prime-react-themes/mdcLightIndigo'
+import mira from '@/components/prime-react-themes/mira'
+import nano from '@/components/prime-react-themes/nano'
+import nova from '@/components/prime-react-themes/nova'
+import novaAccent from '@/components/prime-react-themes/novaAccent'
+import novaAlt from '@/components/prime-react-themes/novaAlt'
+import rhea from '@/components/prime-react-themes/rhea'
+import sagaBlue from '@/components/prime-react-themes/sagaBlue'
+import sagaGreen from '@/components/prime-react-themes/sagaGreen'
+import sagaOrange from '@/components/prime-react-themes/sagaOrange'
+import sagaPurple from '@/components/prime-react-themes/sagaPurple'
+import sohoDark from '@/components/prime-react-themes/sohoDark'
+import sohoLight from '@/components/prime-react-themes/sohoLight'
+import tailwindLight from '@/components/prime-react-themes/tailwindLight'
+import velaBlue from '@/components/prime-react-themes/velaBlue'
+import velaGreen from '@/components/prime-react-themes/velaGreen'
+import velaOrange from '@/components/prime-react-themes/velaOrange'
+import velaPurple from '@/components/prime-react-themes/velaPurple'
+import vivaDark from '@/components/prime-react-themes/vivaDark'
+import vivaLight from '@/components/prime-react-themes/vivaLight'
+
+const getThemeStyle = (theme: ThemeEnum) => {
+    switch (theme) {
+        case ThemeEnum.ARYA_BLUE:
+            return aryaBlue()
+
+        case ThemeEnum.ARYA_GREEN:
+            return aryaGreen()
+
+        case ThemeEnum.ARYA_ORANGE:
+            return aryaOrange()
+
+        case ThemeEnum.ARYA_PURPLE:
+            return aryaPurple()
+
+        case ThemeEnum.BOOTSTRAP4_DARK_BLUE:
+            return bootstrap4DarkBlue()
+
+        case ThemeEnum.BOOTSTRAP4_DARK_PURPLE:
+            return bootstrap4DarkPurple()
+
+        case ThemeEnum.BOOTSTRAP4_LIGHT_BLUE:
+            return bootstrap4LightBlue()
+
+        case ThemeEnum.BOOTSTRAP4_LIGHT_PURPLE:
+            return bootstrap4LightPurple()
+
+        case ThemeEnum.FLUENT_LIGHT:
+            return fluentLight()
+
+        case ThemeEnum.LARA_DARK_BLUE:
+            return laraDarkBlue()
+
+        case ThemeEnum.LARA_DARK_INDIGO:
+            return laraDarkIndigo()
+
+        case ThemeEnum.LARA_DARK_PURPLE:
+            return laraDarkPurple()
+
+        case ThemeEnum.LARA_DARK_TEAL:
+            return laraDarkTeal()
+
+        case ThemeEnum.LARA_LIGHT_BLUE:
+            return laraLightBlue()
+
+        case ThemeEnum.LARA_LIGHT_INDIGO:
+            return laraLightIndigo()
+
+        case ThemeEnum.LARA_LIGHT_PURPLE:
+            return laraLightPurple()
+
+        case ThemeEnum.LARA_LIGHT_TEAL:
+            return laraLightTeal()
+
+        case ThemeEnum.LUNA_AMBER:
+            return lunaAmber()
+
+        case ThemeEnum.LUNA_BLUE:
+            return lunaBlue()
+
+        case ThemeEnum.LUNA_GREEN:
+            return lunaGreen()
+
+        case ThemeEnum.LUNA_PINK:
+            return lunaPink()
+
+        case ThemeEnum.MD_DARK_DEEPPURPLE:
+            return mdDarkDeeppurple()
+
+        case ThemeEnum.MD_DARK_INDIGO:
+            return mdDarkIndigo()
+
+        case ThemeEnum.MD_LIGHT_DEEPPURPLE:
+            return mdLightDeeppurple()
+
+        case ThemeEnum.MD_LIGHT_INDIGO:
+            return mdLightIndigo()
+
+        case ThemeEnum.MDC_DARK_DEEPPURPLE:
+            return mdcDarkDeeppurple()
+
+        case ThemeEnum.MDC_DARK_INDIGO:
+            return mdcDarkIndigo()
+
+        case ThemeEnum.MDC_LIGHT_DEEPPURPLE:
+            return mdcLightDeeppurple()
+
+        case ThemeEnum.MDC_LIGHT_INDIGO:
+            return mdcLightIndigo()
+
+        case ThemeEnum.MIRA:
+            return mira()
+
+        case ThemeEnum.NANO:
+            return nano()
+
+        case ThemeEnum.NOVA:
+            return nova()
+
+        case ThemeEnum.NOVA_ACCENT:
+            return novaAccent()
+
+        case ThemeEnum.NOVA_ALT:
+            return novaAlt()
+
+        case ThemeEnum.RHEA:
+            return rhea()
+
+        case ThemeEnum.SAGA_BLUE:
+            return sagaBlue()
+
+        case ThemeEnum.SAGA_GREEN:
+            return sagaGreen()
+
+        case ThemeEnum.SAGA_ORANGE:
+            return sagaOrange()
+
+        case ThemeEnum.SAGA_PURPLE:
+            return sagaPurple()
+
+        case ThemeEnum.SOHO_DARK:
+            return sohoDark()
+
+        case ThemeEnum.SOHO_LIGHT:
+            return sohoLight()
+
+        case ThemeEnum.TAILWIND_LIGHT:
+            return tailwindLight()
+
+        case ThemeEnum.VELA_BLUE:
+            return velaBlue()
+
+        case ThemeEnum.VELA_GREEN:
+            return velaGreen()
+
+        case ThemeEnum.VELA_ORANGE:
+            return velaOrange()
+
+        case ThemeEnum.VELA_PURPLE:
+            return velaPurple()
+
+        case ThemeEnum.VIVA_DARK:
+            return vivaDark()
+
+        case ThemeEnum.VIVA_LIGHT:
+            return vivaLight()
+    }
+
+    return false
+
+    //
+}
+
+const DarkTheme = ({ theme }: { theme: ThemeEnum }) => {
+    const style = getThemeStyle(theme)
+
+    if (style === false) {
+        return laraDarkBlue()
+    }
+
+    return style
+
+    //
+}
+
+const LightTheme = ({ theme }: { theme: ThemeEnum }) => {
+    const style = getThemeStyle(theme)
+
+    if (style === false) {
+        return laraLightBlue()
+    }
+
+    return style
+
+    //
+}
+
+export enum ThemeEnum {
+    ARYA_BLUE = 'arya-blue',
+    ARYA_GREEN = 'arya-green',
+    ARYA_ORANGE = 'arya-orange',
+    ARYA_PURPLE = 'arya-purple',
+    BOOTSTRAP4_DARK_BLUE = 'bootstrap4-dark-blue',
+    BOOTSTRAP4_DARK_PURPLE = 'bootstrap4-dark-purple',
+    BOOTSTRAP4_LIGHT_BLUE = 'bootstrap4-light-blue',
+    BOOTSTRAP4_LIGHT_PURPLE = 'bootstrap4-light-purple',
+    FLUENT_LIGHT = 'fluent-light',
+    LARA_DARK_BLUE = 'lara-dark-blue',
+    LARA_DARK_INDIGO = 'lara-dark-indigo',
+    LARA_DARK_PURPLE = 'lara-dark-purple',
+    LARA_DARK_TEAL = 'lara-dark-teal',
+    LARA_LIGHT_BLUE = 'lara-light-blue',
+    LARA_LIGHT_INDIGO = 'lara-light-blue',
+    LARA_LIGHT_PURPLE = 'lara-light-purple',
+    LARA_LIGHT_TEAL = 'lara-light-teal',
+    LUNA_AMBER = 'luna-amber',
+    LUNA_BLUE = 'luna-blue',
+    LUNA_GREEN = 'luna-green',
+    LUNA_PINK = 'luna-pink',
+    MDC_DARK_DEEPPURPLE = 'mdc-dark-deeppurple',
+    MDC_DARK_INDIGO = 'mdc-dark-indigo',
+    MDC_LIGHT_DEEPPURPLE = 'mdc-light-deeppurple',
+    MDC_LIGHT_INDIGO = 'mdc-light-indigo',
+    MD_DARK_DEEPPURPLE = 'md-dark-deeppurple',
+    MD_DARK_INDIGO = 'md-dark-indigo',
+    MD_LIGHT_DEEPPURPLE = 'md-light-deeppurple',
+    MD_LIGHT_INDIGO = 'md-light-indigo',
+    MIRA = 'mira',
+    NANO = 'nano',
+    NOVA = 'nova',
+    NOVA_ACCENT = 'nova-accent',
+    NOVA_ALT = 'nova-alt',
+    RHEA = 'rhea',
+    SAGA_BLUE = 'saga-blue',
+    SAGA_GREEN = 'saga-green',
+    SAGA_ORANGE = 'saga-orange',
+    SAGA_PURPLE = 'saga-purple',
+    SOHO_DARK = 'soho-dark',
+    SOHO_LIGHT = 'soho-light',
+    TAILWIND_LIGHT = 'tailwind-light',
+    VELA_BLUE = 'vela-blue',
+    VELA_GREEN = 'vela-green',
+    VELA_ORANGE = 'vela-orange',
+    VELA_PURPLE = 'vela-purple',
+    VIVA_DARK = 'viva-dark',
+    VIVA_LIGHT = 'viva-light'
+}
+
+type ThemeProps = {
+    isDarkMode: boolean
+    lightTheme: ThemeEnum
+    darkTheme: ThemeEnum
+}
+
+export default function Theme({
+    isDarkMode,
+    lightTheme = ThemeEnum.LARA_LIGHT_BLUE,
+    darkTheme = ThemeEnum.LARA_DARK_BLUE
+}: ThemeProps) {
+    // ------------------------------------------------------------------------
+
+    return isDarkMode ? (
+        <DarkTheme theme={darkTheme} />
+    ) : (
+        <LightTheme theme={lightTheme} />
+    )
+
+    //
+}
+
+// EOF

@@ -92,12 +92,10 @@ export async function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
             }
         },
         { filename: '@types/next-auth.d.ts', values: { nextauth: true } },
-        { filename: '@types/app.d.ts', values: { nextauth: true } },
         {
-            filename: 'components/ClientComponent.tsx',
+            filename: 'components/auth/Client.tsx',
             values: { nextauth: true }
         },
-        { filename: 'components/Themes.tsx' },
         { filename: 'libs/firebase/client.ts', values: { nextauth: true } },
         { filename: 'libs/firebase/admin.ts', values: { nextauth: true } },
         {
@@ -105,7 +103,19 @@ export async function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
             values: { nextauth: true }
         },
         { filename: 'pages/signin/index.tsx', values: { nextauth: true } },
-        { filename: 'pages/signout/index.tsx', values: { nextauth: true } }
+        { filename: 'pages/signout/index.tsx', values: { nextauth: true } },
+        {
+            filename: 'styles/signin/index.module.css',
+            values: {
+                nextauth: true
+            }
+        },
+        {
+            filename: 'styles/signout/index.module.css',
+            values: {
+                nextauth: true
+            }
+        }
     ]
 
     for (const target of targets) {
@@ -134,6 +144,37 @@ export async function useFirebaseAuth(args: TUseFirebaseAuthCommandArg) {
         }
 
         //
+    }
+
+    const userHome =
+        process.env[process.platform == 'win32' ? 'USERPROFILE' : 'HOME']
+
+    if (
+        fs.existsSync(path.join(userHome as string, '.firebase-auth', '.env'))
+    ) {
+        fs.copyFileSync(
+            path.join(userHome as string, '.firebase-auth', '.env'),
+            `${cwd}/.env`
+        )
+    }
+
+    if (
+        fs.existsSync(
+            path.join(
+                userHome as string,
+                '.firebase-auth',
+                'firebaseSecretKey.json'
+            )
+        )
+    ) {
+        fs.copyFileSync(
+            path.join(
+                userHome as string,
+                '.firebase-auth',
+                'firebaseSecretKey.json'
+            ),
+            `${cwd}/firebaseSecretKey.json`
+        )
     }
 
     // stop spinner

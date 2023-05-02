@@ -4,58 +4,46 @@ import '@/styles/globals.css'
 import 'primeflex/primeflex.css'
 import 'primeicons/primeicons.css'
 import 'primereact/resources/primereact.min.css'
-import 'primereact/resources/themes/saga-blue/theme.css'
+import React, { Dispatch, useState } from 'react'
 import type { AppProps } from 'next/app'
-import { useEffect, useState } from 'react'
-<% if (it.nextauth === true) { %>
-import { SessionProvider } from 'next-auth/react';
-<% } %>
-import Theme from '@/components/Themes'
+import type { NextPage } from 'next'
+import { ReactElement, ReactNode, useEffect } from 'react'
+import { SessionProvider } from 'next-auth/react'
+import { appWithTranslation } from 'next-i18next'
 
-<% if (it.nextauth === true) { %>
-export default function App({
+// NextPageWithLayout
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+    getLayout?: (page: ReactElement) => ReactNode
+}
+
+// AppPropsWithLayout
+type AppPropsWithLayout = AppProps & {
+    Component: NextPageWithLayout
+}
+
+const App = ({
     Component,
     pageProps: { session, ...pageProps }
-}: AppProps) {
-<% } else { %>
-export default function App({ Component, pageProps }: AppProps) {
-<% } %>
-    // darkmode
-    const [darkmode, setDarkmode] = useState<boolean>(false)
-
-    // add darkmode to pageProps
-    pageProps = { ...pageProps, darkmode }
+}: AppPropsWithLayout) => {
+    // Use the layout defined at the page level, if available
+    const getLayout = Component.getLayout || ((page) => page)
 
     // similar to componentDidMount and componentDidUpdate
-    useEffect(() => {
-        // update darkmode
-        setDarkmode(
-            localStorage.getItem('theme') === 'true' ??
-                window.matchMedia('(prefers-color-scheme: dark)').matches
-        )
+    useEffect(() => {}, [])
 
-        //
-    }, [])
+    // ------------------------------------------------------------------------
 
     return (
-<% if (it.nextauth === true) { %>
-        <SessionProvider session={session}>
-<% } else { %>
         <>
-<% } %>
-            {/* Theme */}
-            <Theme darkmode={darkmode} />
-
-            {/* Component */}
-            <Component {...pageProps} />
-<% if (it.nextauth === true) { %>
-        </SessionProvider>
-<% } else { %>
+            <SessionProvider session={session}>
+                {getLayout(<Component {...pageProps} />)}
+            </SessionProvider>
         </>
-<% } %>
     )
 
     //
 }
+
+export default appWithTranslation(App)
 
 // EOF

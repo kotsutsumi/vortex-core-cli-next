@@ -1,23 +1,71 @@
-import { useState } from 'react'
-import { signInWithEmailAndPassword } from 'firebase/auth'
-import { signIn as signInByNextAuth } from 'next-auth/react'
-import { auth } from '@/libs/firebase/client'
-import { InputText } from 'primereact/inputtext'
-import { Checkbox } from 'primereact/checkbox'
-import { Button } from 'primereact/button'
-import NextImage from 'next/image'
-import { TPageProps } from '@/@types/app'
+// index.tsx
 
-const SingIn = (pageProps: TPageProps) => {
-    const logoUrl = '/next.svg'
+import Cover from '@/components/Cover'
+import { Message } from 'primereact/message'
+import Layout from '@/layouts/Layout'
+import NestedLayout from '@/layouts/Plain'
+import NextImage from 'next/image'
+import styles from '@/styles/signin/index.module.css'
+import { Button } from 'primereact/button'
+import { Checkbox } from 'primereact/checkbox'
+import { InputText } from 'primereact/inputtext'
+import { NextPageWithLayout } from '../_app'
+import { ReactElement, useContext, useEffect, useState } from 'react'
+import { auth } from '@/libs/firebase/client'
+import { signIn as signInByNextAuth } from 'next-auth/react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import Header from '@/components/signin/Header'
+import Forms from '@/components/signin/Forms'
+import { PrimeReactThemeContext } from '@/contexts/PrimeReactThemeContext'
+import ThemeSwitcher, {
+    getCurrentThemeName,
+    getReveseThemeName
+} from '@/components/ThemeSwitcher'
+import LanguageSelector from '@/components/LanguageSelector'
+import { useRouter } from 'next/router'
+import { useTranslation } from 'next-i18next'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { GetStaticProps } from 'next'
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale!, ['common']))
+    }
+})
+
+const Page: NextPageWithLayout = () => {
     const logoAlt = 'Logo'
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [checked1, setChecked1] = useState(false)
 
+    // use router
+    const router = useRouter()
+
+    // use i18n
+    const { t } = useTranslation('common')
+
+    // darkmode context
+    const { isDarkMode, setIsDarkMode } = useContext(PrimeReactThemeContext)
+
+    // use logo src state
+    const [logoSrc, setLogoSrc] = useState<string>('/images/logo-light.svg')
+
+    // use theme switcher tooltip state
+    const [themeSwitcherTooltip, setThemeSwitcherTooltip] = useState<string>('')
+
+    // cover state
+    const [cover, setCover] = useState(false)
+
+    // show error state
+    const [showError, setShowError] = useState(false)
+
     const signIn = async () => {
         if (!email) return
         if (!password) return
+
+        // set cover state
+        setCover(true)
 
         try {
             const userCredential = await signInWithEmailAndPassword(
@@ -32,21 +80,65 @@ const SingIn = (pageProps: TPageProps) => {
                 callbackUrl: '/'
             })
         } catch (e) {
-            console.error(e)
+            // set show error state
+            setShowError(true)
+
+            // set cover state
+            setCover(false)
+
+            //
         }
     }
 
+    // similar to componentDidMount and componentDidUpdate
+    useEffect(() => {
+        setLogoSrc(`/images/logo-${getCurrentThemeName()}.svg`)
+
+        setThemeSwitcherTooltip(t(getReveseThemeName() + '-mode') as string)
+    }, [isDarkMode, t])
+
+    // -------------------------------------------------------------
+
     return (
-        <div className="surface-ground h-screen px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center">
-            <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
+        <div className="surface-ground h-screen w-screen px-4 py-8 md:px-6 lg:px-8 flex align-items-center justify-content-center">
+            {/* cover */}
+            {cover && <Cover />}
+
+            {/* top-right menus */}
+            <div
+                className="absolute top-0 right-0 p-4 font-bold "
+                style={{ minWidth: 300, minHeight: 70 }}
+            >
+                <div className="flex flex-row flex-wrap card-container blue-container">
+                    <div className="flex align-items-center justify-content-center w-2rem h-2rem mr-4 pt-4">
+                        {/* Theme Switcher */}
+                        <ThemeSwitcher
+                            tooltip={themeSwitcherTooltip}
+                            // tooltip={t(getReveseThemeName() + '-mode')}
+                            linkElementId="theme-link"
+                            lightThemeName="lara-light-blue"
+                            darkThemeName="lara-dark-blue"
+                        />
+                    </div>
+                    <div className="flex align-items-center justify-content-center w-8 mr-4">
+                        {/* Language Switcher */}
+                        <LanguageSelector
+                            locale={router.locale?.toString() as string}
+                            translation={t}
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="surface-card p-4 shadow-2 border-round w-full max-w-30rem">
                 <div className="text-center mb-5">
                     <div>
                         <NextImage
+                            priority
                             className="mb-3 mt-3"
-                            src={logoUrl}
+                            src={logoSrc}
                             alt={logoAlt || ''}
-                            width={150}
-                            height={80}
+                            width={224}
+                            height={64}
                         />
                     </div>
                     <div className="text-900 text-3xl font-medium mb-3">
@@ -60,19 +152,29 @@ const SingIn = (pageProps: TPageProps) => {
                 </a> */}
                 </div>
 
+                {showError && (
+                    <div className="flex align-items-center justify-content-between mb-4">
+                        <Message
+                            className="w-full"
+                            severity="error"
+                            text={t('signin-error')}
+                        />
+                    </div>
+                )}
+
                 <div>
                     <label
                         htmlFor="email"
                         className="block text-900 font-medium mb-2"
                     >
-                        Email
+                        {t('email')}
                     </label>
                     <InputText
                         id="email"
                         type="text"
                         value={email}
                         onChange={(event) => setEmail(event.target.value)}
-                        placeholder="Email address"
+                        placeholder={t('email-address') as string}
                         className="w-full mb-3"
                     />
 
@@ -80,11 +182,11 @@ const SingIn = (pageProps: TPageProps) => {
                         htmlFor="password"
                         className="block text-900 font-medium mb-2"
                     >
-                        Password
+                        {t('password')}
                     </label>
                     <InputText
                         type="password"
-                        placeholder="Password"
+                        placeholder={t('password') as string}
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                         className="w-full mb-3"
@@ -106,7 +208,7 @@ const SingIn = (pageProps: TPageProps) => {
                     </div>
 
                     <Button
-                        label="Sign In"
+                        label={t('signin') as string}
                         icon="pi pi-user"
                         className="w-full"
                         onClick={() => {
@@ -117,8 +219,23 @@ const SingIn = (pageProps: TPageProps) => {
             </div>
         </div>
     )
+
+    //
 }
 
-export default SingIn
+Page.getLayout = function getLayout(page: ReactElement) {
+    // ------------------------------------------------------------------------
+
+    return (
+        <Layout>
+            {/* Plain Layout */}
+            <NestedLayout>{page}</NestedLayout>
+        </Layout>
+    )
+
+    //
+}
+
+export default Page
 
 // EOF

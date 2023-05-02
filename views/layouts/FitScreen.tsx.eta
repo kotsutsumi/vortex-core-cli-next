@@ -1,0 +1,28 @@
+// FitScreen.tsx
+
+import { ReactNode, useState } from 'react'
+
+export interface Props {
+    children: ReactNode
+}
+
+export default function FitScreen({ children }: Props) {
+    // use classes state
+    const [classes, setClasses] = useState([
+        'min-h-screen',
+        'flex',
+        'relative',
+        'lg:static',
+        'surface-ground'
+    ])
+
+    // -------------------------------------------------------------
+
+    return (
+        <>
+            <div className={classes.join(' ')}>{children}</div>
+        </>
+    )
+}
+
+// EOF
