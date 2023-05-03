@@ -3,7 +3,7 @@
 import Layout from '@/layouts/Layout'
 import NestedLayout from '@/layouts/Dashboard'
 import styles from '@/styles/help.module.css'
-import { NextPageWithLayout } from './_app'
+import { NextPageWithLayout } from '@/pages/_app'
 import { ReactElement } from 'react'
 import { GetStaticProps } from 'next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
