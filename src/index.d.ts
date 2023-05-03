@@ -17,6 +17,12 @@ export type TUseCommandArg = TCommandArg & {
     featureName: string
 }
 
+export type TAddPageCommandArg = TCommandArg & {
+    pageName: string
+    pagePath: string
+    template: string
+}
+
 export type TUseDashboardCommandArg = TUseCommandArg & {}
 
 export type TUseFirebaseAuthCommandArg = TUseCommandArg & {}

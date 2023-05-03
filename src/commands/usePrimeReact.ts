@@ -7,6 +7,7 @@ import ora from 'ora'
 import path from 'path'
 import util from 'util'
 import { TUsePrimeReactCommandArg } from '../index.d'
+import { renderFile } from '.'
 
 const exec = util.promisify(childProcess.exec)
 
@@ -94,33 +95,8 @@ export async function usePrimeReact(args: TUsePrimeReactCommandArg) {
         { filename: 'components/prime-react-themes/vivaLight.tsx' }
     ]
 
-    for (const target of targets) {
-        // make directory
-        fs.mkdirSync(`${path.dirname(target.filename)}`, {
-            recursive: true
-        })
-
-        if (target.values === undefined) {
-            // non template
-            fs.copyFileSync(
-                `${viewsPath}/${target.filename}`,
-                `${cwd}/${target.filename}`
-            )
-        } else {
-            // create template
-            const tpl = Eta.compile(
-                fs.readFileSync(`${viewsPath}/${target.filename}.eta`, 'utf8')
-            )
-
-            // render
-            const rendered = tpl(target.values, Eta.config)
-
-            // write file
-            fs.writeFileSync(`${cwd}/${target.filename}`, rendered)
-        }
-
-        //
-    }
+    // renderFiles
+    renderFile(viewsPath as string, cwd, targets)
 
     // stop spinner
     spinner.stop()

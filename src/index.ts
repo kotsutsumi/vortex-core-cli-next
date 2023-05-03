@@ -7,9 +7,14 @@ import format from './enums/format'
 import packageJson from '../package.json'
 import runners from './commands'
 import yargs from 'yargs'
-import { TCreateCommandArg, TUseCommandArg } from './index.d'
+import {
+    TAddPageCommandArg,
+    TCreateCommandArg,
+    TUseCommandArg
+} from './index.d'
 import { log } from 'console'
 import { exit } from 'process'
+import TEMPLATE from './enums/template'
 
 // set app name
 const appName = packageJson.name
@@ -24,7 +29,8 @@ const __dirname = path.dirname(__filename)
 const viewsPath = path.join(__dirname, '../views')
 
 // init commands
-const commands: Array<TCreateCommandArg | TUseCommandArg> = []
+const commands: Array<TCreateCommandArg | TUseCommandArg | TAddPageCommandArg> =
+    []
 
 // parse command
 const parseCommand = (params: yargs.Argv<{ format: 'text' }>) => {
@@ -81,6 +87,14 @@ const args = yargs
         demandOption: true
     })
 
+    // --- Template Option
+    .option('template', {
+        alias: 't',
+        description: 'page template: "plain", "profile" , default to "plain"',
+        default: TEMPLATE.PLAIN,
+        demandOption: true
+    })
+
     // --- Create Command
     .command('create <project>', 'create a new project', (params) => {
         // parse command
@@ -123,6 +137,48 @@ const args = yargs
 
         // push command
         pushFeatureCommand(featureName, v[2])
+
+        //
+    })
+
+    // --- Add Page
+    .command('add-page <page> <path>', 'add a new page', (params) => {
+        // parse command
+        const v = parseCommand(params)
+
+        // set page name
+        const pageName = v[0][1]
+
+        // set page path
+        const pagePath = v[0][2]
+
+        // set options
+        const _opts = params.argv
+
+        // set template
+        const _template =
+            // @ts-ignore
+            _opts.template as string
+
+        if (_template !== TEMPLATE.PLAIN && _template !== TEMPLATE.PROFILE) {
+            console.log(
+                '| Error: '.red,
+                `${_template.white.bold} is invalid template name.`
+            )
+            process.exit(1)
+        }
+
+        // push command
+        commands.push({
+            command: `add-page`,
+            end: `added ${pageName} page to pages${pagePath}${pageName}.tsx.`,
+            pageName: pageName,
+            pagePath: pagePath,
+            format: format,
+            template: _template,
+            start: `add ${pageName} page to pages${pagePath}${pageName}.tsx...`,
+            views: viewsPath
+        })
 
         //
     })
