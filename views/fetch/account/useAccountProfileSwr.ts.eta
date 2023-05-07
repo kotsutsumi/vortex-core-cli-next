@@ -1,0 +1,33 @@
+// useAccountProfileSwr.ts
+
+import axios from 'axios'
+import useSWR from 'swr'
+// import { fetcher } from '../fetcher'
+
+export const ACCOUNT_PROFILE_API_URL = '/api/account/profile'
+
+export const useAccountProfileSwr = (uid: string) => {
+    const fetcher = (url: string) =>
+        axios
+            .get(url, {
+                headers: {
+                    uid: uid
+                }
+            })
+            .then((res) => res.data)
+
+    // use swr
+    const { data, error } = useSWR(ACCOUNT_PROFILE_API_URL, fetcher)
+
+    return {
+        data,
+        isLoading: !error && !data,
+        isError: error
+    }
+
+    //
+}
+
+export default useAccountProfileSwr
+
+// EOF

@@ -1,0 +1,356 @@
+// profile.tsx
+
+import Cover from '@/components/Cover'
+import Layout from '@/layouts/Layout'
+import NestedLayout from '@/layouts/Dashboard'
+import axios from 'axios'
+import styles from '@/styles/account/profile.module.css'
+import useAccountProfileSwr, {
+    ACCOUNT_PROFILE_API_URL
+} from '@/fetch/account/useAccountProfileSwr'
+import { Button } from 'primereact/button'
+import { GetStaticProps } from 'next'
+import { InputText } from 'primereact/inputtext'
+import { NextPageWithLayout } from '@/pages/_app'
+import { ReactElement, useEffect, useRef, useState } from 'react'
+import { Toast } from 'primereact/toast'
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import { useSession } from 'next-auth/react'
+import { useTranslation } from 'next-i18next'
+import { useRouter } from 'next/router'
+
+export const getStaticProps: GetStaticProps = async ({ locale }) => ({
+    props: {
+        ...(await serverSideTranslations(locale!, ['common']))
+    }
+})
+
+const Page: NextPageWithLayout = () => {
+    // use router
+    const router = useRouter()
+
+    // use session
+    const { data: session } = useSession()
+
+    // ref toast
+    const toast = useRef<Toast>(null)
+
+    // use i18n
+    const { t } = useTranslation('common')
+
+    // use first name state
+    const [firstnameValue, setFirstnameValue] = useState<string>('')
+
+    // use lastname state
+    const [lastnameValue, setLastnameValue] = useState<string>('')
+
+    // use firstname kana state
+    const [firstnameKanaValue, setFirstnameKanaValue] = useState<string>('')
+
+    // use lastname kana state
+    const [lastnameKanaValue, setLastnameKanaValue] = useState<string>('')
+
+    // use nickname state
+    const [nicknameValue, setNicknameValue] = useState<string>('')
+
+    // cover state
+    const [cover, setCover] = useState(true)
+
+    // use image state
+    const [image, setImage] = useState(null)
+
+    // use image extension state
+    const [imageExt, setImageExt] = useState('')
+
+    // use create object url state
+    const [createObjectURL, setCreateObjectURL] = useState<string>('')
+
+    // use menu swr
+    const { data, isLoading, isError } = useAccountProfileSwr(
+        session?.user?.uid as string
+    )
+
+    const uploadToClient = (event: any) => {
+        if (event.target.files && event.target.files[0]) {
+            // set target file
+            const file = event.target.files[0]
+
+            // set image
+            setImage(file)
+
+            // set image extension
+            setImageExt(file.name.split('.').pop())
+
+            // set create object url
+            setCreateObjectURL(URL.createObjectURL(file) as string)
+
+            //
+        }
+
+        //
+    }
+
+    // similar to componentDidMount and componentDidUpdate
+    useEffect(() => {
+        // switch cover
+        setCover(isLoading)
+
+        if (!isLoading) {
+            // set Firstname value
+            setFirstnameValue(data?.firstname || '')
+
+            // set Lastname value
+            setLastnameValue(data?.lastname || '')
+
+            // set Firstname value
+            setFirstnameKanaValue(data?.firstname_kana || '')
+
+            // set Lastname Kana value
+            setLastnameKanaValue(data?.lastname_kana || '')
+
+            // set Nickname value
+            setNicknameValue(data?.nickname || '')
+
+            // set Profile Image
+            if (createObjectURL === '') {
+                // Just for the first time
+                if (data?.profile_url) {
+                    setCreateObjectURL(data?.profile_url)
+                } else {
+                    setCreateObjectURL('/images/profile/no-image.png' as string)
+                }
+
+                //
+            }
+
+            //
+        }
+
+        //
+    }, [data])
+
+    const onSaveChanges = async () => {
+        // show cover
+        setCover(true)
+
+        const blobToBase64 = (blob: any) => {
+            return new Promise((resolve, _) => {
+                const reader = new FileReader()
+                reader.onloadend = () => resolve(reader.result)
+                reader.readAsDataURL(blob)
+            })
+        }
+
+        let blob = null
+
+        if (!createObjectURL.startsWith('http')) {
+            const response = await fetch(createObjectURL)
+            blob = await response.blob()
+        }
+
+        const res = await axios.post(ACCOUNT_PROFILE_API_URL, {
+            uid: session?.user?.uid,
+            firstname: firstnameValue,
+            lastname: lastnameValue,
+            firstname_kana: firstnameKanaValue,
+            lastname_kana: lastnameKanaValue,
+            nickname: nicknameValue,
+            profile: blob ? await blobToBase64(blob) : blob,
+            image_ext: imageExt
+        })
+
+        // hide cover
+        setCover(false)
+
+        if (res.status === 200) {
+            // Success toast
+            toast.current?.show({
+                severity: 'success',
+                summary: t('success'),
+                detail: t('success_save_changes'),
+                life: 3000
+            })
+
+            //
+        } else {
+            // Error toast
+            toast.current?.show({
+                severity: 'error',
+                summary: t('error'),
+                detail: t('error_occurred'),
+                life: 3000
+            })
+
+            // Redirect to signout
+            router.push('/signout')
+
+            //
+        }
+
+        //
+    }
+
+    // ------------------------------------------------------------------------
+    return (
+        <>
+            {/* cover */}
+            {cover && <Cover />}
+
+            {/* Toast */}
+            <Toast ref={toast} />
+
+            <div className="px-5">
+                <h2 className="mb-4 text-blue-800">{t('profile')}</h2>
+                <div className="surface-card p-4 shadow-2 border-round">
+                    <div className="flex gap-5 flex-column-reverse md:flex-row">
+                        <div className="flex-auto p-fluid">
+                            <div className="formgrid grid mb-4">
+                                {/* Lastname */}
+                                <div className="field col-12 md:col-6">
+                                    <label htmlFor="lastname">
+                                        {t('lastname')}
+                                    </label>
+                                    <InputText
+                                        value={lastnameValue}
+                                        id="lastname"
+                                        className="w-full"
+                                        onChange={(e) =>
+                                            setLastnameValue(e.target.value)
+                                        }
+                                    />
+                                </div>
+
+                                {/* Firstname */}
+                                <div className="field col-12 md:col-6">
+                                    <label htmlFor="firstname">
+                                        {t('firstname')}
+                                    </label>
+                                    <InputText
+                                        value={firstnameValue}
+                                        id="firstname"
+                                        className="w-full"
+                                        onChange={(e) =>
+                                            setFirstnameValue(e.target.value)
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className="formgrid grid mb-4">
+                                {/* Lastname Kana */}
+                                <div className="field col-12 md:col-6">
+                                    <label htmlFor="lastname_kana">
+                                        {t('lastname_kana')}
+                                    </label>
+                                    <InputText
+                                        value={lastnameKanaValue}
+                                        id="firstname"
+                                        className="w-full"
+                                        onChange={(e) =>
+                                            setLastnameKanaValue(e.target.value)
+                                        }
+                                    />
+                                </div>
+
+                                {/* Firstname Kana */}
+                                <div className="field col-12 md:col-6">
+                                    <label htmlFor="firstname_kana">
+                                        {t('firstname_kana')}
+                                    </label>
+                                    <InputText
+                                        value={firstnameKanaValue}
+                                        id="firstname_kana"
+                                        className="w-full"
+                                        onChange={(e) =>
+                                            setFirstnameKanaValue(
+                                                e.target.value
+                                            )
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className="formgrid grid mb-4">
+                                {/* Nickname */}
+                                <div className="field col-12">
+                                    <label htmlFor="nickname">
+                                        {t('nickname')}
+                                    </label>
+                                    <InputText
+                                        value={nicknameValue}
+                                        id="nickname"
+                                        className="w-full"
+                                        onChange={(e) =>
+                                            setNicknameValue(e.target.value)
+                                        }
+                                    />
+                                </div>
+                            </div>
+                            <div className="mb-4"></div>
+                        </div>
+                        <div className="flex flex-column align-items-center flex-or mx-2">
+                            <span className="font-medium text-900 mb-2">
+                                {t('profile_picture')}
+                            </span>
+                            {createObjectURL && (
+                                <>
+                                    <img
+                                        src={createObjectURL}
+                                        alt="profile picture"
+                                        className="h-10rem w-10rem"
+                                    />
+                                    <label htmlFor="file-input" className="">
+                                        <div className="-mt-4 p-button p-component p-button-icon-only p-button-rounded">
+                                            <span className="pi pi-pencil" />
+                                        </div>
+                                    </label>
+                                    <input
+                                        id="file-input"
+                                        className="hidden"
+                                        type="file"
+                                        accept="image/*"
+                                        name="myImage"
+                                        onChange={uploadToClient}
+                                    />
+                                </>
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="formgrid grid">
+                        {/* Horizontal Rule */}
+                        <div className="surface-border border-top-1 opacity-50 mb-3 col-12"></div>
+                    </div>
+
+                    <div className="flex">
+                        <div className="flex-grow-1"></div>
+                        <div className="flex-none">
+                            <Button
+                                label={t('save_changes') as string}
+                                className="p-ripple w-auto"
+                                onClick={onSaveChanges}
+                            ></Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    )
+
+    //
+}
+
+Page.getLayout = function getLayout(page: ReactElement) {
+    // ------------------------------------------------------------------------
+
+    return (
+        <Layout>
+            {/* Dashboard Layout */}
+            <NestedLayout>{page}</NestedLayout>
+        </Layout>
+    )
+
+    //
+}
+
+export default Page
+
+// EOF

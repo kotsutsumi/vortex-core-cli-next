@@ -21,7 +21,18 @@ export async function useDashboard(args: TUseDashboardCommandArg) {
     const cwd = process.cwd()
 
     // install required packages
-    await exec(['npm i', 'swr next-i18next react-loader-spinner'].join(' '))
+    await exec(
+        [
+            'npm i',
+            'prismjs',
+            '@types/prismjs',
+            'prism-themes',
+            'swr',
+            'axios',
+            'next-i18next',
+            'react-loader-spinner'
+        ].join(' ')
+    )
     await exec(
         [
             'npm i -D',
@@ -43,6 +54,7 @@ export async function useDashboard(args: TUseDashboardCommandArg) {
         { filename: 'contexts/PrimeReactThemeContext.ts', values: {} },
         { filename: 'fetch/fetcher.ts', values: {} },
         { filename: 'fetch/useMenuSwr.ts', values: {} },
+        { filename: 'fetch/account/useAccountProfileSwr.ts', values: {} },
         { filename: 'layouts/Dashboard.tsx', values: {} },
         { filename: 'layouts/FitScreen.tsx', values: {} },
         { filename: 'layouts/Layout.tsx', values: {} },
@@ -54,6 +66,8 @@ export async function useDashboard(args: TUseDashboardCommandArg) {
         { filename: 'pages/help.tsx', values: {} },
         { filename: 'pages/index.tsx', values: {} },
         { filename: 'pages/settings.tsx', values: {} },
+        { filename: 'pages/account/profile.tsx', values: {} },
+        { filename: 'pages/api/account/profile.ts', values: {} },
         { filename: 'public/favicons/android-chrome-192x192.png' },
         { filename: 'public/favicons/android-chrome-512x512.png' },
         { filename: 'public/favicons/apple-touch-icon.png' },
@@ -99,6 +113,7 @@ export async function useDashboard(args: TUseDashboardCommandArg) {
         { filename: 'public/fonts/roboto-v20-latin-ext_latin-regular.woff2' },
         { filename: 'public/images/logo-dark.svg' },
         { filename: 'public/images/logo-light.svg' },
+        { filename: 'public/images/profile/no-image.png' },
         { filename: 'public/locales/en/common.json' },
         { filename: 'public/locales/ja/common.json' },
         { filename: 'public/favicon.ico' },

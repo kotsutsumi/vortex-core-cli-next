@@ -67,6 +67,12 @@ function getMenus() {
         },
         {
             category: 'ACCOUNT',
+            label: 'Profile',
+            icon: 'pi pi-user',
+            href: '/account/profile'
+        },
+        {
+            category: 'ACCOUNT',
             label: 'Sing Out',
             icon: 'pi pi-sign-out',
             href: '/signout'
