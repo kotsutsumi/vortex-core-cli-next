@@ -1,6 +1,8 @@
-// Eslint.ts
+// PrimeReact.ts
 
 import { execa } from 'execa'
+import * as Eta from 'eta'
+import fs from 'fs'
 import { deployFiles } from '../commands'
 
 export default async function (opts: any) {
@@ -10,10 +12,9 @@ export default async function (opts: any) {
     // install packages
     const { stdout } = await execa(`npm`, [
         'i',
-        '-D',
-        'eslint',
-        'eslint-config-next',
-        'eslint-plugin-storybook'
+        'primereact',
+        'primeicons',
+        'primeflex'
     ])
 
     // deploy files
