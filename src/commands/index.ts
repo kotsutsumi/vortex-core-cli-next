@@ -6,7 +6,7 @@ import { Command } from 'commander'
 export default function registerCommand(
     program: Command,
     command_name: string,
-    args: any[],
+    args: any,
     run: (...args: any[]) => void | Promise<void>
 ) {
     // create command
@@ -23,15 +23,7 @@ export default function registerCommand(
 }
 
 // task runner
-export const runner = async (
-    tasks: [
-        {
-            title: string
-            task: (...args: any[]) => void | Promise<void>
-            opts: {}
-        }
-    ]
-) => {
+export const runner = async (tasks: any) => {
     // run each task
     for (const t of tasks) {
         // run task

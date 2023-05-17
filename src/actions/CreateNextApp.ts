@@ -2,7 +2,7 @@
 
 import { execa } from 'execa'
 
-export default async function (opts: { project_name: string }) {
+export default async function (opts: any) {
     // create-next-app parameters
     const params = [
         'create-next-app@latest',
@@ -19,7 +19,10 @@ export default async function (opts: { project_name: string }) {
     ]
 
     const { stdout } = await execa(`npx`, params)
-    console.log(stdout)
+
+    // move to created project directory
+    process.chdir(`./${opts.project_name}`)
+
     //
 }
 
