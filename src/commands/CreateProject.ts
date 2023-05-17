@@ -7,6 +7,7 @@ import path from 'path'
 import registerCommand, { runner } from '.'
 import util from 'util'
 import { Command } from 'commander'
+import Eslint from '../actions/Eslint'
 
 // set promisify exec
 const exec = util.promisify(childProcess.exec)
@@ -15,8 +16,6 @@ const exec = util.promisify(childProcess.exec)
 const command_name = 'create'
 
 export default function register(program: Command) {
-    // .argument('<string>', 'string to split')
-
     // arguments
     const args = [
         {
@@ -46,6 +45,14 @@ const run = async (project_name: string) => {
             task: Prettier,
             opts: {
                 src: path.join(__dirname, '../templates/Prettier'),
+                dest: `${process.cwd()}/${project_name}`
+            }
+        },
+        {
+            title: 'Setup eslintrc.json',
+            task: Eslint,
+            opts: {
+                src: path.join(__dirname, '../templates/Eslint'),
                 dest: `${process.cwd()}/${project_name}`
             }
         }

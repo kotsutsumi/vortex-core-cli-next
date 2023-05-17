@@ -18,6 +18,7 @@ export default async function (opts: any) {
         '"@/*"'
     ]
 
+    // execute create-next-app
     const { stdout } = await execa(`npx`, params)
 
     // move to created project directory
