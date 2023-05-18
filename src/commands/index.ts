@@ -50,7 +50,7 @@ export default function registerCommand(
 }
 
 // task runner
-export const runner = async (tasks: any) => {
+export const runner = async (tasks: any, done: Function) => {
     // init spinner color
     let color = 0
 
@@ -94,6 +94,9 @@ export const runner = async (tasks: any) => {
 
         //
     }
+
+    // done
+    done()
 
     //
 }
