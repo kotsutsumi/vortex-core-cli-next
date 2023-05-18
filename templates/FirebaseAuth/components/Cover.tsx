@@ -27,11 +27,9 @@ export default function Cover(props: TCoverProps) {
 
     const [style, setStyle] = useState({
         ...baseStyle,
-        background: isCurrentDarkTheme() ? '#000' : '#aaa'
+        background: false ? '#000' : '#aaa'
     })
-    const [colors, setColors] = useState(
-        isCurrentDarkTheme() ? baseDarkColors : baseColors
-    )
+    const [colors, setColors] = useState(false ? baseDarkColors : baseColors)
 
     // base classes
     const className = ''
