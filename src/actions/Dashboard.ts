@@ -8,12 +8,12 @@ export default async function (opts: any) {
     process.chdir(`${opts.dest}`)
 
     // install packages
-    // const { stdout } = await execa(`npm`, [
-    // 'i',
-    // 'eslint',
-    // 'eslint-config-next',
-    // 'eslint-plugin-storybook'
-    // ])
+    const { stdout } = await execa(`npm`, [
+        'i',
+        'react-loader-spinner'
+        // 'eslint-config-next',
+        // 'eslint-plugin-storybook'
+    ])
 
     // deploy files
     deployFiles(opts.src, opts.dest, {})

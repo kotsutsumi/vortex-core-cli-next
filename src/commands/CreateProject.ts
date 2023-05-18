@@ -12,6 +12,7 @@ import path from 'path'
 import registerCommand, { displayTitle, runner } from '.'
 import util from 'util'
 import { Command } from 'commander'
+import Dashboard from '../actions/Dashboard'
 
 // set promisify exec
 const exec = util.promisify(childProcess.exec)
@@ -49,7 +50,7 @@ const run = async (project_name: string) => {
                 }
             },
             {
-                title: 'Setup .prettierrc',
+                title: 'Setup Prettier',
                 task: Prettier,
                 opts: {
                     src: path.join(__dirname, '../templates/Prettier'),
@@ -85,6 +86,14 @@ const run = async (project_name: string) => {
                 task: FirebaseAuth,
                 opts: {
                     src: path.join(__dirname, '../templates/FirebaseAuth'),
+                    dest: `${process.cwd()}/${project_name}`
+                }
+            },
+            {
+                title: 'Setup Dashboard',
+                task: Dashboard,
+                opts: {
+                    src: path.join(__dirname, '../templates/Dashboard'),
                     dest: `${process.cwd()}/${project_name}`
                 }
             }

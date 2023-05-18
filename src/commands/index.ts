@@ -106,6 +106,37 @@ export const deployFiles = async (
     dest: string,
     templateOpts: any = {}
 ) => {
+    glob(`${templateDir}/**/.??*`, (err, files) => {
+        files.forEach((file) => {
+            var stats = fs.statSync(file)
+            if (stats.isDirectory()) {
+                // make directory
+                fs.mkdirSync(`${dest}/${file.replace(templateDir, '')}`, {
+                    recursive: true
+                })
+            } else {
+                if (path.extname(file) == '.eta') {
+                    fs.writeFileSync(
+                        `${dest}/${file
+                            .split('.')
+                            .slice(0, -1)
+                            .join('.')
+                            .replace(templateDir, '')}`,
+                        Eta.compile(fs.readFileSync(file, 'utf8'))(
+                            templateOpts,
+                            Eta.config
+                        )
+                    )
+                } else {
+                    fs.copyFileSync(
+                        file,
+                        `${dest}/${file.replace(templateDir, '')}`
+                    )
+                }
+            }
+        })
+    })
+
     glob(`${templateDir}/**/*`, (err, files) => {
         files.forEach((file) => {
             var stats = fs.statSync(file)

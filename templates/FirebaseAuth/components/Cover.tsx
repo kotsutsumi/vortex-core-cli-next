@@ -2,10 +2,6 @@
 
 import { useEffect, useState } from 'react'
 import { Vortex } from 'react-loader-spinner'
-import {
-    getCurrentThemeName,
-    isCurrentDarkTheme
-} from '@/components/prime-react-themes/PrimeReactThemeSwitcher'
 
 // define props type
 type TCoverProps = {}

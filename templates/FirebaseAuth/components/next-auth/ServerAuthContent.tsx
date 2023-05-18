@@ -25,7 +25,7 @@ const ServerAuthComponent = async ({
     return (
         <>
             {children}
-            <p>{JSON.stringify(user)}</p>
+            {/* <p>{JSON.stringify(user)}</p> */}
         </>
     )
 }
