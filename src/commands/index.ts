@@ -1,10 +1,24 @@
 // index.ts
 
 import * as Eta from 'eta'
+import chalk from 'chalk'
 import fs from 'fs'
 import glob from 'glob'
+import ora, { Color } from 'ora'
 import path from 'path'
 import { Command } from 'commander'
+
+// spinner colors
+const spinnerColors = [
+    'red',
+    'green',
+    'yellow',
+    'blue',
+    'magenta',
+    'cyan',
+    'white',
+    'gray'
+]
 
 // register command
 export default function registerCommand(
@@ -28,10 +42,34 @@ export default function registerCommand(
 
 // task runner
 export const runner = async (tasks: any) => {
+    // init spinner color
+    let color = 0
+
     // run each task
     for (const t of tasks) {
+        // start spinner
+        const spinner = ora(t.title).start()
+
+        // set interval spinner color
+        const inetrval = setInterval(() => {
+            spinner.color = spinnerColors[
+                ++color % spinnerColors.length
+            ] as Color
+        }, 500)
+
         // run task
         await t.task(t.opts)
+
+        // clear interval
+        clearInterval(inetrval)
+
+        // stop spinner
+        spinner.stop()
+
+        // output title
+        console.log(`${chalk.green('✓')} ${chalk.gray(t.title)}`)
+
+        //
     }
 
     //
