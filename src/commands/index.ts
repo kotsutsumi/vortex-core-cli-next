@@ -20,6 +20,15 @@ const spinnerColors = [
     'gray'
 ]
 
+export const displayTitle = (commandName: string) => {
+    // output title
+    console.log('')
+    console.log(
+        chalk.bgGray(chalk.black(' Vortex Core CLI ')) + ' ' + commandName
+    )
+    console.log('')
+}
+
 // register command
 export default function registerCommand(
     program: Command,
@@ -57,8 +66,14 @@ export const runner = async (tasks: any) => {
             ] as Color
         }, 500)
 
+        // set start time
+        const startTime = performance.now()
+
         // run task
         await t.task(t.opts)
+
+        // set end time
+        const endTime = performance.now()
 
         // clear interval
         clearInterval(inetrval)
@@ -66,8 +81,16 @@ export const runner = async (tasks: any) => {
         // stop spinner
         spinner.stop()
 
+        // set time unit
+        const timeWithUnit =
+            endTime - startTime < 1000
+                ? Math.round(endTime - startTime) + 'ms'
+                : Math.round((endTime - startTime) / 100) / 10 + 's'
+
         // output title
-        console.log(`${chalk.green('✓')} ${chalk.gray(t.title)}`)
+        console.log(
+            `${chalk.green('  ✓')} ${chalk.gray(t.title)} (${timeWithUnit})`
+        )
 
         //
     }

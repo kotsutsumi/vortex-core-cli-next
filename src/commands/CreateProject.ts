@@ -2,15 +2,16 @@
 
 import CreateNextApp from '../actions/CreateNextApp'
 import Eslint from '../actions/Eslint'
+import FirebaseAuth from '../actions/FirebaseAuth'
 import Jest from '../actions/Jest'
 import Prettier from '../actions/Prettier'
 import PrimeReact from '../actions/PrimeReact'
+import chalk from 'chalk'
 import childProcess from 'child_process'
 import path from 'path'
-import registerCommand, { runner } from '.'
+import registerCommand, { displayTitle, runner } from '.'
 import util from 'util'
 import { Command } from 'commander'
-import FirebaseAuth from '../actions/FirebaseAuth'
 
 // set promisify exec
 const exec = util.promisify(childProcess.exec)
@@ -34,6 +35,9 @@ export default function register(program: Command) {
 }
 
 const run = async (project_name: string) => {
+    // display title
+    displayTitle('Create New Next App Project')
+
     // execute tasks
     runner([
         {
