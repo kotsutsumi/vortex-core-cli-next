@@ -15,7 +15,7 @@ export default async function (opts: any) {
         '--experimental-app',
         '--app',
         '--import-alias',
-        '"@/*"'
+        '@/*'
     ]
 
     // execute create-next-app

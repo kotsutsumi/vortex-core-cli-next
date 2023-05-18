@@ -1,4 +1,4 @@
-// PrimeReact.ts
+// Dashboard.ts
 
 import { execa } from 'execa'
 import { deployFiles } from '../commands'
@@ -8,15 +8,15 @@ export default async function (opts: any) {
     process.chdir(`${opts.dest}`)
 
     // install packages
-    const { stdout } = await execa(`npm`, [
-        'i',
-        'primereact',
-        'primeicons',
-        'primeflex'
-    ])
+    // const { stdout } = await execa(`npm`, [
+    // 'i',
+    // 'eslint',
+    // 'eslint-config-next',
+    // 'eslint-plugin-storybook'
+    // ])
 
     // deploy files
-    await deployFiles(opts.src, opts.dest, {})
+    deployFiles(opts.src, opts.dest, {})
 
     //
 }

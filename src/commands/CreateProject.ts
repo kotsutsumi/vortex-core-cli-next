@@ -92,7 +92,7 @@ const run = async (project_name: string) => {
         () => {
             console.log('')
             console.log('')
-            console.log(chalk.cyanBright('Next steps:'))
+            console.log(chalk.cyanBright('Next Step:'))
 
             const nextCommand = chalk.yellow(
                 `cd ${project_name} && npm run dev`

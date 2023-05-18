@@ -26,7 +26,7 @@ export default async function (opts: any) {
     ])
 
     // deploy files
-    deployFiles(opts.src, opts.dest, {})
+    await deployFiles(opts.src, opts.dest, {})
 
     //
 }
