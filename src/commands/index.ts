@@ -1,81 +1,172 @@
 // index.ts
 
-import fs from 'fs'
-import path from 'path'
 import * as Eta from 'eta'
-import { create } from './create'
-import { useDashboard } from './useDashboard'
-import { useFirebaseAuth } from './useFirebaseAuth'
-import { usePrettier } from './usePrettier'
-import { useEslint } from './useEslint'
-import { usePrimeReact } from './usePrimeReact'
-import { useJest } from './useJest'
-import { addPage } from './addPage'
+import chalk from 'chalk'
+import fs from 'fs'
+import glob from 'glob'
+import ora, { Color } from 'ora'
+import path from 'path'
+import { Command } from 'commander'
 
-// set runners
-export default {
-    create: create,
-    'add-page': addPage,
-    'use-dashboard': useDashboard,
-    'use-firebase-auth': useFirebaseAuth,
-    'use-prettier': usePrettier,
-    'use-eslint': useEslint,
-    'use-jest': useJest,
-    'use-prime-react': usePrimeReact
+// spinner colors
+const spinnerColors = [
+    'red',
+    'green',
+    'yellow',
+    'blue',
+    'magenta',
+    'cyan',
+    'white',
+    'gray'
+]
+
+export const displayTitle = (commandName: string) => {
+    // output title
+    console.log('')
+    console.log(
+        chalk.bgGray(chalk.black(' Vortex Core CLI ')) + ' ' + commandName
+    )
+    console.log('')
 }
 
-export function renderFile(viewsPath: string, cwd: string, targets: any) {
-    for (const target of targets) {
-        if (target.output) {
-            // make directory
-            fs.mkdirSync(`${path.dirname(target.output)}`, {
-                recursive: true
-            })
-        } else {
-            // make directory
-            fs.mkdirSync(`${path.dirname(target.filename)}`, {
-                recursive: true
-            })
-        }
+// register command
+export default function registerCommand(
+    program: Command,
+    command_name: string,
+    args: any,
+    run: (...args: any[]) => void | Promise<void>
+) {
+    // create command
+    const cmd = program.command(command_name)
 
-        if (target.values === undefined) {
-            if (target.output) {
-                // non template
-                fs.copyFileSync(
-                    `${viewsPath}/${target.filename}`,
-                    `${cwd}/${target.output}`
-                )
-            } else {
-                // non template
-                fs.copyFileSync(
-                    `${viewsPath}/${target.filename}`,
-                    `${cwd}/${target.filename}`
-                )
-            }
-        } else {
-            // create template
-            const tpl = Eta.compile(
-                fs.readFileSync(`${viewsPath}/${target.filename}.eta`, 'utf8')
-            )
+    for (const t of args) {
+        cmd.argument(t.type, t.desc)
+    }
 
-            // render
-            const rendered = tpl(target.values, Eta.config)
+    // set action
+    cmd.action(run)
 
-            if (target.output) {
-                // write file
-                fs.writeFileSync(`${cwd}/${target.output}`, rendered)
-            } else {
-                // write file
-                fs.writeFileSync(`${cwd}/${target.filename}`, rendered)
-            }
+    //
+}
 
-            //
-        }
+// task runner
+export const runner = async (tasks: any, done: Function) => {
+    // init spinner color
+    let color = 0
+
+    // run each task
+    for (const t of tasks) {
+        // start spinner
+        const spinner = ora(t.title).start()
+
+        // set interval spinner color
+        const inetrval = setInterval(() => {
+            spinner.color = spinnerColors[
+                ++color % spinnerColors.length
+            ] as Color
+        }, 500)
+
+        // set start time
+        const startTime = performance.now()
+
+        // run task
+        await t.task(t.opts)
+
+        // set end time
+        const endTime = performance.now()
+
+        // clear interval
+        clearInterval(inetrval)
+
+        // stop spinner
+        spinner.stop()
+
+        // set time unit
+        const timeWithUnit =
+            endTime - startTime < 1000
+                ? Math.round(endTime - startTime) + 'ms'
+                : Math.round((endTime - startTime) / 100) / 10 + 's'
+
+        // output title
+        console.log(
+            `${chalk.green('  ✓')} ${chalk.gray(t.title)} (${timeWithUnit})`
+        )
 
         //
     }
 
+    // done
+    done()
+
     //
+}
+
+export const deployFiles = async (
+    templateDir: string,
+    dest: string,
+    templateOpts: any = {}
+) => {
+    glob(`${templateDir}/**/.??*`, (err, files) => {
+        files.forEach((file) => {
+            var stats = fs.statSync(file)
+            if (stats.isDirectory()) {
+                // make directory
+                fs.mkdirSync(`${dest}/${file.replace(templateDir, '')}`, {
+                    recursive: true
+                })
+            } else {
+                if (path.extname(file) == '.eta') {
+                    fs.writeFileSync(
+                        `${dest}/${file
+                            .split('.')
+                            .slice(0, -1)
+                            .join('.')
+                            .replace(templateDir, '')}`,
+                        Eta.compile(fs.readFileSync(file, 'utf8'))(
+                            templateOpts,
+                            Eta.config
+                        )
+                    )
+                } else {
+                    fs.copyFileSync(
+                        file,
+                        `${dest}/${file.replace(templateDir, '')}`
+                    )
+                }
+            }
+        })
+    })
+
+    glob(`${templateDir}/**/*`, (err, files) => {
+        files.forEach((file) => {
+            var stats = fs.statSync(file)
+            if (stats.isDirectory()) {
+                // make directory
+                fs.mkdirSync(`${dest}/${file.replace(templateDir, '')}`, {
+                    recursive: true
+                })
+            } else {
+                if (path.extname(file) == '.eta') {
+                    fs.writeFileSync(
+                        `${dest}/${file
+                            .split('.')
+                            .slice(0, -1)
+                            .join('.')
+                            .replace(templateDir, '')}`,
+                        Eta.compile(fs.readFileSync(file, 'utf8'))(
+                            templateOpts,
+                            Eta.config
+                        )
+                    )
+                } else {
+                    fs.copyFileSync(
+                        file,
+                        `${dest}/${file.replace(templateDir, '')}`
+                    )
+                }
+            }
+        })
+    })
 }
 
 // EOF
