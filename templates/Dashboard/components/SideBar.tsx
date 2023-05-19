@@ -4,6 +4,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import SideMenu from './SideMenu'
 
 export default function Sidebar() {
     // ------------------------------------------------------------------------
@@ -32,10 +33,9 @@ export default function Sidebar() {
                         </Link>
                     </div>
 
-                    {/* Menu */}
-                    <div>
-                        MENU
-                        {/* <Menu /> */}
+                    {/* SideMenu */}
+                    <div className="overflow-y-auto">
+                        <SideMenu />
                     </div>
                 </div>
             </div>
