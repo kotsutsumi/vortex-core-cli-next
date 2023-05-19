@@ -111,80 +111,90 @@ export const runner = async (tasks: any, done: Function) => {
 export const deployFiles = async (
     templateDir: string,
     dest: string,
-    templateOpts: any = {}
+    templateOpts: any = {},
+    replacePaths: any = {}
 ) => {
-    glob(`${templateDir}/**/.??*`, (err, files) => {
-        files.forEach((file) => {
-            var stats = fs.statSync(file)
-            if (stats.isDirectory()) {
-                // make directory
-                fs.mkdirSync(`${dest}/${file.replace(templateDir, '')}`, {
-                    recursive: true
-                })
-            } else {
-                if (path.extname(file) == '.eta') {
-                    fs.writeFileSync(
-                        `${dest}/${file
-                            .split('.')
-                            .slice(0, -1)
-                            .join('.')
-                            .replace(templateDir, '')}`,
-                        Eta.compile(fs.readFileSync(file, 'utf8'))(
-                            templateOpts,
-                            Eta.config
-                        )
-                    )
-                } else {
-                    fs.copyFileSync(
-                        file,
-                        `${dest}/${file.replace(templateDir, '')}`
-                    )
-                }
-            }
-        })
-    })
+    for (const iterator of [`${templateDir}/**/.??*`, `${templateDir}/**/*`]) {
+        glob(iterator, (err, files) => {
+            files.forEach((file) => {
+                var stats = fs.statSync(file)
+                if (stats.isDirectory()) {
+                    let destDir = `${dest}/${file.replace(templateDir, '')}`
 
-    glob(`${templateDir}/**/*`, (err, files) => {
-        files.forEach((file) => {
-            var stats = fs.statSync(file)
-            if (stats.isDirectory()) {
-                // make directory
-                fs.mkdirSync(`${dest}/${file.replace(templateDir, '')}`, {
-                    recursive: true
-                })
-            } else {
-                const destDir = path.dirname(
-                    `${dest}/${file
-                        .split('.')
-                        .slice(0, -1)
-                        .join('.')
-                        .replace(templateDir, '')}`
-                )
+                    for (const key in replacePaths) {
+                        if (replacePaths.hasOwnProperty(key)) {
+                            destDir = destDir.replace(
+                                `[${key}]`,
+                                replacePaths[key]
+                            )
+                        }
+                    }
 
-                fs.existsSync(destDir) ||
+                    // make directory
                     fs.mkdirSync(destDir, { recursive: true })
+                } else {
+                    for (const key in replacePaths) {
+                        if (replacePaths.hasOwnProperty(key)) {
+                            // make directory
+                            const destDir = path
+                                .dirname(
+                                    `${dest}/${file
+                                        .split('.')
+                                        .slice(0, -1)
+                                        .join('.')
+                                        .replace(templateDir, '')}`
+                                )
+                                .replace(`[${key}]`, replacePaths[key])
+                            fs.existsSync(destDir) ||
+                                fs.mkdirSync(destDir, { recursive: true })
+                        }
+                    }
 
-                if (path.extname(file) == '.eta') {
-                    fs.writeFileSync(
-                        `${dest}/${file
+                    if (path.extname(file) == '.eta') {
+                        let destPath = `${dest}/${file
                             .split('.')
                             .slice(0, -1)
                             .join('.')
-                            .replace(templateDir, '')}`,
-                        Eta.compile(fs.readFileSync(file, 'utf8'))(
-                            templateOpts,
-                            Eta.config
+                            .replace(templateDir, '')}`
+
+                        for (const key in replacePaths) {
+                            if (replacePaths.hasOwnProperty(key)) {
+                                destPath = destPath.replace(
+                                    `[${key}]`,
+                                    replacePaths[key]
+                                )
+                            }
+                        }
+
+                        fs.writeFileSync(
+                            destPath,
+                            Eta.compile(fs.readFileSync(file, 'utf8'))(
+                                templateOpts,
+                                Eta.config
+                            )
                         )
-                    )
-                } else {
-                    fs.copyFileSync(
-                        file,
-                        `${dest}/${file.replace(templateDir, '')}`
-                    )
+                    } else {
+                        let destPath = `${dest}/${file.replace(
+                            templateDir,
+                            ''
+                        )}`
+
+                        for (const key in replacePaths) {
+                            if (replacePaths.hasOwnProperty(key)) {
+                                destPath = destPath.replace(
+                                    `[${key}]`,
+                                    replacePaths[key]
+                                )
+                            }
+                        }
+                        fs.copyFileSync(file, destPath)
+                    }
                 }
-            }
+            })
         })
-    })
+    }
+
+    //
 }
 
 // EOF

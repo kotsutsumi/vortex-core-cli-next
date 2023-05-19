@@ -1,0 +1,36 @@
+'use client'
+
+import Cover from '@/components/Cover'
+import useSideMenuSwr from '@/fetch/<%= it.page_path %>/useListSwr'
+import { Column } from 'primereact/column'
+import { DataTable } from 'primereact/datatable'
+import { useState } from 'react'
+
+export default function Content() {
+    // use side menu swr
+    const { data, isLoading, isError } = useSideMenuSwr()
+
+    // Loading
+    if (isLoading) {
+        return <Cover />
+    }
+
+    // Error
+    if (isError) {
+        return <div className="text-red-500">Loading Error</div>
+    }
+
+    // ------------------------------------------------------------------------
+    return (
+        <>
+            <DataTable value={data} tableStyle={{ minWidth: '50rem' }}>
+                <Column field="code" header="Code"></Column>
+                <Column field="name" header="Name"></Column>
+                <Column field="category" header="Category"></Column>
+                <Column field="quantity" header="Quantity"></Column>
+            </DataTable>
+        </>
+    )
+}
+
+// EOF

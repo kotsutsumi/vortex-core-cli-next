@@ -1,0 +1,25 @@
+// page.tsx
+
+import styles from './page.module.css'
+import ServerAuthContent from '@/components/next-auth/ServerAuthContent'
+import AppProvider from '@/components/providers/AppProvider'
+import Content from './content'
+
+export default function IndexPage() {
+    // ------------------------------------------------------------------------
+    return (
+        <>
+            {/* @ts-expect-error Server Component */}
+            <ServerAuthContent>
+                {/* AppProvider */}
+                <AppProvider>
+                    <Content />
+                </AppProvider>
+            </ServerAuthContent>
+        </>
+    )
+
+    //
+}
+
+// EOF

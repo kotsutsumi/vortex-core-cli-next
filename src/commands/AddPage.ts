@@ -5,6 +5,7 @@ import chalk from 'chalk'
 import path from 'path'
 import registerCommand, { displayTitle, runner } from '.'
 import { Command } from 'commander'
+import List from '../actions/AddPage/List'
 
 // set command name
 const command_name = 'add-page'
@@ -48,6 +49,14 @@ const run = async (page_path: any, opts: any) => {
         action_opts = {
             page_path: page_path,
             src: path.join(__dirname, '../templates/AddPage/Plain'),
+            dest: `${process.cwd()}`
+        }
+    } else if (opts.type === 'list') {
+        title = 'Add List Page'
+        action = List
+        action_opts = {
+            page_path: page_path,
+            src: path.join(__dirname, '../templates/AddPage/List'),
             dest: `${process.cwd()}`
         }
     }
