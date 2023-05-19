@@ -1,8 +1,9 @@
 // index.ts
 
-import { Command } from 'commander'
-import packageJson from '../package.json'
+import AddPage from './commands/AddPage'
 import CreateProject from './commands/CreateProject'
+import packageJson from '../package.json'
+import { Command } from 'commander'
 
 // create a commander program
 const program = new Command()
@@ -29,6 +30,9 @@ program
 
 // create
 CreateProject(program)
+
+// add-page
+AddPage(program)
 
 program.parse()
 

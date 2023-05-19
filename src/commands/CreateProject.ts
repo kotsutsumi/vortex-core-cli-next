@@ -1,21 +1,16 @@
 // CreateProject.ts
 
 import CreateNextApp from '../actions/CreateNextApp'
+import Dashboard from '../actions/Dashboard'
 import Eslint from '../actions/Eslint'
 import FirebaseAuth from '../actions/FirebaseAuth'
 import Jest from '../actions/Jest'
 import Prettier from '../actions/Prettier'
 import PrimeReact from '../actions/PrimeReact'
 import chalk from 'chalk'
-import childProcess from 'child_process'
 import path from 'path'
 import registerCommand, { displayTitle, runner } from '.'
-import util from 'util'
 import { Command } from 'commander'
-import Dashboard from '../actions/Dashboard'
-
-// set promisify exec
-const exec = util.promisify(childProcess.exec)
 
 // set command name
 const command_name = 'create'
@@ -30,7 +25,7 @@ export default function register(program: Command) {
     ]
 
     // register command
-    registerCommand(program, command_name, args, run)
+    registerCommand(program, command_name, args, null, run)
 
     //
 }

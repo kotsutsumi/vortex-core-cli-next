@@ -18,7 +18,7 @@ export default function AppProvider({ children }: { children: ReactNode }) {
                     <div className="flex flex-column flex-auto">
                         {/* Header */}
                         <Header />
-                        <main>{children}</main>
+                        <main className="px-5">{children}</main>
                     </div>
                 </div>
             </div>

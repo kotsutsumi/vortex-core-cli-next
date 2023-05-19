@@ -12,7 +12,7 @@ export default function IndexPage() {
             <ServerAuthContent>
                 {/* AppProvider */}
                 <AppProvider>
-                    <h1>Index Page</h1>
+                    <h1><%= it.page_path %></h1>
                 </AppProvider>
             </ServerAuthContent>
         </>

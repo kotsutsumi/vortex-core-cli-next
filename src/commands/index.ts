@@ -34,6 +34,7 @@ export default function registerCommand(
     program: Command,
     command_name: string,
     args: any,
+    opts: any[] | null,
     run: (...args: any[]) => void | Promise<void>
 ) {
     // create command
@@ -41,6 +42,12 @@ export default function registerCommand(
 
     for (const t of args) {
         cmd.argument(t.type, t.desc)
+    }
+
+    if (opts) {
+        for (const o of opts) {
+            cmd.option(o[0], o[1], o[2])
+        }
     }
 
     // set action
@@ -146,6 +153,17 @@ export const deployFiles = async (
                     recursive: true
                 })
             } else {
+                const destDir = path.dirname(
+                    `${dest}/${file
+                        .split('.')
+                        .slice(0, -1)
+                        .join('.')
+                        .replace(templateDir, '')}`
+                )
+
+                fs.existsSync(destDir) ||
+                    fs.mkdirSync(destDir, { recursive: true })
+
                 if (path.extname(file) == '.eta') {
                     fs.writeFileSync(
                         `${dest}/${file
