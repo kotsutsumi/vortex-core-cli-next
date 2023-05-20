@@ -63,14 +63,20 @@ export const runner = async (tasks: any, done: Function) => {
 
     // run each task
     for (const t of tasks) {
-        // start spinner
-        const spinner = ora(t.title).start()
+        let spinner: any = undefined
+
+        if (t.title) {
+            // start spinner
+            spinner = ora(t.title).start()
+        }
 
         // set interval spinner color
         const inetrval = setInterval(() => {
-            spinner.color = spinnerColors[
-                ++color % spinnerColors.length
-            ] as Color
+            if (t.title) {
+                spinner.color = spinnerColors[
+                    ++color % spinnerColors.length
+                ] as Color
+            }
         }, 500)
 
         // set start time
@@ -85,19 +91,21 @@ export const runner = async (tasks: any, done: Function) => {
         // clear interval
         clearInterval(inetrval)
 
-        // stop spinner
-        spinner.stop()
+        if (t.title) {
+            // stop spinner
+            spinner.stop()
 
-        // set time unit
-        const timeWithUnit =
-            endTime - startTime < 1000
-                ? Math.round(endTime - startTime) + 'ms'
-                : Math.round((endTime - startTime) / 100) / 10 + 's'
+            // set time unit
+            const timeWithUnit =
+                endTime - startTime < 1000
+                    ? Math.round(endTime - startTime) + 'ms'
+                    : Math.round((endTime - startTime) / 100) / 10 + 's'
 
-        // output title
-        console.log(
-            `${chalk.green('  ✓')} ${chalk.gray(t.title)} (${timeWithUnit})`
-        )
+            // output title
+            console.log(
+                `${chalk.green('  ✓')} ${chalk.gray(t.title)} (${timeWithUnit})`
+            )
+        }
 
         //
     }
