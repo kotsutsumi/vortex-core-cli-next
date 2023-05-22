@@ -1,0 +1,223 @@
+'use client'
+
+import Cover from '@/app/_components/Cover'
+import DefaultErrorPage from 'next/error'
+import useDetailSwr from '@/app/_fetch/<%= it.page_path %>/useDetailSwr'
+import { Skeleton } from 'primereact/skeleton'
+
+export default function Content({
+    id,
+    loadingType = 'skelton'
+}: {
+    id: string
+    loadingType: string
+}) {
+    // use side menu swr
+    const { data, isLoading, isError } = useDetailSwr(id)
+
+    // Loading
+    if (isLoading) {
+        if (loadingType == 'overlay') {
+            return <Cover />
+        } else if (loadingType == 'skelton') {
+            return (
+                <>
+                    <table>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th className="text-left">
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </th>
+                            <td>
+                                <Skeleton
+                                    width="10rem"
+                                    className="mb-2"
+                                ></Skeleton>
+                            </td>
+                        </tr>
+                    </table>
+                </>
+            )
+        }
+
+        return <DefaultErrorPage statusCode={500} />
+    }
+
+    // Error
+    if (isError) {
+        return <div className="text-red-500">Loading Error</div>
+    }
+
+    // ------------------------------------------------------------------------
+    return (
+        <>
+            <table>
+                <tr>
+                    <th className="text-left">ID:</th> <td>{data.id}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">CODE:</th> <td>{data.code}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">NAME:</th> <td>{data.name}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">DESCRIPTION:</th>{' '}
+                    <td>{data.description}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">IMAGE:</th> <td>{data.image}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">PRICE:</th> <td>{data.price}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">CATEGORY:</th>{' '}
+                    <td>{data.category}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">QUANTITY:</th>{' '}
+                    <td>{data.quantity}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">INVENTORY STATUS:</th>{' '}
+                    <td>{data.inventoryStatus}</td>{' '}
+                </tr>
+                <tr>
+                    <th className="text-left">RATING:</th>{' '}
+                    <td>{data.rating}</td>{' '}
+                </tr>
+            </table>
+        </>
+    )
+}
+
+// EOF

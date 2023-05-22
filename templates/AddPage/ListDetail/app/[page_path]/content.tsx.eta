@@ -5,9 +5,14 @@ import DefaultErrorPage from 'next/error'
 import useListSwr from '@/app/_fetch/<%= it.page_path %>/useListSwr'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Skeleton } from 'primereact/skeleton'
 
 export default function Content({ loadingType = 'skelton' }) {
+    // useRouter
+    const router = useRouter()
+
     // set dummy items
     const items = Array.from({ length: 6 }, (v, i) => i)
 
@@ -16,8 +21,23 @@ export default function Content({ loadingType = 'skelton' }) {
         return <Skeleton></Skeleton>
     }
 
+    // use selected item
+    const [selectedItem, setSelectedItem] = useState(null)
+
+    // use meta key
+    const [metaKey, setMetaKey] = useState(true)
+
     // use side menu swr
     const { data, isLoading, isError } = useListSwr()
+
+    // selection change event handler
+    const onSelectionChange = (e: any) => {
+        // set selected item
+        setSelectedItem(e.value as any)
+
+        // push to detail page
+        router.push(`/<%= it.page_path %>/${e.value.id}`)
+    }
 
     // Loading
     if (isLoading) {
@@ -70,7 +90,15 @@ export default function Content({ loadingType = 'skelton' }) {
     // ------------------------------------------------------------------------
     return (
         <>
-            <DataTable value={data} tableStyle={{ minWidth: '50rem' }}>
+            <DataTable
+                value={data}
+                selectionMode="single"
+                selection={selectedItem}
+                dataKey="id"
+                metaKeySelection={metaKey}
+                onSelectionChange={onSelectionChange}
+                tableStyle={{ minWidth: '50rem' }}
+            >
                 <Column field="code" header="Code"></Column>
                 <Column field="name" header="Name"></Column>
                 <Column field="category" header="Category"></Column>

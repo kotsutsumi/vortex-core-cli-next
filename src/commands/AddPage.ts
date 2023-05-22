@@ -1,11 +1,12 @@
 // AddPage.ts
 
+import List from '../actions/AddPage/List'
+import ListDetail from '../actions/AddPage/ListDetail'
 import Plain from '../actions/AddPage/Plain'
 import chalk from 'chalk'
 import path from 'path'
 import registerCommand, { displayTitle, runner } from '.'
 import { Command } from 'commander'
-import List from '../actions/AddPage/List'
 
 // set command name
 const command_name = 'add-page'
@@ -57,6 +58,14 @@ const run = async (page_path: any, opts: any) => {
         action_opts = {
             page_path: page_path,
             src: path.join(__dirname, '../templates/AddPage/List'),
+            dest: `${process.cwd()}`
+        }
+    } else if (opts.type === 'list-detail') {
+        title = 'Add List Detail Page'
+        action = ListDetail
+        action_opts = {
+            page_path: page_path,
+            src: path.join(__dirname, '../templates/AddPage/ListDetail'),
             dest: `${process.cwd()}`
         }
     }
