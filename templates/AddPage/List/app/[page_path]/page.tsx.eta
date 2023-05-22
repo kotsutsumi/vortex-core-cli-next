@@ -1,11 +1,11 @@
 // page.tsx
 
-import styles from './page.module.css'
-import ServerAuthContent from '@/app/_components/next-auth/ServerAuthContent'
 import AppProvider from '@/app/_providers/AppProvider'
 import Content from './content'
+import ServerAuthContent from '@/app/_components/next-auth/ServerAuthContent'
+import styles from './page.module.css'
 
-export default function IndexPage() {
+export default function ListSample() {
     // ------------------------------------------------------------------------
     return (
         <>
@@ -13,7 +13,11 @@ export default function IndexPage() {
             <ServerAuthContent>
                 {/* AppProvider */}
                 <AppProvider>
-                    <Content />
+                    <h1>List Sample</h1>
+                    <div className="mt-5">
+                        {/* <Content loadingType="overlay" /> */}
+                        <Content />
+                    </div>
                 </AppProvider>
             </ServerAuthContent>
         </>

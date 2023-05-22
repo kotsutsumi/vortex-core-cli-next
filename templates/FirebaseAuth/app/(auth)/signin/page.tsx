@@ -12,7 +12,7 @@ import { Message } from 'primereact/message'
 import { auth } from '@/libs/firebase/client'
 import { signIn as signInByNextAuth } from 'next-auth/react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { useState } from 'react'
+import { KeyboardEvent, useEffect, useState } from 'react'
 
 export default function SignInPage() {
     // darkmode state
@@ -32,6 +32,26 @@ export default function SignInPage() {
 
     // show error state
     const [showError, setShowError] = useState(false)
+
+    const onKeyDownForInput = (event: KeyboardEvent) => {
+        if (event.defaultPrevented) {
+            return // Do nothing if the event was already processed
+        }
+        switch (event.key) {
+            case 'Enter':
+                // Do something for "enter" or "return" key press.
+                signIn()
+                break
+            default:
+                // Quit when this doesn't handle the key event.
+                return
+        }
+
+        // Cancel the default action to avoid it being handled twice
+        event.preventDefault()
+
+        //
+    }
 
     const signIn = async () => {
         if (!email) return
@@ -134,6 +154,7 @@ export default function SignInPage() {
                         onChange={(event) => setEmail(event.target.value)}
                         // placeholder={'メールアドレスを入力してください。'}
                         className="w-full mb-3"
+                        onKeyDown={onKeyDownForInput}
                     />
 
                     {/* Password */}
@@ -149,6 +170,7 @@ export default function SignInPage() {
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}
                         className="w-full mb-8"
+                        onKeyDown={onKeyDownForInput}
                     />
 
                     {/* Remember Me */}

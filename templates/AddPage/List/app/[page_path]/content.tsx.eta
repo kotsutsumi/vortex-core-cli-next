@@ -1,18 +1,25 @@
 'use client'
 
 import Cover from '@/app/_components/Cover'
-import useSideMenuSwr from '@/app/_fetch/<%= it.page_path %>/useListSwr'
+import DefaultErrorPage from 'next/error'
+import Loading from './loading'
+import useListSwr from '@/app/_fetch/<%= it.page_path %>/useListSwr'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
-import { useState } from 'react'
 
-export default function Content() {
-    // use side menu swr
-    const { data, isLoading, isError } = useSideMenuSwr()
+export default function Content({ loadingType = 'skelton' }) {
+    // use list swr
+    const { data, isLoading, isError } = useListSwr()
 
     // Loading
     if (isLoading) {
-        return <Cover />
+        if (loadingType == 'overlay') {
+            return <Cover />
+        } else if (loadingType == 'skelton') {
+            return <Loading />
+        }
+
+        return <DefaultErrorPage statusCode={500} />
     }
 
     // Error

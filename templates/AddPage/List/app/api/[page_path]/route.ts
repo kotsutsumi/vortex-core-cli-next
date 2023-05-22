@@ -2,7 +2,17 @@
 
 import { NextResponse } from 'next/server'
 
+function sleep(waitSec: number) {
+    return new Promise(function (resolve: any) {
+        setTimeout(function () {
+            resolve()
+        }, waitSec)
+    })
+}
+
 export async function GET() {
+    await sleep(1000)
+
     const data = [
         {
             id: '1000',
