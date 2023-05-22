@@ -1,7 +1,7 @@
 // useListSwr.ts
 
 import useSWR from 'swr'
-import { fetcher } from '@/fetch/fetcher'
+import { fetcher } from '@/app/_fetch/fetcher'
 
 export const useListSwr = () => {
     // use swr

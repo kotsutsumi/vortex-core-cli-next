@@ -1,7 +1,7 @@
 'use client'
 
-import Cover from '@/components/Cover'
-import useSideMenuSwr from '@/fetch/<%= it.page_path %>/useListSwr'
+import Cover from '@/app/_components/Cover'
+import useSideMenuSwr from '@/app/_fetch/<%= it.page_path %>/useListSwr'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
 import { useState } from 'react'

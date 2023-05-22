@@ -2,7 +2,7 @@
 
 'use client'
 
-import Cover from '@/components/Cover'
+import Cover from '@/app/_components/Cover'
 import Image from 'next/image'
 import styles from './page.module.css'
 import { Button } from 'primereact/button'

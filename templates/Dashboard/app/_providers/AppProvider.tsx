@@ -4,8 +4,8 @@
 
 import { ReactNode } from 'react'
 import { RecoilRoot } from 'recoil'
-import Header from '@/components/Header'
-import Sidebar from '@/components/SideBar'
+import Header from '@/app/_components/Header'
+import Sidebar from '@/app/_components/SideBar'
 
 export default function AppProvider({ children }: { children: ReactNode }) {
     return (

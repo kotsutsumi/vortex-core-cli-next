@@ -7,6 +7,7 @@ import glob from 'glob'
 import ora, { Color } from 'ora'
 import path from 'path'
 import { Command } from 'commander'
+import packageJson from '../../package.json'
 
 // spinner colors
 const spinnerColors = [
@@ -24,7 +25,10 @@ export const displayTitle = (commandName: string) => {
     // output title
     console.log('')
     console.log(
-        chalk.bgGray(chalk.black(' Vortex Core CLI ')) + ' ' + commandName
+        chalk.bgGray(chalk.black(` Vortex Core CLI `)) +
+            chalk.bgBlue(chalk.black(` v${packageJson.version} `)) +
+            ' ' +
+            commandName
     )
     console.log('')
 }
