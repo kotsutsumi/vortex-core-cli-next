@@ -8,7 +8,14 @@ export default async function (opts: any) {
     process.chdir(`${opts.dest}`)
 
     // install packages
-    await execa(`npm`, ['i', 'react-loader-spinner', 'swr'])
+    await execa(`npm`, [
+        'i',
+        'react-loader-spinner',
+        'swr',
+        '@next/mdx',
+        '@mdx-js/loader',
+        '@mdx-js/react'
+    ])
 
     // install packages for development
     await execa(`npm`, ['i', '-D', '@vanilla-extract/next-plugin'])
