@@ -18,12 +18,7 @@ export default async function (opts: any) {
     ])
 
     // install packages for development
-    await execa(`npm`, [
-        'i',
-        '-D',
-        'modern-css-reset',
-        '@vanilla-extract/next-plugin'
-    ])
+    await execa(`npm`, ['i', '-D', 'modern-css-reset'])
 
     // deploy files
     deployFiles(opts.src, opts.dest, {}, {})
