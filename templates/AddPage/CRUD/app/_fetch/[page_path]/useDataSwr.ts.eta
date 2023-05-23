@@ -1,9 +1,9 @@
-// useListSwr.ts
+// useSideMenuSwr.ts
 
 import useSWR from 'swr'
 import { fetcher } from '../fetcher'
 
-export const useListSwr = () => {
+export const useDataSwr = () => {
     // use swr
     const { data, error } = useSWR(`/api/<%= it.page_path %>/`, fetcher)
 
@@ -16,6 +16,6 @@ export const useListSwr = () => {
     //
 }
 
-export default useListSwr
+export default useDataSwr
 
 // EOF

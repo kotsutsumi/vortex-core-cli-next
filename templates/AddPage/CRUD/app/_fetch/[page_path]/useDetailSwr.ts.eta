@@ -5,10 +5,7 @@ import { fetcher } from '../fetcher'
 
 export const useDetailSwr = (id: string) => {
     // use swr
-    const { data, error } = useSWR(
-        `/api/<%= it.page_path %>/${id}`,
-        fetcher
-    )
+    const { data, error } = useSWR(`/api/<%= it.page_path %>/${id}`, fetcher)
 
     return {
         data,

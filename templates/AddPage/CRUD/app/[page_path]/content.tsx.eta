@@ -1,0 +1,101 @@
+'use client'
+
+import Cover from '@/app/_components/Cover'
+import DefaultErrorPage from 'next/error'
+import useDataSwr from '@/app/_fetch/<%= it.page_path %>/useDataSwr'
+import { Column } from 'primereact/column'
+import { DataTable } from 'primereact/datatable'
+import { Skeleton } from 'primereact/skeleton'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from 'primereact/button'
+
+export default function Content({ loadingType = 'skelton' }) {
+    // useRouter
+    const router = useRouter()
+
+    // cover state
+    const [cover, setCover] = useState(false)
+
+    // use selected item
+    const [selectedItem, setSelectedItem] = useState(null)
+
+    // use meta key
+    const [metaKey, setMetaKey] = useState(true)
+
+    // use data swr
+    const { data, isLoading, isError } = useDataSwr()
+
+    // selection change event handler
+    const onSelectionChange = (e: any) => {
+        // set selected item
+        setSelectedItem(e.value as any)
+
+        // push to detail page
+        router.push(`/<%= it.page_path %>/${e.value.id}`)
+    }
+
+    // Loading
+    if (isLoading) {
+        return <Cover />
+    }
+
+    // Error
+    if (isError) {
+        return <div className="text-red-500">Loading Error</div>
+    }
+
+    const deleteBody = (rowData: any) => {
+        return (
+            <>
+                <Button
+                    label="DELETE"
+                    severity="danger"
+                    outlined
+                    onClick={async () => {
+                        const response = await fetch(
+                            `/api/<%= it.page_path %>/${rowData.id}`,
+                            {
+                                method: 'DELETE'
+                            }
+                        )
+
+                        window.location.reload()
+                    }}
+                />
+            </>
+        )
+    }
+
+    // ------------------------------------------------------------------------
+    return (
+        <>
+            {cover && <Cover />}
+            <div className="mb-4">
+                <Button
+                    label="Add New Note"
+                    onClick={(e) => {
+                        // push to new page
+                        router.push(`/<%= it.page_path %>/new`)
+                    }}
+                />
+            </div>
+            <DataTable
+                value={data}
+                selectionMode="single"
+                selection={selectedItem}
+                dataKey="id"
+                metaKeySelection={metaKey}
+                onSelectionChange={onSelectionChange}
+                tableStyle={{ minWidth: '50rem' }}
+            >
+                <Column field="id" header="Id"></Column>
+                <Column field="content" header="Content"></Column>
+                <Column field="createdAt" header="Last Update"></Column>
+                <Column field="id" body={deleteBody}></Column>
+            </DataTable>
+        </>
+    )
+}
+
+// EOF

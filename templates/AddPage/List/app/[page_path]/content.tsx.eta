@@ -16,7 +16,7 @@ export default function Content({ loadingType = 'skelton' }) {
         return <Skeleton></Skeleton>
     }
 
-    // use side menu swr
+    // use list swr
     const { data, isLoading, isError } = useListSwr()
 
     // Loading

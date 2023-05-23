@@ -14,11 +14,12 @@ export default async function (opts: any) {
         'swr',
         '@next/mdx',
         '@mdx-js/loader',
-        '@mdx-js/react'
+        '@mdx-js/react',
+        '@prisma/client'
     ])
 
     // install packages for development
-    await execa(`npm`, ['i', '-D', 'modern-css-reset'])
+    await execa(`npm`, ['i', '-D', 'prisma', 'modern-css-reset'])
 
     // deploy files
     deployFiles(opts.src, opts.dest, {}, {})

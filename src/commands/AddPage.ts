@@ -1,5 +1,6 @@
 // AddPage.ts
 
+import CRUD from '../actions/AddPage/CRUD'
 import List from '../actions/AddPage/List'
 import ListDetail from '../actions/AddPage/ListDetail'
 import Plain from '../actions/AddPage/Plain'
@@ -66,6 +67,14 @@ const run = async (page_path: any, opts: any) => {
         action_opts = {
             page_path: page_path,
             src: path.join(__dirname, '../templates/AddPage/ListDetail'),
+            dest: `${process.cwd()}`
+        }
+    } else if (opts.type == 'curd') {
+        title = 'Add CRUD Page'
+        action = CRUD
+        action_opts = {
+            page_path: page_path,
+            src: path.join(__dirname, '../templates/AddPage/CRUD'),
             dest: `${process.cwd()}`
         }
     }

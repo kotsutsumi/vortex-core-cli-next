@@ -1,0 +1,117 @@
+'use client'
+
+import Cover from '@/app/_components/Cover'
+import useDetailSwr from '@/app/_fetch/<%= it.page_path %>/useDetailSwr'
+import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Button } from 'primereact/button'
+import { InputTextarea } from 'primereact/inputtextarea'
+import { Skeleton } from 'primereact/skeleton'
+import { useEffect, useState } from 'react'
+
+export default function Content({
+    id,
+    loadingType = 'skelton'
+}: {
+    id: string
+    loadingType: string
+}) {
+    // useRouter
+    const router = useRouter()
+
+    // use content value
+    const [content, setContent] = useState<string>('')
+
+    // cover state
+    const [cover, setCover] = useState(false)
+
+    // use detail swr
+    const { data, isLoading, isError } = useDetailSwr(id)
+
+    // save event handler
+    const onSave = async () => {
+        setCover(true)
+
+        const response = await fetch(`/api/<%= it.page_path %>/${data.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ content })
+        })
+
+        setCover(false)
+
+        // push to list page
+        router.push(`/<%= it.page_path %>`)
+
+        //
+    }
+    useEffect(() => {
+        if (isLoading) {
+            return
+        }
+
+        setContent(data.content)
+    }, [data])
+
+    // Loading
+    if (isLoading) {
+        return <Cover />
+    }
+
+    // Error
+    if (isError) {
+        return <div className="text-red-500">Loading Error</div>
+    }
+
+    // ------------------------------------------------------------------------
+    return (
+        <>
+            {/* cover */}
+            {cover && <Cover />}
+
+            <div className="mb-4">
+                <Link href="/<%= it.page_path %>">
+                    <Button
+                        label="Back to List"
+                        icon="pi pi-angle-left"
+                        outlined
+                    />
+                </Link>
+            </div>
+            <div className="mb-2">
+                <InputTextarea
+                    value={content}
+                    onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+                        setContent(e.target.value)
+                    }
+                    rows={5}
+                    cols={50}
+                />
+            </div>
+            <div>
+                <Button label="UPDATE" onClick={onSave} />
+                <Button
+                    label="DELETE"
+                    severity="danger"
+                    className="ml-2"
+                    outlined
+                    onClick={async () => {
+                        const response = await fetch(
+                            `/api/<%= it.page_path %>/${data.id}`,
+                            {
+                                method: 'DELETE'
+                            }
+                        )
+
+                        // push to list page
+                        router.push(`/<%= it.page_path %>`)
+                    }}
+                />
+            </div>
+        </>
+    )
+}
+
+// EOF

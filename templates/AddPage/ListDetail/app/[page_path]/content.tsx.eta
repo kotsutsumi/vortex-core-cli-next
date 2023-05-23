@@ -27,7 +27,7 @@ export default function Content({ loadingType = 'skelton' }) {
     // use meta key
     const [metaKey, setMetaKey] = useState(true)
 
-    // use side menu swr
+    // use list swr
     const { data, isLoading, isError } = useListSwr()
 
     // selection change event handler
