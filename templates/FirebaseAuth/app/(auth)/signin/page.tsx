@@ -111,7 +111,7 @@ export default function SignInPage() {
                     <div>
                         <Image
                             priority
-                            className="mb-3 mt-3"
+                            className="inline mb-3 mt-3"
                             src="/images/logo-light.svg"
                             alt="Logo"
                             width={224}
