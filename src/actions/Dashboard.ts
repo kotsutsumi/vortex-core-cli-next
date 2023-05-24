@@ -11,6 +11,7 @@ export default async function (opts: any) {
     await execa(`npm`, [
         'i',
         'react-loader-spinner',
+        'nookies',
         'swr',
         '@next/mdx',
         '@mdx-js/loader',
@@ -19,7 +20,13 @@ export default async function (opts: any) {
     ])
 
     // install packages for development
-    await execa(`npm`, ['i', '-D', 'prisma', 'modern-css-reset'])
+    await execa(`npm`, [
+        'i',
+        '-D',
+        'prisma',
+        'modern-css-reset',
+        'next-translate-plugin'
+    ])
 
     // deploy files
     deployFiles(opts.src, opts.dest, {}, {})

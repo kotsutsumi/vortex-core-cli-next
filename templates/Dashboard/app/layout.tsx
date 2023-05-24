@@ -16,6 +16,7 @@ import '@/libs/primereact/dark-theme.css'
 
 import '@/app/globals.css'
 import { Inter } from 'next/font/google'
+import { cookies } from 'next/headers'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -31,11 +32,21 @@ export default function SignInLayout({
     children: React.ReactNode
     params: { lang: string }
 }) {
+    // set cookies
+    const cookieStore = cookies()
+
+    // set darkmode state from cookie
+    const cookieDarkMode = cookieStore.get('dark-mode')
+
     // ------------------------------------------------------------------------
 
     return (
         <html lang={lang}>
-            <body className={inter.className}>
+            <body
+                className={`${inter.className} ${
+                    cookieDarkMode?.value === 'true' ? 'dark-mode' : ''
+                }`}
+            >
                 {/* Children */}
                 {children}
             </body>

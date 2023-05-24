@@ -1,14 +1,25 @@
 // ThemeSwitcher.tsx
 
+'use client'
+
 import { Button } from 'primereact/button'
 // import { PrimeReactThemeContext } from '@/contexts/PrimeReactThemeContext'
 import { useContext, useEffect } from 'react'
 import toggleDarkMode, { isCurrentDarkMode } from '../misc/toggleDarkMode'
+import { useRecoilState } from 'recoil'
+import { darkModeState } from '@/app/_atoms/dark-mode'
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+
+// 60s x 60m x 24h x 30d
+const cookieMaxAge = 60 * 60 * 24 * 30
 
 export default function ThemeSwitcher(props: {
     tooltip: string
     onChange: (darkmode: boolean) => void
 }) {
+    // use darkmode recoil state
+    const [darkMode, setDarkMode] = useRecoilState(darkModeState)
+
     // similar to componentDidMount and componentDidUpdate
     useEffect(() => {
         if (isCurrentDarkMode()) {
@@ -30,6 +41,12 @@ export default function ThemeSwitcher(props: {
         // set localstorage
         localStorage.setItem('dark-mode', darkmode as unknown as string)
 
+        // set cookie
+        setCookie(null, 'dark-mode', darkmode ? 'true' : 'false', {
+            maxAge: cookieMaxAge,
+            path: '/'
+        })
+
         // call onChange
         props.onChange(darkmode)
 
@@ -40,7 +57,7 @@ export default function ThemeSwitcher(props: {
 
     return (
         <>
-            {!isCurrentDarkMode() && (
+            {!darkMode.enable && (
                 <Button
                     icon="pi pi-moon"
                     rounded
@@ -54,7 +71,7 @@ export default function ThemeSwitcher(props: {
                     }}
                 />
             )}
-            {isCurrentDarkMode() === true && (
+            {darkMode.enable === true && (
                 <Button
                     icon="pi pi-sun"
                     rounded

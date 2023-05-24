@@ -6,13 +6,12 @@ import Image from 'next/image'
 import Link from 'next/link'
 import SideMenu from './SideMenu'
 import { useEffect, useState } from 'react'
-import { isCurrentDarkMode } from '@/libs/misc/toggleDarkMode'
 import { darkModeState } from '@/app/_atoms/dark-mode'
-import { useRecoilValue } from 'recoil'
+import { useRecoilState, useRecoilValue } from 'recoil'
 
 export default function Sidebar() {
-    // use user recoil state
-    const darkMode = useRecoilValue(darkModeState)
+    // use darkmode recoil state
+    const [darkMode, setDarkMode] = useRecoilState(darkModeState)
 
     // similar to componentDidMount and componentDidUpdate
     useEffect(() => {
