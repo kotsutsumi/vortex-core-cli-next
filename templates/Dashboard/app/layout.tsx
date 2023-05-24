@@ -1,10 +1,20 @@
 // layout.tsx
 
-import '@/app/globals.css'
+// A modern CSS reset
+import 'modern-css-reset/dist/reset.min.css'
+
+// PrimeFlex
 import 'primeflex/primeflex.css'
+
+// PrimeIcons
 import 'primeicons/primeicons.css'
-import 'primereact/resources/themes/lara-light-blue/theme.css'
+
+// PrimeReact
 import 'primereact/resources/primereact.min.css'
+import '@/libs/primereact/light-theme.css'
+import '@/libs/primereact/dark-theme.css'
+
+import '@/app/globals.css'
 import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })

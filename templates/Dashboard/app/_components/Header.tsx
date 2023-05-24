@@ -3,15 +3,41 @@
 'use client'
 
 import { StyleClass } from 'primereact/styleclass'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Badge } from 'primereact/badge'
 import { InputText } from 'primereact/inputtext'
 import { Button } from 'primereact/button'
 import Link from 'next/link'
+import ThemeSwitcher from '@/libs/primereact/ThemeSwitcher'
+import { isCurrentDarkMode } from '@/libs/misc/toggleDarkMode'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { darkModeState } from '@/app/_atoms/dark-mode'
 
 export default function Header() {
+    // use darkmode recoil state
+    const [darkMode, setDarkMode] = useRecoilState(darkModeState)
+
+    // darkmode tooltip state
+    const [darkModeTooltip, setDarkModeTooltip] = useState('')
+
+    // update darkmode settings
+    const updateDarkModeSettings = (isDarkMode: boolean) => {
+        // update darkmode state
+        setDarkMode({ enable: isDarkMode })
+
+        // update darkmode tooltip
+        setDarkModeTooltip(!isDarkMode ? 'ダークモード' : 'ライトモード')
+
+        //
+    }
+
     // similar to componentDidMount and componentDidUpdate
-    useEffect(() => {}, [])
+    useEffect(() => {
+        // update darkmode settings
+        updateDarkModeSettings(isCurrentDarkMode())
+
+        //
+    }, [])
 
     const btnRef10 = useRef(null)
 
@@ -62,6 +88,13 @@ export default function Header() {
                 </div>
 
                 <ul className="list-none p-0 m-0 hidden lg:flex lg:align-items-center md:flex md:align-items-center select-none lg:flex-row border-1 lg:border-none surface-border right-0 top-100 z-1 shadow-2 lg:shadow-none md:shadow-none absolute lg:static md:static">
+                    {/* Notification */}
+                    <li className="mr-3">
+                        <ThemeSwitcher
+                            tooltip={darkModeTooltip}
+                            onChange={updateDarkModeSettings}
+                        />
+                    </li>
                     {/* Notification */}
                     <li className="mr-3">
                         <Link href="#">

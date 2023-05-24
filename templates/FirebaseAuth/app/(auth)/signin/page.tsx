@@ -2,21 +2,25 @@
 
 'use client'
 
+import '@/libs/primereact/locale-ja'
 import Cover from '@/app/_components/Cover'
 import Image from 'next/image'
+import ThemeSwitcher from '@/libs/primereact/ThemeSwitcher'
 import styles from './page.module.css'
 import { Button } from 'primereact/button'
 import { Checkbox } from 'primereact/checkbox'
 import { InputText } from 'primereact/inputtext'
+import { KeyboardEvent, useEffect, useState } from 'react'
 import { Message } from 'primereact/message'
 import { auth } from '@/libs/firebase/client'
+import { isCurrentDarkMode } from '@/libs/misc/toggleDarkMode'
+import { locale } from 'primereact/api'
 import { signIn as signInByNextAuth } from 'next-auth/react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import { KeyboardEvent, useEffect, useState } from 'react'
 
 export default function SignInPage() {
-    // darkmode state
-    const [isDarkMode, setIsDarkMode] = useState(false)
+    // set locale to Japanese for PrimeReact
+    locale('ja')
 
     // cover state
     const [cover, setCover] = useState(false)
@@ -33,6 +37,24 @@ export default function SignInPage() {
     // show error state
     const [showError, setShowError] = useState(false)
 
+    // logo src state
+    const [logoSrc, setLogoSrc] = useState('/images/logo-light.svg')
+
+    // darkmode tooltip state
+    const [darkModeTooltip, setDarkModeTooltip] = useState('')
+
+    // update darkmode settings
+    const updateDarkModeSettings = (isDarkMode: boolean) => {
+        // update logo src
+        setLogoSrc(`/images/logo-${isCurrentDarkMode() ? 'dark' : 'light'}.svg`)
+
+        // update darkmode tooltip
+        setDarkModeTooltip(!isDarkMode ? 'ダークモード' : 'ライトモード')
+
+        //
+    }
+
+    // input event handler process
     const onKeyDownForInput = (event: KeyboardEvent) => {
         if (event.defaultPrevented) {
             return // Do nothing if the event was already processed
@@ -85,24 +107,37 @@ export default function SignInPage() {
         //
     }
 
+    // similar to componentDidMount and componentDidUpdate
+    useEffect(() => {
+        // update darkmode settings
+        updateDarkModeSettings(isCurrentDarkMode())
+
+        //
+    }, [])
+
     // ------------------------------------------------------------------------
+
     return (
         <>
             {/* cover */}
             {cover && <Cover />}
 
             {/* top-right menus */}
-            {/*
+
             <div
                 className="absolute top-0 right-0 p-4 font-bold "
                 style={{ minWidth: 300, minHeight: 70 }}
             >
                 <div className="flex flex-row flex-wrap card-container blue-container">
-                    <div className="flex align-items-center justify-content-center w-2rem h-2rem mr-4 pt-4"></div>
+                    <div className="flex align-items-center justify-content-center mr-4 pt-4">
+                        <ThemeSwitcher
+                            tooltip={darkModeTooltip}
+                            onChange={updateDarkModeSettings}
+                        />
+                    </div>
                     <div className="flex align-items-center justify-content-center w-8 mr-4"></div>
                 </div>
             </div>
-            */}
 
             {/* SignIn Form */}
             <div className="surface-card p-4 shadow-2 border-round w-full max-w-28rem">
@@ -112,7 +147,7 @@ export default function SignInPage() {
                         <Image
                             priority
                             className="inline mb-3 mt-3"
-                            src="/images/logo-light.svg"
+                            src={logoSrc}
                             alt="Logo"
                             width={224}
                             height={64}
