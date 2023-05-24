@@ -1,12 +1,17 @@
 // Cover.tsx
 
-import { useEffect, useState } from 'react'
 import { Vortex } from 'react-loader-spinner'
+import { darkModeState } from '@/app/_atoms/dark-mode'
+import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 
 // define props type
 type TCoverProps = {}
 
 export default function Cover(props: TCoverProps) {
+    // use user recoil state
+    const darkMode = useRecoilValue(darkModeState)
+
     // base styles
     const baseStyle = {
         position: 'fixed',
@@ -15,7 +20,7 @@ export default function Cover(props: TCoverProps) {
         right: '0',
         bottom: '0',
         textAlign: 'center',
-        background: '#aaa',
+        background: darkMode ? '#000' : '#aaa',
         zIndex: '9999',
         opacity: '0.6',
         display: 'block'
@@ -27,9 +32,9 @@ export default function Cover(props: TCoverProps) {
 
     const [style, setStyle] = useState({
         ...baseStyle,
-        background: false ? '#000' : '#aaa'
+        background: darkMode ? '#000' : '#aaa'
     })
-    const [colors, setColors] = useState(false ? baseDarkColors : baseColors)
+    const [colors, setColors] = useState(darkMode ? baseDarkColors : baseColors)
 
     // base classes
     const className = ''
