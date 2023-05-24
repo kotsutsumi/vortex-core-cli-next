@@ -5,8 +5,11 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-export async function GET() {
-    const notes = await getAllNotes()
+export async function GET(request: NextRequest) {
+    const page = request.nextUrl.searchParams.get('page')
+    const limit = request.nextUrl.searchParams.get('limit')
+
+    const notes = await getAllNotes(Number(page), Number(limit))
     return NextResponse.json(notes)
 }
 
@@ -23,9 +26,15 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(notes)
 }
 
-export async function getAllNotes() {
-    const notes = await prisma.notes.findMany()
-    return notes
+export async function getAllNotes(page: number = 0, limit: number = 5) {
+    const notes = await prisma.notes.findMany({
+        skip: page * limit,
+        take: limit
+    })
+
+    const count = await prisma.notes.count()
+
+    return { rows: notes, total: count }
 }
 
 // EOF

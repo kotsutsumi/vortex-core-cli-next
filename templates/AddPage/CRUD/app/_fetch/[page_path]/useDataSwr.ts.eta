@@ -1,16 +1,21 @@
 // useSideMenuSwr.ts
 
-import useSWR from 'swr'
+import useSWR, { KeyedMutator } from 'swr'
 import { fetcher } from '../fetcher'
 
-export const useDataSwr = () => {
+export const useDataSwr = (page: number, limit: number) => {
+
     // use swr
-    const { data, error } = useSWR(`/api/<%= it.page_path %>/`, fetcher)
+    const { data, error, mutate } = useSWR(
+        `/api/<%= it.page_path %>?page=${page}&limit=${limit}`,
+        fetcher
+    )
 
     return {
         data,
         isLoading: !error && !data,
-        isError: error
+        isError: error,
+        mutete: mutate
     }
 
     //

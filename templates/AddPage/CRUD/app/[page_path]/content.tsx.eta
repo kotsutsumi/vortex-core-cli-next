@@ -3,16 +3,30 @@
 import Cover from '@/app/_components/Cover'
 import DefaultErrorPage from 'next/error'
 import useDataSwr from '@/app/_fetch/<%= it.page_path %>/useDataSwr'
+import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
+import { Paginator } from 'primereact/paginator'
 import { Skeleton } from 'primereact/skeleton'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import { Button } from 'primereact/button'
 
 export default function Content({ loadingType = 'skelton' }) {
     // useRouter
     const router = useRouter()
+
+    // useSearchParams
+    const searchParams = useSearchParams()
+
+    // set page state
+    const [page, setPage] = useState(
+        searchParams.get('page') ? searchParams.get('page') : 0
+    )
+
+    // set limit state
+    const [limit, setLimit] = useState(
+        searchParams.get('limit') ? Number(searchParams.get('limit')) : 5
+    )
 
     // cover state
     const [cover, setCover] = useState(false)
@@ -24,7 +38,27 @@ export default function Content({ loadingType = 'skelton' }) {
     const [metaKey, setMetaKey] = useState(true)
 
     // use data swr
-    const { data, isLoading, isError } = useDataSwr()
+    const { data, isLoading, isError, mutete } = useDataSwr(
+        page as number,
+        limit as number
+    )
+
+    // use first state
+    const [first, setFirst] = useState(
+        parseInt(page as any) * parseInt(limit as any)
+    )
+
+    // use rows state
+    const [rows, setRows] = useState(limit)
+
+    const onPageChange = (event: any) => {
+        // set first and rows
+        setFirst(event.page * event.rows)
+        setRows(event.rows)
+
+        // redirect to new page
+        window.location.href = `/<%= it.page_path %>?page=${event.page}&limit=${event.rows}`
+    }
 
     // selection change event handler
     const onSelectionChange = (e: any) => {
@@ -68,6 +102,7 @@ export default function Content({ loadingType = 'skelton' }) {
     }
 
     // ------------------------------------------------------------------------
+
     return (
         <>
             {cover && <Cover />}
@@ -81,7 +116,9 @@ export default function Content({ loadingType = 'skelton' }) {
                 />
             </div>
             <DataTable
-                value={data}
+                value={data.rows}
+                rows={rows as any}
+                stripedRows
                 selectionMode="single"
                 selection={selectedItem}
                 dataKey="id"
@@ -94,6 +131,13 @@ export default function Content({ loadingType = 'skelton' }) {
                 <Column field="createdAt" header="Last Update"></Column>
                 <Column field="id" body={deleteBody}></Column>
             </DataTable>
+            <Paginator
+                first={first as any}
+                rows={rows as any}
+                totalRecords={data.total}
+                rowsPerPageOptions={[5, 10, 25, 50]}
+                onPageChange={onPageChange}
+            />
         </>
     )
 }

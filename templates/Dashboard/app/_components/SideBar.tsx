@@ -13,7 +13,7 @@ export default function Sidebar() {
             {/* Sidebar */}
             <div
                 id="sidebar"
-                className="surface-section h-screen hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none"
+                className="surface-section hidden lg:block flex-shrink-0 absolute lg:static left-0 top-0 z-1 border-right-1 surface-border select-none"
                 style={{ width: '280px' }}
             >
                 {/* Sidebar Items */}

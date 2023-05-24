@@ -69,7 +69,7 @@ const run = async (page_path: any, opts: any) => {
             src: path.join(__dirname, '../templates/AddPage/ListDetail'),
             dest: `${process.cwd()}`
         }
-    } else if (opts.type == 'curd') {
+    } else if (opts.type == 'crud') {
         title = 'Add CRUD Page'
         action = CRUD
         action_opts = {
