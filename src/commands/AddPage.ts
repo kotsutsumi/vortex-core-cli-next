@@ -4,6 +4,7 @@ import CRUD from '../actions/AddPage/CRUD'
 import List from '../actions/AddPage/List'
 import ListDetail from '../actions/AddPage/ListDetail'
 import Plain from '../actions/AddPage/Plain'
+import Responsive from '../actions/AddPage/Responsive'
 import chalk from 'chalk'
 import path from 'path'
 import registerCommand, { displayTitle, runner } from '.'
@@ -75,6 +76,14 @@ const run = async (page_path: any, opts: any) => {
         action_opts = {
             page_path: page_path,
             src: path.join(__dirname, '../templates/AddPage/CRUD'),
+            dest: `${process.cwd()}`
+        }
+    } else if (opts.type == 'responsive') {
+        title = 'Add Responsive Page'
+        action = Responsive
+        action_opts = {
+            page_path: page_path,
+            src: path.join(__dirname, '../templates/AddPage/Responsive'),
             dest: `${process.cwd()}`
         }
     }

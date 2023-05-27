@@ -15,8 +15,50 @@ import 'primeicons/primeicons.css'
 // [@-- section="PrimeReact" type="import"]
 import 'primereact/resources/primereact.min.css'
 import '@/libs/vortexcore/primereact/locale-ja'
-import '@/libs/vortexcore/primereact/light-theme.css'
-import '@/libs/vortexcore/primereact/dark-theme.css'
+
+// lara-blue
+import '@/libs/vortexcore/primereact/themes/lara-blue/light-theme.css'
+import '@/libs/vortexcore/primereact/themes/lara-blue/dark-theme.css'
+
+// lara-indigo
+// import '@/libs/vortexcore/primereact/themes/lara-indigo/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/lara-indigo/dark-theme.css'
+
+// lara-purple
+// import '@/libs/vortexcore/primereact/themes/lara-purple/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/lara-purple/dark-theme.css'
+
+// lara-teal
+// import '@/libs/vortexcore/primereact/themes/lara-teal/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/lara-teal/dark-theme.css'
+
+// md-deeppurple
+// import '@/libs/vortexcore/primereact/themes/md-deeppurple/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/md-deeppurple/dark-theme.css'
+
+// md-indigo
+// import '@/libs/vortexcore/primereact/themes/md-indigo/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/md-indigo/dark-theme.css'
+
+// mdc-deeppurple
+// import '@/libs/vortexcore/primereact/themes/mdc-deeppurple/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/mdc-deeppurple/dark-theme.css'
+
+// mdc-indigo
+// import '@/libs/vortexcore/primereact/themes/mdc-indigo/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/mdc-indigo/dark-theme.css'
+
+// soho
+// import '@/libs/vortexcore/primereact/themes/soho/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/soho/dark-theme.css'
+
+// bootstrap4-blue
+// import '@/libs/vortexcore/primereact/themes/bootstrap4-blue/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/bootstrap4-blue/dark-theme.css'
+
+// bootstrap4-purple
+// import '@/libs/vortexcore/primereact/themes/bootstrap4-purple/light-theme.css'
+// import '@/libs/vortexcore/primereact/themes/bootstrap4-purple/dark-theme.css'
 // [/@--]
 
 // [@-- section="CustomCSS" type="import"]
