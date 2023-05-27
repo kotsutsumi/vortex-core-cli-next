@@ -16,7 +16,10 @@ export async function GET(
         }
     })
 
-    return NextResponse.json(data)
+    return NextResponse.json({
+        success: data !== null,
+        data: data
+    })
 }
 
 export async function PUT(
