@@ -62,7 +62,19 @@ export default function Content({ id }: { id: string }) {
             return
         }
 
-        setContent(data.content)
+        if (data.success === false) {
+            // push to list page
+            router.push(`/crud-sample`)
+
+            return
+
+            //
+        }
+
+        // set content
+        setContent(data.data.content)
+
+        //
     }, [data])
 
     // Loading
