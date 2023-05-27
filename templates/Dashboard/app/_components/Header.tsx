@@ -2,40 +2,23 @@
 
 'use client'
 
-import { StyleClass } from 'primereact/styleclass'
-import { useEffect, useRef, useState } from 'react'
-import { Badge } from 'primereact/badge'
-import { InputText } from 'primereact/inputtext'
-import { Button } from 'primereact/button'
+import LanguageSwitcher from '@/app/_components/LanguageSwitcher'
+import ThemeSwitcher from '@/libs/vortexcore/primereact/ThemeSwitcher'
 import Link from 'next/link'
-import ThemeSwitcher from '@/libs/primereact/ThemeSwitcher'
-import { isCurrentDarkMode } from '@/libs/misc/toggleDarkMode'
+// import ThemeSwitcher from '@/libs/primereact/ThemeSwitcher'
+import { Badge } from 'primereact/badge'
+import { Button } from 'primereact/button'
+import { InputText } from 'primereact/inputtext'
+import { StyleClass } from 'primereact/styleclass'
+// import { darkModeState } from '@/app/_atoms/dark-mode'
+// import { dictState } from '@/app/_atoms/dict'
+// import { isCurrentDarkMode } from '@/libs/misc/toggleDarkMode'
+import { useEffect, useRef, useState } from 'react'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { darkModeState } from '@/app/_atoms/dark-mode'
 
 export default function Header() {
-    // use darkmode recoil state
-    const [darkMode, setDarkMode] = useRecoilState(darkModeState)
-
-    // darkmode tooltip state
-    const [darkModeTooltip, setDarkModeTooltip] = useState('')
-
-    // update darkmode settings
-    const updateDarkModeSettings = (isDarkMode: boolean) => {
-        // update darkmode state
-        setDarkMode({ enable: isDarkMode })
-
-        // update darkmode tooltip
-        setDarkModeTooltip(!isDarkMode ? 'ダークモード' : 'ライトモード')
-
-        //
-    }
-
     // similar to componentDidMount and componentDidUpdate
     useEffect(() => {
-        // update darkmode settings
-        updateDarkModeSettings(isCurrentDarkMode())
-
         //
     }, [])
 
@@ -46,10 +29,11 @@ export default function Header() {
     return (
         <>
             <div
-                className="flex my-4 justify-content-between align-items-center px-5 border-bottom-1 surface-border relative"
+                className="flex my-4 justify-content-between align-items-center px-5 surface-border relative"
                 style={{ height: '60px' }}
             >
                 <div className="flex">
+                    {/* @ts-ignore */}
                     <StyleClass
                         nodeRef={btnRef10}
                         selector="#sidebar"
@@ -63,6 +47,7 @@ export default function Header() {
                             ref={btnRef10}
                             className="cursor-pointer block lg:hidden text-700 mr-3"
                         >
+                            {/* @ts-ignore */}
                             <Button
                                 icon="pi pi-bars"
                                 size="large"
@@ -88,23 +73,26 @@ export default function Header() {
                 </div>
 
                 <ul className="list-none p-0 m-0 hidden lg:flex lg:align-items-center md:flex md:align-items-center select-none lg:flex-row border-1 lg:border-none surface-border right-0 top-100 z-1 shadow-2 lg:shadow-none md:shadow-none absolute lg:static md:static">
-                    {/* Notification */}
+                    {/* Theme Switcher */}
                     <li className="mr-3">
-                        <ThemeSwitcher
-                            tooltip={darkModeTooltip}
-                            onChange={updateDarkModeSettings}
-                        />
+                        <ThemeSwitcher />
                     </li>
+
                     {/* Notification */}
-                    <li className="mr-3">
+                    <li className="mr-5">
                         <Link href="#">
                             <i
                                 className="pi pi-bell p-overlay-badge text-600 hover:text-900"
                                 style={{ fontSize: '1.25rem' }}
                             >
+                                {/* @ts-ignore */}
                                 <Badge severity="danger" value="2"></Badge>
                             </i>
                         </Link>
+                    </li>
+
+                    <li className="mr-3">
+                        <LanguageSwitcher />
                     </li>
 
                     {/* Account */}

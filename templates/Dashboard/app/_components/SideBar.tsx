@@ -5,9 +5,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import SideMenu from './SideMenu'
+import isDarkMode from '@/libs/vortexcore/misc/isDarkMode'
+import { darkModeState } from '@/libs/vortexcore/atoms/dark-mode'
 import { useEffect, useState } from 'react'
-import { darkModeState } from '@/app/_atoms/dark-mode'
-import { useRecoilState, useRecoilValue } from 'recoil'
+import { useRecoilState } from 'recoil'
 
 export default function Sidebar() {
     // use darkmode recoil state
@@ -15,6 +16,8 @@ export default function Sidebar() {
 
     // similar to componentDidMount and componentDidUpdate
     useEffect(() => {
+        // set darkmode state
+        setDarkMode({ enable: isDarkMode() })
         //
     }, [])
 
@@ -36,14 +39,22 @@ export default function Sidebar() {
                         style={{ height: '60px' }}
                     >
                         <Link href="/">
-                            <Image
-                                src={`/images/logo-${
-                                    darkMode.enable ? 'dark' : 'light'
-                                }.svg`}
-                                alt="Logo"
-                                height={48}
-                                width={168}
-                            />
+                            {darkMode.enable && (
+                                <Image
+                                    src={`/images/logo-dark.svg`}
+                                    alt="Logo"
+                                    height={48}
+                                    width={168}
+                                />
+                            )}
+                            {!darkMode.enable && (
+                                <Image
+                                    src={`/images/logo-light.svg`}
+                                    alt="Logo"
+                                    height={48}
+                                    width={168}
+                                />
+                            )}
                         </Link>
                     </div>
 

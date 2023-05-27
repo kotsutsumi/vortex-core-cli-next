@@ -34,7 +34,7 @@ import AppProvider from '@/app/_providers/AppProvider'
 // [/@--]
 
 // [@-- section="GoogleFont" type="import"]
-import { Inter } from '@next/font/google'
+import { Inter } from 'next/font/google'
 
 const inter = Inter({ subsets: ['latin'] })
 // [/@--]

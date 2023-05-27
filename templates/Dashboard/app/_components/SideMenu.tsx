@@ -1,11 +1,10 @@
 // SideMenu.tsx
 
+import Link from 'next/link'
+import { NodeService } from '@/app/_components/services/SideMenu/NodeService'
 import { Ripple } from 'primereact/ripple'
 import { StyleClass } from 'primereact/styleclass'
-import { useRef } from 'react'
-import PrimeReact from 'primereact/api'
-import { NodeService } from '@/app/services/SideMenu/NodeService'
-import Link from 'next/link'
+import { useRef as UseRef } from 'react'
 
 const buildMenu = (items: any[], depth: number = 0) => {
     let ret
@@ -15,18 +14,20 @@ const buildMenu = (items: any[], depth: number = 0) => {
             // node
             const indent = 'pl-' + (depth + 3)
             const classes = `p-ripple p-3 ${indent} flex align-items-center justify-content-between text-600 cursor-pointer`
-            const ref = useRef(null)
+            const ref = UseRef(null)
 
             ret = (
                 <>
                     {ret}
+
+                    {/* @ts-ignore */}
                     <StyleClass
                         nodeRef={ref}
                         selector="@next"
                         enterClassName="hidden"
-                        enterActiveClassName="slidedown"
+                        // enterActiveClassName="slidedown"
                         leaveToClassName="hidden"
-                        leaveActiveClassName="slideup"
+                        // leaveActiveClassName="slideup"
                     >
                         <div ref={ref} className={classes}>
                             <span className="font-medium">
@@ -36,6 +37,8 @@ const buildMenu = (items: any[], depth: number = 0) => {
                                 {item.label}
                             </span>
                             <i className="pi pi-chevron-down"></i>
+
+                            {/* @ts-ignore */}
                             <Ripple />
                         </div>
                     </StyleClass>
@@ -63,6 +66,8 @@ const buildMenu = (items: any[], depth: number = 0) => {
                                 <i className={item.icon + ' mr-2'}></i>
                             )}
                             <span className="font-medium">{item.label}</span>
+
+                            {/* @ts-ignore */}
                             <Ripple />
                         </Link>
                     </div>
@@ -81,9 +86,6 @@ const buildMenu = (items: any[], depth: number = 0) => {
 }
 
 export default function SideMenu() {
-    // set ripple effect globally
-    PrimeReact.ripple = true
-
     // set node data
     const items = NodeService.getTreeNodesData()
 
@@ -92,7 +94,7 @@ export default function SideMenu() {
 
     // build menu
     const menu = buildMenu(items)
-    const ref1 = useRef(null)
+    const ref1 = UseRef(null)
 
     // ------------------------------------------------------------------------
     return (

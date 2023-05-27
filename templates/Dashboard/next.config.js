@@ -1,19 +1,23 @@
-const withMDX = require('@next/mdx')({
-    extension: /\.mdx$/
-})
+// const withMDX = require('@next/mdx')({
+//     extension: /\.mdx$/
+// })
 
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+    i18n: {
+        // These are all the locales you want to support in
+        // your application
+        locales: ['en', 'ja'],
 
-module.exports = withMDX(nextConfig)
+        // This is the default locale you want to be used when visiting
+        // a non-locale prefixed path e.g. `/hello`
+        defaultLocale: 'ja'
+    }
 
-/*
-// NextTranslate
-const nextTranslate = require('next-translate-plugin')
+    //
+}
 
-module.exports = nextTranslate({
-    experimental: { appDir: true }
-})
-*/
+// module.exports = withMDX(nextConfig)
+module.exports = nextConfig
 
 // EOF

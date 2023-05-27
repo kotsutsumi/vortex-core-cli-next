@@ -14,9 +14,6 @@ export default async function (opts: any) {
         'nookies',
         'server-only',
         'swr',
-        '@next/mdx',
-        '@mdx-js/loader',
-        '@mdx-js/react',
         '@prisma/client'
     ])
 
