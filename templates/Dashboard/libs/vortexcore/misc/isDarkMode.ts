@@ -1,7 +1,13 @@
 // isDarkMode.ts
 
+'use client'
+
 export default () => {
-    return document && document.body.classList.contains('dark-mode')
+    if (typeof document === 'undefined') {
+        return false
+    }
+
+    return document.body.classList.contains('dark-mode')
 
     //
 }
