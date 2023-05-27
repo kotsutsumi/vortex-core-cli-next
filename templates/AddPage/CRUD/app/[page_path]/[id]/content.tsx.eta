@@ -64,7 +64,7 @@ export default function Content({ id }: { id: string }) {
 
         if (data.success === false) {
             // push to list page
-            router.push(`/crud-sample`)
+            router.push(`/<%= it.page_path %>`)
 
             return
 
