@@ -77,6 +77,14 @@ const run = async (page_path: any, opts: any) => {
             src: path.join(__dirname, '../templates/AddPage/CRUD'),
             dest: `${process.cwd()}`
         }
+    } else if (opts.type == 'responsive') {
+        title = 'Add Responsive Page'
+        action = CRUD
+        action_opts = {
+            page_path: page_path,
+            src: path.join(__dirname, '../templates/AddPage/Responsive'),
+            dest: `${process.cwd()}`
+        }
     }
 
     if (!action) {
