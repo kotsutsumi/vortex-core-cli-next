@@ -12,6 +12,7 @@ export default async function (opts: any) {
         'i',
         'react-loader-spinner',
         'nookies',
+        'server-only',
         'swr',
         '@next/mdx',
         '@mdx-js/loader',

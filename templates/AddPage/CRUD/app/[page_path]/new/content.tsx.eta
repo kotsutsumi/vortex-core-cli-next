@@ -1,19 +1,17 @@
 'use client'
 
+// [@-- section="Import"]
 import Cover from '@/app/_components/Cover'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import t from '@/libs/vortexcore/misc/transtate'
 import { Button } from 'primereact/button'
 import { InputTextarea } from 'primereact/inputtextarea'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
+// [/@--]
 
-export default function Content({
-    id,
-    loadingType = 'skelton'
-}: {
-    id: string
-    loadingType: string
-}) {
+// [@-- section="Code"]
+export default function Content() {
     // useRouter
     const router = useRouter()
 
@@ -23,8 +21,15 @@ export default function Content({
     // cover state
     const [cover, setCover] = useState(false)
 
+    // use back to list text state
+    const [backToListText, setbackToListText] = useState(t('back_to_list'))
+
+    // use save text state
+    const [saveText, setSaveText] = useState(t('save'))
+
     // save event handler
     const onSave = async () => {
+        // show cover
         setCover(true)
 
         const response = await fetch('/api/<%= it.page_path %>', {
@@ -35,6 +40,7 @@ export default function Content({
             body: JSON.stringify({ content })
         })
 
+        // hide cover
         setCover(false)
 
         // push to list page
@@ -44,7 +50,10 @@ export default function Content({
     }
 
     // ------------------------------------------------------------------------
+
     return (
+        // [@-- section="TSX" type="default"]
+
         <>
             {/* cover */}
             {cover && <Cover />}
@@ -52,7 +61,7 @@ export default function Content({
             <div className="mb-4">
                 <Link href="/<%= it.page_path %>">
                     <Button
-                        label="Back to List"
+                        label={backToListText}
                         icon="pi pi-angle-left"
                         outlined
                     />
@@ -69,10 +78,15 @@ export default function Content({
                 />
             </div>
             <div>
-                <Button label="SAVE" onClick={onSave} />
+                <Button label={saveText} onClick={onSave} />
             </div>
         </>
+
+        // [/@--]
     )
+
+    //
 }
+// [/@--]
 
 // EOF

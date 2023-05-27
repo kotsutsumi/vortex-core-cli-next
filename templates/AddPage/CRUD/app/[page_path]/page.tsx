@@ -1,26 +1,32 @@
 // page.tsx
 
-import AppProvider from '@/app/_providers/AppProvider'
+// [@-- section="Import"]
 import Content from './content'
+import DashboardProvider from '@/app/_providers/DashboardProvider'
 import ServerAuthContent from '@/app/_components/next-auth/ServerAuthContent'
-import styles from './page.module.css'
+// [/@--]
 
-export default function Page() {
+// [@-- section="Code"]
+export default async function Page() {
     // ------------------------------------------------------------------------
+
     return (
+        // [@-- section="TSX" type="default"]
+
         <>
             {/* @ts-expect-error Server Component */}
             <ServerAuthContent>
-                {/* AppProvider */}
-                <AppProvider>
+                {/* DashboardProvider */}
+                <DashboardProvider>
                     <h1>CRUD Sample</h1>
                     <div className="mt-5">
-                        {/* <Content loadingType="overlay" /> */}
                         <Content />
                     </div>
-                </AppProvider>
+                </DashboardProvider>
             </ServerAuthContent>
         </>
+
+        // [/@--]
     )
 
     //

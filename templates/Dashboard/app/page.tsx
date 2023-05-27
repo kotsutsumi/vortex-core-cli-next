@@ -1,19 +1,20 @@
 // page.tsx
 
-import styles from './page.module.css'
 import ServerAuthContent from '@/app/_components/next-auth/ServerAuthContent'
-import AppProvider from '@/app/_providers/AppProvider'
+import DashboardProvider from '@/app/_providers/DashboardProvider'
 
-export default function IndexPage() {
+export default async function IndexPage() {
     // ------------------------------------------------------------------------
+
     return (
         <>
-            {/* @ts-expect-error Server Component */}
+            {/* @ts-ignore */}
             <ServerAuthContent>
-                {/* AppProvider */}
-                <AppProvider>
+                {/* Dashboard Provider */}
+                {/* <DashboardProvider isDarkMode={isDarkMode()}> */}
+                <DashboardProvider>
                     <h1>Index Page</h1>
-                </AppProvider>
+                </DashboardProvider>
             </ServerAuthContent>
         </>
     )

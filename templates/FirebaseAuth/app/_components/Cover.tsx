@@ -1,7 +1,7 @@
 // Cover.tsx
 
 import { Vortex } from 'react-loader-spinner'
-import { darkModeState } from '@/app/_atoms/dark-mode'
+import { darkModeState } from '@/libs/vortexcore/atoms/dark-mode'
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 

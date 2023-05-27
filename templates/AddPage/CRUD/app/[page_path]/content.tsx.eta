@@ -1,17 +1,19 @@
 'use client'
 
+// [@-- section="Import"]
 import Cover from '@/app/_components/Cover'
-import DefaultErrorPage from 'next/error'
+import t from '@/libs/vortexcore/misc/transtate'
 import useDataSwr from '@/app/_fetch/<%= it.page_path %>/useDataSwr'
 import { Button } from 'primereact/button'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
 import { Paginator } from 'primereact/paginator'
-import { Skeleton } from 'primereact/skeleton'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
+// [/@--]
 
-export default function Content({ loadingType = 'skelton' }) {
+// [@-- section="Code"]
+export default function Content() {
     // useRouter
     const router = useRouter()
 
@@ -37,27 +39,34 @@ export default function Content({ loadingType = 'skelton' }) {
     // use meta key
     const [metaKey, setMetaKey] = useState(true)
 
-    // use data swr
-    const { data, isLoading, isError, mutete } = useDataSwr(
-        page as number,
-        limit as number
-    )
-
     // use first state
     const [first, setFirst] = useState(
         parseInt(page as any) * parseInt(limit as any)
     )
 
+    // use delete text state
+    const [deleteText, setDeleteText] = useState(t('delete'))
+
+    // use add new note text state
+    const [addNewNoteText, setAddNewNoteText] = useState(t('add_new_note'))
+
+    // use contents text state
+    const [contentsText, setContentsText] = useState(t('contents'))
+
+    // use update text state
+    const [updateText, setUpdateText] = useState(t('update'))
+
     // use rows state
     const [rows, setRows] = useState(limit)
 
+    // on page change event handler
     const onPageChange = (event: any) => {
         // set first and rows
         setFirst(event.page * event.rows)
         setRows(event.rows)
 
         // redirect to new page
-        window.location.href = `/<%= it.page_path %>?page=${event.page}&limit=${event.rows}`
+        window.location.href = `/<%= it.page_path %>/?page=${event.page}&limit=${event.rows}`
     }
 
     // selection change event handler
@@ -69,21 +78,48 @@ export default function Content({ loadingType = 'skelton' }) {
         router.push(`/<%= it.page_path %>/${e.value.id}`)
     }
 
+    // use data swr
+    const { data, isLoading, isError, mutete } = useDataSwr(
+        page as number,
+        limit as number
+    )
+
     // Loading
     if (isLoading) {
+        // Overlay
+
+        // [@-- section="TSX" type="overlay"]
+
+        // --------------------------------------------------------------------
+
         return <Cover />
+
+        // [/@--]
     }
 
-    // Error
+    // Loading Error
     if (isError) {
-        return <div className="text-red-500">Loading Error</div>
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="loading-error"]
+
+            <div className="text-red-500">Loading Error</div>
+
+            // [/@--]
+        )
+
+        //
     }
 
+    // Delete Column Body
     const deleteBody = (rowData: any) => {
+        // --------------------------------------------------------------------
+
         return (
             <>
                 <Button
-                    label="DELETE"
+                    label={deleteText}
                     severity="danger"
                     outlined
                     onClick={async () => {
@@ -99,16 +135,20 @@ export default function Content({ loadingType = 'skelton' }) {
                 />
             </>
         )
+
+        //
     }
 
     // ------------------------------------------------------------------------
 
     return (
+        // [@-- section="TSX" type="default"]
+
         <>
             {cover && <Cover />}
             <div className="mb-4">
                 <Button
-                    label="Add New Note"
+                    label={addNewNoteText}
                     onClick={(e) => {
                         // push to new page
                         router.push(`/<%= it.page_path %>/new`)
@@ -127,8 +167,8 @@ export default function Content({ loadingType = 'skelton' }) {
                 tableStyle={{ minWidth: '50rem' }}
             >
                 <Column field="id" header="Id"></Column>
-                <Column field="content" header="Content"></Column>
-                <Column field="createdAt" header="Last Update"></Column>
+                <Column field="content" header={contentsText}></Column>
+                <Column field="createdAt" header={updateText}></Column>
                 <Column field="id" body={deleteBody}></Column>
             </DataTable>
             <Paginator
@@ -139,7 +179,12 @@ export default function Content({ loadingType = 'skelton' }) {
                 onPageChange={onPageChange}
             />
         </>
+
+        // [/@--]
     )
+
+    //
 }
+// [/@--]
 
 // EOF

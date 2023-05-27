@@ -1,21 +1,18 @@
 'use client'
 
+// [@-- section="Import"]
 import Cover from '@/app/_components/Cover'
-import useDetailSwr from '@/app/_fetch/<%= it.page_path %>/useDetailSwr'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import t from '@/libs/vortexcore/misc/transtate'
+import useDetailSwr from '@/app/_fetch/<%= it.page_path %>/useDetailSwr'
 import { Button } from 'primereact/button'
 import { InputTextarea } from 'primereact/inputtextarea'
-import { Skeleton } from 'primereact/skeleton'
 import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+// [/@--]
 
-export default function Content({
-    id,
-    loadingType = 'skelton'
-}: {
-    id: string
-    loadingType: string
-}) {
+// [@-- section="Code"]
+export default function Content({ id }: { id: string }) {
     // useRouter
     const router = useRouter()
 
@@ -25,11 +22,21 @@ export default function Content({
     // cover state
     const [cover, setCover] = useState(false)
 
+    // use back to list text state
+    const [backToListText, setbackToListText] = useState(t('back_to_list'))
+
+    // use update text state
+    const [updateText, setUpdateText] = useState(t('update'))
+
+    // use delete text state
+    const [deleteText, setDeleteText] = useState(t('delete'))
+
     // use detail swr
     const { data, isLoading, isError } = useDetailSwr(id)
 
     // save event handler
     const onSave = async () => {
+        // show cover
         setCover(true)
 
         const response = await fetch(`/api/<%= it.page_path %>/${data.id}`, {
@@ -40,6 +47,7 @@ export default function Content({
             body: JSON.stringify({ content })
         })
 
+        // hide cover
         setCover(false)
 
         // push to list page
@@ -47,6 +55,8 @@ export default function Content({
 
         //
     }
+
+    // simular to componentDidMount
     useEffect(() => {
         if (isLoading) {
             return
@@ -57,16 +67,36 @@ export default function Content({
 
     // Loading
     if (isLoading) {
+        // Overlay
+
+        // [@-- section="TSX" type="overlay"]
+
+        // --------------------------------------------------------------------
+
         return <Cover />
+
+        // [/@--]
     }
 
     // Error
     if (isError) {
-        return <div className="text-red-500">Loading Error</div>
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="loading-error"]
+
+            <div className="text-red-500">Loading Error</div>
+
+            // [/@--]
+        )
+
+        //
     }
 
     // ------------------------------------------------------------------------
     return (
+        // [@-- section="TSX" type="default"]
+
         <>
             {/* cover */}
             {cover && <Cover />}
@@ -74,7 +104,7 @@ export default function Content({
             <div className="mb-4">
                 <Link href="/<%= it.page_path %>">
                     <Button
-                        label="Back to List"
+                        label={backToListText}
                         icon="pi pi-angle-left"
                         outlined
                     />
@@ -91,9 +121,9 @@ export default function Content({
                 />
             </div>
             <div>
-                <Button label="UPDATE" onClick={onSave} />
+                <Button label={updateText} onClick={onSave} />
                 <Button
-                    label="DELETE"
+                    label={deleteText}
                     severity="danger"
                     className="ml-2"
                     outlined
@@ -111,7 +141,12 @@ export default function Content({
                 />
             </div>
         </>
+
+        // [/@--]
     )
+
+    //
 }
+// [/@--]
 
 // EOF

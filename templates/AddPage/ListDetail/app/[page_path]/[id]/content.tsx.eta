@@ -1,10 +1,13 @@
 'use client'
 
+// [@-- section="Import"]
 import Cover from '@/app/_components/Cover'
 import DefaultErrorPage from 'next/error'
 import useDetailSwr from '@/app/_fetch/<%= it.page_path %>/useDetailSwr'
 import { Skeleton } from 'primereact/skeleton'
+// [/@--]
 
+// [@-- section="Code"]
 export default function Content({
     id,
     loadingType = 'skelton'
@@ -18,9 +21,25 @@ export default function Content({
     // Loading
     if (isLoading) {
         if (loadingType == 'overlay') {
+            // Overlay
+
+            // [@-- section="TSX" type="overlay"]
+
+            // ----------------------------------------------------------------
+
             return <Cover />
+
+            // [/@--]
+
+            //
         } else if (loadingType == 'skelton') {
+            // Skelton
+
+            // ----------------------------------------------------------------
+
             return (
+                // [@-- section="TSX" type="skelton"]
+
                 <>
                     <table>
                         <tr>
@@ -165,19 +184,46 @@ export default function Content({
                         </tr>
                     </table>
                 </>
+
+                // [/@--]
             )
+
+            //
         }
 
-        return <DefaultErrorPage statusCode={500} />
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="internal-error"]
+
+            <DefaultErrorPage statusCode={500} />
+
+            // [/@--]
+        )
+
+        //
     }
 
-    // Error
+    // Loading Error
     if (isError) {
-        return <div className="text-red-500">Loading Error</div>
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="loading-error"]
+
+            <div className="text-red-500">Loading Error</div>
+
+            // [/@--]
+        )
+
+        //
     }
 
     // ------------------------------------------------------------------------
+
     return (
+        // [@-- section="TSX" type="default"]
+
         <>
             <table>
                 <tr>
@@ -217,7 +263,12 @@ export default function Content({
                 </tr>
             </table>
         </>
+
+        // [/@--]
     )
+
+    //
 }
+// [/@--]
 
 // EOF

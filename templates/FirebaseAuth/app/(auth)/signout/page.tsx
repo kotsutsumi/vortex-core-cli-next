@@ -2,9 +2,12 @@
 
 'use client'
 
+// [@-- section="Import"]
 import { signOut } from 'next-auth/react'
 import { useEffect } from 'react'
+// [/@--]
 
+// [@-- section="Code"]
 export default function SignOutPage() {
     // similar to componentDidMount and componentDidUpdate
     useEffect(() => {
@@ -13,9 +16,16 @@ export default function SignOutPage() {
     })
 
     // ------------------------------------------------------------------------
-    return <></>
+    return (
+        // [@-- section="TSX" type="default"]
+
+        <></>
+
+        // [/@--]
+    )
 
     //
 }
+// [/@--]
 
 // EOF

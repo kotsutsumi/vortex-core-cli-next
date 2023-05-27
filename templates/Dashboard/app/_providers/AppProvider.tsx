@@ -2,16 +2,28 @@
 
 'use client'
 
-import '@/libs/primereact/locale-ja'
-import Header from '@/app/_components/Header'
-import Sidebar from '@/app/_components/SideBar'
+import '@/libs/vortexcore/primereact/locale-ja'
+import Dictionary from '@/libs/vortexcore/components/Dictionary'
+import PrimeReact from 'primereact/api'
 import { ReactNode, useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import { locale } from 'primereact/api'
+import isDarkMode from '@/libs/vortexcore/misc/isDarkMode'
 
-export default function AppProvider({ children }: { children: ReactNode }) {
-    // set locale to Japanese for PrimeReact
-    locale('ja')
+export default function AppProvider({
+    lang,
+    dictionary,
+    children
+}: {
+    lang: string | undefined
+    dictionary: any
+    children: ReactNode
+}) {
+    // set ripple effect globally
+    PrimeReact.ripple = true
+
+    // set locale for PrimeReact
+    locale(lang as string)
 
     // similar to componentDidMount and componentDidUpdate
     useEffect(() => {
@@ -21,17 +33,13 @@ export default function AppProvider({ children }: { children: ReactNode }) {
     // ------------------------------------------------------------------------
 
     return (
+        // set RecoilRoot
         <RecoilRoot>
-            <div className="min-h-screen flex relative lg:static surface-ground">
-                {/* Sidebar */}
-                <Sidebar />
+            {/* set dictionary to ReactRecoil */}
+            <Dictionary data={dictionary} />
 
-                <div className="min-h-screen flex flex-column relative flex-auto">
-                    {/* Header */}
-                    <Header />
-                    <main className="p-5">{children}</main>
-                </div>
-            </div>
+            {/* main */}
+            <main>{children}</main>
         </RecoilRoot>
     )
 }

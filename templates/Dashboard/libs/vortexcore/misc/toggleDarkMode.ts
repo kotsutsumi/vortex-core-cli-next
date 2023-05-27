@@ -1,6 +1,6 @@
 // toggleDarkMode.ts
 
-export default (force: boolean | undefined) => {
+export default (force: boolean | undefined = undefined) => {
     if (force !== undefined) {
         document.body.classList.remove('dark-mode')
 
@@ -17,10 +17,7 @@ export default (force: boolean | undefined) => {
 }
 
 export function isCurrentDarkMode() {
-    return (
-        window.localStorage.getItem('dark-mode') === 'true' ??
-        window.matchMedia('(prefers-color-scheme: dark)').matches
-    )
+    return document.body.classList.contains('dark-mode')
 }
 
 export function getCurrentThemeName() {

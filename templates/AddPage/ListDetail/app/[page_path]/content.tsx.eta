@@ -5,9 +5,9 @@ import DefaultErrorPage from 'next/error'
 import useListSwr from '@/app/_fetch/<%= it.page_path %>/useListSwr'
 import { Column } from 'primereact/column'
 import { DataTable } from 'primereact/datatable'
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Skeleton } from 'primereact/skeleton'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 export default function Content({ loadingType = 'skelton' }) {
     // useRouter
@@ -16,18 +16,13 @@ export default function Content({ loadingType = 'skelton' }) {
     // set dummy items
     const items = Array.from({ length: 6 }, (v, i) => i)
 
-    // set body template
-    const bodyTemplate = () => {
-        return <Skeleton></Skeleton>
-    }
-
     // use selected item
     const [selectedItem, setSelectedItem] = useState(null)
 
     // use meta key
     const [metaKey, setMetaKey] = useState(true)
 
-    // use list swr
+    // use side menu swr
     const { data, isLoading, isError } = useListSwr()
 
     // selection change event handler
@@ -42,9 +37,30 @@ export default function Content({ loadingType = 'skelton' }) {
     // Loading
     if (isLoading) {
         if (loadingType == 'overlay') {
+            // Overlay
+
+            // [@-- section="TSX" type="overlay"]
+
+            // ----------------------------------------------------------------
+
             return <Cover />
+
+            // [/@--]
+
+            //
         } else if (loadingType == 'skelton') {
+            // Skelton
+
+            // set body template
+            const bodyTemplate = () => {
+                return <Skeleton></Skeleton>
+            }
+
+            // ----------------------------------------------------------------
+
             return (
+                // [@-- section="TSX" type="skelton"]
+
                 <>
                     <DataTable
                         value={items as any}
@@ -76,19 +92,44 @@ export default function Content({ loadingType = 'skelton' }) {
                         ></Column>
                     </DataTable>
                 </>
+
+                // [/@--]
             )
         }
 
-        return <DefaultErrorPage statusCode={500} />
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="internal-error"]
+
+            <DefaultErrorPage statusCode={500} />
+
+            // [/@--]
+        )
+
+        //
     }
 
-    // Error
+    // Loading Error
     if (isError) {
-        return <div className="text-red-500">Loading Error</div>
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="loading-error"]
+
+            <div className="text-red-500">Loading Error</div>
+
+            // [/@--]
+        )
+
+        //
     }
 
     // ------------------------------------------------------------------------
+
     return (
+        // [@-- section="TSX" type="default"]
+
         <>
             <DataTable
                 value={data}
@@ -105,7 +146,11 @@ export default function Content({ loadingType = 'skelton' }) {
                 <Column field="quantity" header="Quantity"></Column>
             </DataTable>
         </>
+
+        // [/@--]
     )
+
+    //
 }
 
 // EOF
