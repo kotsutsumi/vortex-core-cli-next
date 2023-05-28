@@ -92,9 +92,10 @@ export default function CardContainer({
     // set styles
     const styles = (
         [
-            'flex',
-            'flex-row',
-            'flex-wrap',
+            // 'flex',
+            // 'flex-column',
+            // 'md:flex-row',
+            // 'flex-wrap',
             'border-round-md',
             'border-1',
             'p-4',

@@ -165,7 +165,7 @@ export function PrimaryBox({
         <>
             <ColorBox
                 color={BoxColors.primary}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -243,7 +243,7 @@ export function BlueBox({
         <>
             <ColorBox
                 color={BoxColors.blue}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -269,7 +269,7 @@ export function GreenBox({
         <>
             <ColorBox
                 color={BoxColors.green}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -295,7 +295,7 @@ export function YellowBox({
         <>
             <ColorBox
                 color={BoxColors.yellow}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -321,7 +321,7 @@ export function CyanBox({
         <>
             <ColorBox
                 color={BoxColors.cyan}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -347,7 +347,7 @@ export function PinkBox({
         <>
             <ColorBox
                 color={BoxColors.pink}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -373,7 +373,7 @@ export function IndigoBox({
         <>
             <ColorBox
                 color={BoxColors.indigo}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -399,7 +399,7 @@ export function TealBox({
         <>
             <ColorBox
                 color={BoxColors.teal}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -425,7 +425,7 @@ export function OrangeBox({
         <>
             <ColorBox
                 color={BoxColors.orange}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -451,7 +451,7 @@ export function BlueGrayBox({
         <>
             <ColorBox
                 color={BoxColors.bluegray}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -477,7 +477,7 @@ export function PurpleBox({
         <>
             <ColorBox
                 color={BoxColors.purple}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -503,7 +503,7 @@ export function GrayBox({
         <>
             <ColorBox
                 color={BoxColors.gray}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
@@ -529,7 +529,7 @@ export function RedBox({
         <>
             <ColorBox
                 color={BoxColors.red}
-                className={className}
+                className={className + ' text-white'}
                 border={border}
             >
                 {children}
