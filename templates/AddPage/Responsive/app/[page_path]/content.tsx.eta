@@ -10,6 +10,45 @@ import Caption, {
     C5,
     C6
 } from '@/libs/vortexcore/components/Caption'
+import CardContainer, {
+    BlueContainer,
+    BlueGrayContainer,
+    CyanContainer,
+    GrayContainer,
+    GreenContainer,
+    IndigoContainer,
+    OrangeContainer,
+    PinkContainer,
+    PrimaryContainer,
+    PurpleContainer,
+    RedContainer,
+    SurfaceContainer,
+    TealContainer,
+    WhiteContainer,
+    YellowContainer
+} from '@/libs/vortexcore/components/CardContainer'
+import ColorBox, {
+    BlueBox,
+    BlueGrayBox,
+    BoxBorder,
+    BoxColors,
+    CyanBox,
+    GrayBox,
+    GreenBox,
+    IndigoBox,
+    Memo,
+    Note,
+    OrangeBox,
+    PinkBox,
+    PrimaryBox,
+    PurpleBox,
+    RedBox,
+    SurfaceBox,
+    TealBox,
+    WIP,
+    WhiteBox,
+    YellowBox
+} from '@/libs/vortexcore/components/ColorBox'
 // [@-- section="Imports"]
 import Breakpoint, {
     Responsive
@@ -61,6 +100,178 @@ export default function Content() {
 
                 <hr className="my-4" />
             </div>
+
+            <div>
+                <C2 className="mb-4">ColorBox Sample</C2>
+                <div className="mb-4">
+                    <C3>Primary</C3>
+                    <PrimaryBox className="w-4rem h-4rem p-4 m-2">1</PrimaryBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Surface</C3>
+                    <SurfaceBox className="w-4rem h-4rem p-4 m-2">1</SurfaceBox>
+                </div>
+                <div className="mb-4">
+                    <C3>White</C3>
+                    <WhiteBox className="w-4rem h-4rem p-4 m-2">1</WhiteBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Blue</C3>
+                    <BlueBox className="w-4rem h-4rem p-4 m-2">1</BlueBox>
+                </div>
+                <div className="mb-4">
+                    <C3>BlueGray</C3>
+                    <BlueGrayBox className="w-4rem h-4rem p-4 m-2">
+                        1
+                    </BlueGrayBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Cyan</C3>
+                    <CyanBox className="w-4rem h-4rem p-4 m-2">1</CyanBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Gray</C3>
+                    <GrayBox className="w-4rem h-4rem p-4 m-2">1</GrayBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Green</C3>
+                    <GreenBox className="w-4rem h-4rem p-4 m-2">1</GreenBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Indigo</C3>
+                    <IndigoBox className="w-4rem h-4rem p-4 m-2">1</IndigoBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Orange</C3>
+                    <OrangeBox className="w-4rem h-4rem p-4 m-2">1</OrangeBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Pink</C3>
+                    <PinkBox className="w-4rem h-4rem p-4 m-2">1</PinkBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Purple</C3>
+                    <PurpleBox className="w-4rem h-4rem p-4 m-2">1</PurpleBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Red</C3>
+                    <RedBox className="w-4rem h-4rem p-4 m-2">1</RedBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Teal</C3>
+                    <TealBox className="w-4rem h-4rem p-4 m-2">1</TealBox>
+                </div>
+                <div className="mb-4">
+                    <C3>Yellow</C3>
+                    <YellowBox className="w-4rem h-4rem p-4 m-2">1</YellowBox>
+                </div>
+
+                <div className="mb-4">
+                    <C3>WIP</C3>
+                    <WIP className="w-14rem h-4rem p-4 m-2">
+                        Work in progress.
+                    </WIP>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Memo</C3>
+                    <Memo className="w-14rem h-4rem p-4 m-2">
+                        Some memo text.
+                    </Memo>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Note</C3>
+                    <Note className="w-14rem h-4rem p-4 m-2">
+                        Some note text.
+                    </Note>
+                </div>
+            </div>
+
+            <div>
+                <C2>Card Container</C2>
+
+                <div className="mb-4">
+                    <C3>Card Container</C3>
+                    <CardContainer>Card Container</CardContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Primary Container</C3>
+                    <PrimaryContainer>PrimaryContainer</PrimaryContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Surface Container</C3>
+                    <SurfaceContainer>Surface Container</SurfaceContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>White Container</C3>
+                    <WhiteContainer>White Container</WhiteContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Blue Container</C3>
+                    <BlueContainer>Blue Container</BlueContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Green Container</C3>
+                    <GreenContainer>Green Container</GreenContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Yellow Container</C3>
+                    <YellowContainer>Yellow Container</YellowContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Cyan Container</C3>
+                    <CyanContainer>Cyan Container</CyanContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Pink Container</C3>
+                    <PinkContainer>Pink Container</PinkContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Indigo Container</C3>
+                    <IndigoContainer>Indigo Container</IndigoContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Teal Container</C3>
+                    <TealContainer>Teal Container</TealContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Orange Container</C3>
+                    <OrangeContainer>Orange Container</OrangeContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>BlueGray Container</C3>
+                    <BlueGrayContainer>BlueGray Container</BlueGrayContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Purple Container</C3>
+                    <PurpleContainer>Purple Container</PurpleContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Gray Container</C3>
+                    <GrayContainer>Gray Container</GrayContainer>
+                </div>
+
+                <div className="mb-4">
+                    <C3>Red Container</C3>
+                    <RedContainer>Red Container</RedContainer>
+                </div>
+            </div>
+     
         </>
 
         // [/@--]
