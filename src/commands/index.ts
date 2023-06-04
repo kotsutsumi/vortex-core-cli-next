@@ -5,9 +5,9 @@ import chalk from 'chalk'
 import fs from 'fs'
 import glob from 'glob'
 import ora, { Color } from 'ora'
+import packageJson from '../../package.json'
 import path from 'path'
 import { Command } from 'commander'
-import packageJson from '../../package.json'
 
 // spinner colors
 const spinnerColors = [

@@ -11,7 +11,6 @@ export default async function IndexPage() {
             {/* @ts-ignore */}
             <ServerAuthContent>
                 {/* Dashboard Provider */}
-                {/* <DashboardProvider isDarkMode={isDarkMode()}> */}
                 <DashboardProvider>
                     <h1>Index Page</h1>
                 </DashboardProvider>

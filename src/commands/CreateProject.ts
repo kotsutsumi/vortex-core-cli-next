@@ -8,6 +8,7 @@ import Jest from '../actions/Jest'
 import Prettier from '../actions/Prettier'
 import PrimeReact from '../actions/PrimeReact'
 import chalk from 'chalk'
+import fs from 'fs'
 import path from 'path'
 import registerCommand, { displayTitle, runner } from '.'
 import { Command } from 'commander'
@@ -103,6 +104,24 @@ const run = async (project_name: string) => {
             )
 
             console.log(`  run \`${nextCommand}\` to start development server.`)
+
+            // set status file paths
+            const statusFilePath = `${process.cwd()}/.vortex-core`
+            const statusFileName = 'status.json'
+
+            // make directory
+            fs.mkdirSync(statusFilePath, { recursive: true })
+
+            // write status file
+            fs.writeFileSync(
+                `${statusFilePath}/${statusFileName}`,
+                JSON.stringify({
+                    success: true,
+                    message: 'done'
+                })
+            )
+
+            //
         }
     )
 

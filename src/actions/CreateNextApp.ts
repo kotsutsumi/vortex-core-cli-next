@@ -1,6 +1,7 @@
 // CreateNextApp.ts
 
 import { execa } from 'execa'
+import fs from 'fs'
 
 export default async function (opts: any) {
     // create-next-app parameters

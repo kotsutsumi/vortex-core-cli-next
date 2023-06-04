@@ -1,7 +1,8 @@
 // Dashboard.ts
 
-import { execa } from 'execa'
+import fs from 'fs'
 import { deployFiles } from '../commands'
+import { execa } from 'execa'
 
 export default async function (opts: any) {
     // move to created project directory
@@ -13,6 +14,7 @@ export default async function (opts: any) {
         'react-loader-spinner',
         'nookies',
         'server-only',
+        'serverless-mysql',
         'swr',
         '@prisma/client'
     ])
@@ -28,6 +30,13 @@ export default async function (opts: any) {
 
     // deploy files
     deployFiles(opts.src, opts.dest, {}, {})
+
+    // add ".env" to .gitignore
+    fs.writeFileSync(
+        `${opts.dest}/.gitignore`,
+        fs.readFileSync(`${opts.dest}/.gitignore`, 'utf8') +
+            ['', '.env'].join('\n')
+    )
 
     //
 }
