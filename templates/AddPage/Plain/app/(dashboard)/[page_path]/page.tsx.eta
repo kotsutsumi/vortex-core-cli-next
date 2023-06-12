@@ -1,0 +1,26 @@
+// page.tsx
+
+// [@-- section="Import"]
+// import DashboardProvider from '@/app/_providers/DashboardProvider'
+// import ServerAuthContent from '@/app/_components/next-auth/ServerAuthContent'
+// [/@--]
+
+// [@-- section="Code"]
+export default async function Page() {
+    // ------------------------------------------------------------------------
+
+    return (
+        // [@-- section="TSX" type="default"]
+
+        <>
+            <h1><%= it.page_path %></h1>
+        </>
+
+        // [/@--]
+    )
+
+    //
+}
+// [/@--]
+
+// EOF

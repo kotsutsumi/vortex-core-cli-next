@@ -5,6 +5,14 @@ import { deployFiles } from '../../commands'
 import { execa } from 'execa'
 
 export default async function (opts: any) {
+    //
+
+    // move to created project directory
+    process.chdir(`${opts.dest}`)
+
+    // install packages
+    const { stdout } = await execa(`npm`, ['i', 'prisma-client'])
+
     fs.appendFileSync(
         `${opts.dest}/.env`,
         `# This was inserted by \`prisma init\`:
@@ -31,6 +39,11 @@ DATABASE_URL="file:./dev.db"
             page_path: opts.page_path
         }
     )
+
+    return {
+        success: true,
+        message: 'done.'
+    }
 
     //
 }

@@ -22,6 +22,11 @@ export default async function (opts: any) {
         }
     )
 
+    return {
+        success: true,
+        message: 'done.'
+    }
+
     //
 }
 
