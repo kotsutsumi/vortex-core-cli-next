@@ -65,6 +65,8 @@ export const runner = async (tasks: any, done: Function) => {
     // init spinner color
     let color = 0
 
+    let recentResult = { success: true, message: '' }
+
     // run each task
     for (const t of tasks) {
         let spinner: any = undefined
@@ -87,7 +89,10 @@ export const runner = async (tasks: any, done: Function) => {
         const startTime = performance.now()
 
         // run task
-        await t.task(t.opts)
+        const taskResult = await t.task(t.opts)
+
+        // upodate recent result
+        recentResult = taskResult
 
         // set end time
         const endTime = performance.now()
@@ -105,17 +110,35 @@ export const runner = async (tasks: any, done: Function) => {
                     ? Math.round(endTime - startTime) + 'ms'
                     : Math.round((endTime - startTime) / 100) / 10 + 's'
 
-            // output title
-            console.log(
-                `${chalk.green('  ✓')} ${chalk.gray(t.title)} (${timeWithUnit})`
-            )
+            if (taskResult.success === true) {
+                // output title
+                console.log(
+                    `${chalk.green('  ✓')} ${chalk.gray(
+                        t.title
+                    )} (${timeWithUnit})`
+                )
+            } else {
+                // output error
+                console.log(
+                    `${chalk.red('  ❌')} ${chalk.red(
+                        taskResult.message
+                    )} (${timeWithUnit})`
+                )
+            }
+        }
+
+        // break if task failed
+        if (taskResult.success === false) {
+            break
         }
 
         //
     }
 
-    // done
-    done()
+    if (recentResult.success) {
+        // done
+        done()
+    }
 
     //
 }
@@ -161,14 +184,12 @@ export const deployFiles = async (
                                 fs.mkdirSync(destDir, { recursive: true })
                         }
                     }
-
                     if (path.extname(file) == '.eta') {
                         let destPath = `${dest}/${file
                             .split('.')
                             .slice(0, -1)
                             .join('.')
                             .replace(templateDir, '')}`
-
                         for (const key in replacePaths) {
                             if (replacePaths.hasOwnProperty(key)) {
                                 destPath = destPath.replace(
@@ -177,7 +198,6 @@ export const deployFiles = async (
                                 )
                             }
                         }
-
                         fs.writeFileSync(
                             destPath,
                             Eta.compile(fs.readFileSync(file, 'utf8'))(
@@ -190,7 +210,6 @@ export const deployFiles = async (
                             templateDir,
                             ''
                         )}`
-
                         for (const key in replacePaths) {
                             if (replacePaths.hasOwnProperty(key)) {
                                 destPath = destPath.replace(

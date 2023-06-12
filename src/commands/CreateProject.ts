@@ -39,60 +39,62 @@ const run = async (project_name: string) => {
     runner(
         [
             {
-                title: 'Create new next app',
+                title: 'Create new vortex-core app',
                 task: CreateNextApp,
                 opts: {
-                    project_name: project_name
-                }
-            },
-            {
-                title: 'Setup Prettier',
-                task: Prettier,
-                opts: {
-                    src: path.join(__dirname, '../templates/Prettier'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup eslintrc.json',
-                task: Eslint,
-                opts: {
-                    src: path.join(__dirname, '../templates/Eslint'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup Jest',
-                task: Jest,
-                opts: {
-                    src: path.join(__dirname, '../templates/Jest'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup PrimeReact',
-                task: PrimeReact,
-                opts: {
-                    src: path.join(__dirname, '../templates/PrimeReact'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup FirebaseAuth',
-                task: FirebaseAuth,
-                opts: {
-                    src: path.join(__dirname, '../templates/FirebaseAuth'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup Dashboard',
-                task: Dashboard,
-                opts: {
-                    src: path.join(__dirname, '../templates/Dashboard'),
+                    project_name: project_name,
+                    src: path.join(__dirname, '../templates/CreateProject'),
                     dest: `${process.cwd()}/${project_name}`
                 }
             }
+            // {
+            //     title: 'Setup Prettier',
+            //     task: Prettier,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Prettier'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup eslintrc.json',
+            //     task: Eslint,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Eslint'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup Jest',
+            //     task: Jest,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Jest'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup PrimeReact',
+            //     task: PrimeReact,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/PrimeReact'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup FirebaseAuth',
+            //     task: FirebaseAuth,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/FirebaseAuth'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup Dashboard',
+            //     task: Dashboard,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Dashboard'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // }
         ],
         () => {
             console.log('')

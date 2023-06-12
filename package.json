@@ -1,6 +1,6 @@
 {
     "name": "vortex-core-cli-next",
-    "version": "0.2.3",
+    "version": "0.3.0",
     "description": "Vortex Core CLI for Next.js",
     "bin": {
         "vortex-core-cli-next": "./bin/vortex-core-cli-next.js"

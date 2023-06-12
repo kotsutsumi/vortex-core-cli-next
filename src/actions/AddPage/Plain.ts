@@ -9,6 +9,11 @@ export default async function (opts: any) {
         page_path: opts.page_path
     })
 
+    return {
+        success: true,
+        message: 'done.'
+    }
+
     //
 }
 

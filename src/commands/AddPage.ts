@@ -34,6 +34,10 @@ export default function register(program: Command) {
 }
 
 const run = async (page_path: any, opts: any) => {
+    // console.log('Add Page')
+    // console.log('page_path', page_path)
+    // process.exit(0)
+
     // display title
     displayTitle('Add Page')
 

@@ -1,0 +1,356 @@
+// content.tsx
+
+'use client'
+
+import Caption, {
+    c1,
+    c2,
+    c3,
+    c4,
+    c5,
+    c6
+} from '@/app/_components/Caption'
+import CardContainer, {
+    BlueContainer,
+    BlueGrayContainer,
+    CyanContainer,
+    GrayContainer,
+    GreenContainer,
+    IndigoContainer,
+    OrangeContainer,
+    PinkContainer,
+    PrimaryContainer,
+    PurpleContainer,
+    RedContainer,
+    SurfaceContainer,
+    TealContainer,
+    WhiteContainer,
+    YellowContainer
+} from '@/app/_components/CardContainer'
+import ColorBox, {
+    BlueBox,
+    BlueGrayBox,
+    BoxBorder,
+    BoxColors,
+    CyanBox,
+    GrayBox,
+    GreenBox,
+    IndigoBox,
+    Memo,
+    Note,
+    OrangeBox,
+    PinkBox,
+    PrimaryBox,
+    PurpleBox,
+    RedBox,
+    SurfaceBox,
+    TealBox,
+    WIP,
+    WhiteBox,
+    YellowBox
+} from '@/app/_components/ColorBox'
+import Breakpoint, {
+    Responsive
+} from '@/app/_components/layouts/Breakpoint'
+import Rows, { BoxAlign, Row } from '@/app/_components/layouts/Rows'
+
+// Content
+export default function Content() {
+    // ------------------------------------------------------------------------
+
+    return (
+        <>
+            <Caption className="mb-4">Responsive Samples</Caption>
+
+            <div className="my-8">
+                <c2>Captions</c2>
+
+                <c1>Caption Sample LV1</c1>
+                <c2>Caption Sample LV2</c2>
+                <c3>Caption Sample LV3</c3>
+                <c4>Caption Sample LV4</c4>
+                <c5>Caption Sample LV5</c5>
+                <c6>Caption Sample LV6</c6>
+
+                <hr className="my-8" />
+            </div>
+
+            <div className="my-8">
+                <c2>Breakpoint Sample</c2>
+                <div>
+                    <Breakpoint type={Responsive.sm}>
+                        <div>small screens e.g. phones</div>
+                    </Breakpoint>
+
+                    <Breakpoint type={Responsive.md}>
+                        <div>medium screens e.g. tablets</div>
+                    </Breakpoint>
+
+                    <Breakpoint type={Responsive.lg}>
+                        <div>large screens e.g. notebooks</div>
+                    </Breakpoint>
+
+                    <Breakpoint type={Responsive.xl}>
+                        <div>larger screens e.g monitors</div>
+                    </Breakpoint>
+                </div>
+
+                <hr className="my-8" />
+            </div>
+
+            <div className="my-8">
+                <c2 className="mb-4">ColorBox Sample</c2>
+                <div className="mb-4">
+                    <c3>Primary</c3>
+                    <PrimaryBox className="w-4rem h-4rem p-4 m-2">1</PrimaryBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Surface</c3>
+                    <SurfaceBox className="w-4rem h-4rem p-4 m-2">1</SurfaceBox>
+                </div>
+                <div className="mb-4">
+                    <c3>White</c3>
+                    <WhiteBox className="w-4rem h-4rem p-4 m-2">1</WhiteBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Blue</c3>
+                    <BlueBox className="w-4rem h-4rem p-4 m-2">1</BlueBox>
+                </div>
+                <div className="mb-4">
+                    <c3>BlueGray</c3>
+                    <BlueGrayBox className="w-4rem h-4rem p-4 m-2">
+                        1
+                    </BlueGrayBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Cyan</c3>
+                    <CyanBox className="w-4rem h-4rem p-4 m-2">1</CyanBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Gray</c3>
+                    <GrayBox className="w-4rem h-4rem p-4 m-2">1</GrayBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Green</c3>
+                    <GreenBox className="w-4rem h-4rem p-4 m-2">1</GreenBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Indigo</c3>
+                    <IndigoBox className="w-4rem h-4rem p-4 m-2">1</IndigoBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Orange</c3>
+                    <OrangeBox className="w-4rem h-4rem p-4 m-2">1</OrangeBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Pink</c3>
+                    <PinkBox className="w-4rem h-4rem p-4 m-2">1</PinkBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Purple</c3>
+                    <PurpleBox className="w-4rem h-4rem p-4 m-2">1</PurpleBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Red</c3>
+                    <RedBox className="w-4rem h-4rem p-4 m-2">1</RedBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Teal</c3>
+                    <TealBox className="w-4rem h-4rem p-4 m-2">1</TealBox>
+                </div>
+                <div className="mb-4">
+                    <c3>Yellow</c3>
+                    <YellowBox className="w-4rem h-4rem p-4 m-2">1</YellowBox>
+                </div>
+
+                <div className="mb-4">
+                    <c3>WIP</c3>
+                    <WIP className="w-14rem h-4rem p-4 m-2">
+                        Work in progress.
+                    </WIP>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Memo</c3>
+                    <Memo className="w-14rem h-4rem p-4 m-2">
+                        Some memo text.
+                    </Memo>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Note</c3>
+                    <Note className="w-14rem h-4rem p-4 m-2">
+                        Some note text.
+                    </Note>
+                </div>
+
+                <hr className="my-8" />
+            </div>
+
+            <div className="my-8">
+                <c2 className="mb-4">Containers</c2>
+
+                <div className="mb-4">
+                    <c3>Card Container</c3>
+                    <CardContainer>Card Container</CardContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Primary Container</c3>
+                    <PrimaryContainer>PrimaryContainer</PrimaryContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Surface Container</c3>
+                    <SurfaceContainer>Surface Container</SurfaceContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>White Container</c3>
+                    <WhiteContainer>White Container</WhiteContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Blue Container</c3>
+                    <BlueContainer>Blue Container</BlueContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Green Container</c3>
+                    <GreenContainer>Green Container</GreenContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Yellow Container</c3>
+                    <YellowContainer>Yellow Container</YellowContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Cyan Container</c3>
+                    <CyanContainer>Cyan Container</CyanContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Pink Container</c3>
+                    <PinkContainer>Pink Container</PinkContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Indigo Container</c3>
+                    <IndigoContainer>Indigo Container</IndigoContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Teal Container</c3>
+                    <TealContainer>Teal Container</TealContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Orange Container</c3>
+                    <OrangeContainer>Orange Container</OrangeContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>BlueGray Container</c3>
+                    <BlueGrayContainer>BlueGray Container</BlueGrayContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Purple Container</c3>
+                    <PurpleContainer>Purple Container</PurpleContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Gray Container</c3>
+                    <GrayContainer>Gray Container</GrayContainer>
+                </div>
+
+                <div className="mb-4">
+                    <c3>Red Container</c3>
+                    <RedContainer>Red Container</RedContainer>
+                </div>
+
+                <hr className="my-8" />
+            </div>
+
+            <div className="my-8">
+                <c2 className="mb-4">Rows Sample</c2>
+
+                <div className="mb-4">
+                    <c3>Items are displayed horizontally</c3>
+
+                    <BlueContainer>
+                        <Rows>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2">
+                                    1
+                                </BlueBox>
+                            </Row>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2">
+                                    2
+                                </BlueBox>
+                            </Row>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2 ">
+                                    3
+                                </BlueBox>
+                            </Row>
+                        </Rows>
+                    </BlueContainer>
+                </div>
+
+                <div>
+                    <c3>Items are displayed horizontally to Center</c3>
+
+                    <BlueContainer>
+                        <Rows align={BoxAlign.center}>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2">
+                                    1
+                                </BlueBox>
+                            </Row>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2">
+                                    2
+                                </BlueBox>
+                            </Row>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2 ">
+                                    3
+                                </BlueBox>
+                            </Row>
+                        </Rows>
+                    </BlueContainer>
+                </div>
+
+                <div>
+                    <c3>Items are displayed horizontally to Right</c3>
+
+                    <BlueContainer>
+                        <Rows align={BoxAlign.right}>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2">
+                                    1
+                                </BlueBox>
+                            </Row>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2">
+                                    2
+                                </BlueBox>
+                            </Row>
+                            <Row>
+                                <BlueBox className="w-4rem h-4rem p-4 m-2 ">
+                                    3
+                                </BlueBox>
+                            </Row>
+                        </Rows>
+                    </BlueContainer>
+                </div>
+            </div>
+        </>
+
+    )
+}
+
+// EOF
