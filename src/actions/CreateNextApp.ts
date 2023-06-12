@@ -53,15 +53,6 @@ export default async function (opts: any) {
     // execute npm install
     const { stdout } = await execa(`npm`, params)
 
-    // // add "firebaseSecretKey.json" to .gitignore
-    // fs.writeFileSync(
-    //     `${opts.dest}/.gitignore`,
-    //     fs.readFileSync(`${opts.dest}/.gitignore`, 'utf8') +
-    //         ['', '# Firebase Authentication', 'firebaseSecretKey.json'].join(
-    //             '\n'
-    //         )
-    // )
-
     // add NEXTAUTH_SECRET to .env.local
     const nextauth_secret = (
         await exec(['openssl', 'rand', '-base64', '32'].join(' '))
@@ -135,17 +126,14 @@ export default async function (opts: any) {
         )
     }
 
-    // // add ".env" to .gitignore
-    // fs.writeFileSync(
-    //     `${opts.dest}/.gitignore`,
-    //     fs.readFileSync(`${opts.dest}/.gitignore`, 'utf8') +
-    //         ['', '.env'].join('\n')
-    // )
+    // ------------------------------------------------------------------------
 
     return {
         success: true,
         message: 'done.'
     }
+
+    //
 }
 
 // EOF

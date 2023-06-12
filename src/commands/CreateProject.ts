@@ -1,12 +1,7 @@
 // CreateProject.ts
 
 import CreateNextApp from '../actions/CreateNextApp'
-import Dashboard from '../actions/Dashboard'
-import Eslint from '../actions/Eslint'
-import FirebaseAuth from '../actions/FirebaseAuth'
 import Jest from '../actions/Jest'
-import Prettier from '../actions/Prettier'
-import PrimeReact from '../actions/PrimeReact'
 import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
@@ -47,54 +42,6 @@ const run = async (project_name: string) => {
                     dest: `${process.cwd()}/${project_name}`
                 }
             }
-            // {
-            //     title: 'Setup Prettier',
-            //     task: Prettier,
-            //     opts: {
-            //         src: path.join(__dirname, '../templates/Prettier'),
-            //         dest: `${process.cwd()}/${project_name}`
-            //     }
-            // },
-            // {
-            //     title: 'Setup eslintrc.json',
-            //     task: Eslint,
-            //     opts: {
-            //         src: path.join(__dirname, '../templates/Eslint'),
-            //         dest: `${process.cwd()}/${project_name}`
-            //     }
-            // },
-            // {
-            //     title: 'Setup Jest',
-            //     task: Jest,
-            //     opts: {
-            //         src: path.join(__dirname, '../templates/Jest'),
-            //         dest: `${process.cwd()}/${project_name}`
-            //     }
-            // },
-            // {
-            //     title: 'Setup PrimeReact',
-            //     task: PrimeReact,
-            //     opts: {
-            //         src: path.join(__dirname, '../templates/PrimeReact'),
-            //         dest: `${process.cwd()}/${project_name}`
-            //     }
-            // },
-            // {
-            //     title: 'Setup FirebaseAuth',
-            //     task: FirebaseAuth,
-            //     opts: {
-            //         src: path.join(__dirname, '../templates/FirebaseAuth'),
-            //         dest: `${process.cwd()}/${project_name}`
-            //     }
-            // },
-            // {
-            //     title: 'Setup Dashboard',
-            //     task: Dashboard,
-            //     opts: {
-            //         src: path.join(__dirname, '../templates/Dashboard'),
-            //         dest: `${process.cwd()}/${project_name}`
-            //     }
-            // }
         ],
         () => {
             console.log('')
