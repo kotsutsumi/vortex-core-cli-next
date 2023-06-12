@@ -7,7 +7,7 @@ export default async function (opts: any) {
     // move to created project directory
     process.chdir(`${opts.dest}`)
 
-    // install packages
+    // install packages for development
     const { stdout } = await execa(`npm`, [
         'i',
         '-D',
@@ -26,7 +26,7 @@ export default async function (opts: any) {
     ])
 
     // deploy files
-    await deployFiles(opts.src, opts.dest, {})
+    await deployFiles(opts.src, opts.dest, {}, {})
 
     //
 }

@@ -1,0 +1,130 @@
+'use client'
+
+// [@-- section="Import"]
+import Cover from '@/app/_components/Cover'
+import DefaultErrorPage from 'next/error'
+import useListSwr from '@/app/_fetch/<%= it.page_path %>/useListSwr'
+import { Column } from 'primereact/column'
+import { DataTable } from 'primereact/datatable'
+import { Skeleton } from 'primereact/skeleton'
+// [/@--]
+
+// [@-- section="Code"]
+export default function Content({ loadingType = 'skelton' }) {
+    // set dummy items
+    const items = Array.from({ length: 6 }, (v, i) => i)
+
+    // use side menu swr
+    const { data, isLoading, isError } = useListSwr()
+
+    // Loading
+    if (isLoading) {
+        if (loadingType == 'overlay') {
+            // Overlay
+
+            // [@-- section="TSX" type="overlay"]
+
+            // ----------------------------------------------------------------
+
+            return <Cover />
+
+            // [/@--]
+
+            //
+        } else if (loadingType == 'skelton') {
+            // Skelton
+
+            // set body template
+            const bodyTemplate = () => {
+                return <Skeleton></Skeleton>
+            }
+
+            // ----------------------------------------------------------------
+
+            return (
+                // [@-- section="TSX" type="skelton"]
+                <>
+                    <DataTable
+                        value={items as any}
+                        tableStyle={{ minWidth: '50rem' }}
+                    >
+                        <Column
+                            field="code"
+                            header="Code"
+                            style={{ width: '25%' }}
+                            body={bodyTemplate}
+                        ></Column>
+                        <Column
+                            field="name"
+                            header="Name"
+                            style={{ width: '25%' }}
+                            body={bodyTemplate}
+                        ></Column>
+                        <Column
+                            field="category"
+                            header="Category"
+                            style={{ width: '25%' }}
+                            body={bodyTemplate}
+                        ></Column>
+                        <Column
+                            field="quantity"
+                            header="Quantity"
+                            style={{ width: '25%' }}
+                            body={bodyTemplate}
+                        ></Column>
+                    </DataTable>
+                </>
+                // [/@--]
+            )
+        }
+
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="internal-error"]
+
+            <DefaultErrorPage statusCode={500} />
+
+            // [/@--]
+        )
+
+        //
+    }
+
+    // Loading Error
+    if (isError) {
+        // --------------------------------------------------------------------
+
+        return (
+            // [@-- section="TSX" type="loading-error"]
+
+            <div className="text-red-500">Loading Error</div>
+
+            // [/@--]
+        )
+
+        //
+    }
+
+    // ------------------------------------------------------------------------
+
+    return (
+        // [@-- section="TSX" type="default"]
+
+        <>
+            <DataTable value={data} tableStyle={{ minWidth: '50rem' }}>
+                <Column field="code" header="Code"></Column>
+                <Column field="name" header="Name"></Column>
+                <Column field="category" header="Category"></Column>
+                <Column field="quantity" header="Quantity"></Column>
+            </DataTable>
+        </>
+
+        // [/@--]
+    )
+
+    //
+}
+// [/@--]
+
+// EOF

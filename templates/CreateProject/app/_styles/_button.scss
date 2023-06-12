@@ -1,0 +1,12 @@
+// button.scss
+
+.button-with-center-icon {
+    @extend .flex;
+    @extend .justify-content-center;
+}
+
+.button-with-center-icon span {
+    @extend .flex-none;
+}
+
+// EOF

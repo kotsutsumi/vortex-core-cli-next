@@ -1,21 +1,17 @@
 // CreateProject.ts
 
 import CreateNextApp from '../actions/CreateNextApp'
+import Dashboard from '../actions/Dashboard'
 import Eslint from '../actions/Eslint'
 import FirebaseAuth from '../actions/FirebaseAuth'
 import Jest from '../actions/Jest'
 import Prettier from '../actions/Prettier'
 import PrimeReact from '../actions/PrimeReact'
 import chalk from 'chalk'
-import childProcess from 'child_process'
+import fs from 'fs'
 import path from 'path'
 import registerCommand, { displayTitle, runner } from '.'
-import util from 'util'
 import { Command } from 'commander'
-import Dashboard from '../actions/Dashboard'
-
-// set promisify exec
-const exec = util.promisify(childProcess.exec)
 
 // set command name
 const command_name = 'create'
@@ -30,7 +26,7 @@ export default function register(program: Command) {
     ]
 
     // register command
-    registerCommand(program, command_name, args, run)
+    registerCommand(program, command_name, args, null, run)
 
     //
 }
@@ -43,60 +39,62 @@ const run = async (project_name: string) => {
     runner(
         [
             {
-                title: 'Create new next app',
+                title: 'Create new vortex-core app',
                 task: CreateNextApp,
                 opts: {
-                    project_name: project_name
-                }
-            },
-            {
-                title: 'Setup Prettier',
-                task: Prettier,
-                opts: {
-                    src: path.join(__dirname, '../templates/Prettier'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup eslintrc.json',
-                task: Eslint,
-                opts: {
-                    src: path.join(__dirname, '../templates/Eslint'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup Jest',
-                task: Jest,
-                opts: {
-                    src: path.join(__dirname, '../templates/Jest'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup PrimeReact',
-                task: PrimeReact,
-                opts: {
-                    src: path.join(__dirname, '../templates/PrimeReact'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup FirebaseAuth',
-                task: FirebaseAuth,
-                opts: {
-                    src: path.join(__dirname, '../templates/FirebaseAuth'),
-                    dest: `${process.cwd()}/${project_name}`
-                }
-            },
-            {
-                title: 'Setup Dashboard',
-                task: Dashboard,
-                opts: {
-                    src: path.join(__dirname, '../templates/Dashboard'),
+                    project_name: project_name,
+                    src: path.join(__dirname, '../templates/CreateProject'),
                     dest: `${process.cwd()}/${project_name}`
                 }
             }
+            // {
+            //     title: 'Setup Prettier',
+            //     task: Prettier,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Prettier'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup eslintrc.json',
+            //     task: Eslint,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Eslint'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup Jest',
+            //     task: Jest,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Jest'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup PrimeReact',
+            //     task: PrimeReact,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/PrimeReact'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup FirebaseAuth',
+            //     task: FirebaseAuth,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/FirebaseAuth'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // },
+            // {
+            //     title: 'Setup Dashboard',
+            //     task: Dashboard,
+            //     opts: {
+            //         src: path.join(__dirname, '../templates/Dashboard'),
+            //         dest: `${process.cwd()}/${project_name}`
+            //     }
+            // }
         ],
         () => {
             console.log('')
@@ -108,6 +106,24 @@ const run = async (project_name: string) => {
             )
 
             console.log(`  run \`${nextCommand}\` to start development server.`)
+
+            // set status file paths
+            const statusFilePath = `${process.cwd()}/.vortex-core`
+            const statusFileName = 'status.json'
+
+            // make directory
+            fs.mkdirSync(statusFilePath, { recursive: true })
+
+            // write status file
+            fs.writeFileSync(
+                `${statusFilePath}/${statusFileName}`,
+                JSON.stringify({
+                    success: true,
+                    message: 'done'
+                })
+            )
+
+            //
         }
     )
 
