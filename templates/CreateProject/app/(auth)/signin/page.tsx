@@ -4,10 +4,10 @@
 //  Server Component
 // ------------------------------------------------------------------------
 
-import getMetaTitle from '@/app/_libs/getMetaTitle'
+import getMetaTitle from '@/app/_libs/vortexcore/getMetaTitle'
 import Content from './Content'
-import isDarkMode from '@/app/_libs/server/isDarkMode'
-import getLang from '@/app/_libs/server/getLang'
+import isDarkMode from '@/app/_libs/vortexcore/server/isDarkMode'
+import getLang from '@/app/_libs/vortexcore/server/getLang'
 
 // MetaDeta
 export const metadata = {

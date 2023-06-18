@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------
 
 import Content from './Content'
-import getMetaTitle from '@/app/_libs/getMetaTitle'
+import getMetaTitle from '@/app/_libs/vortexcore/getMetaTitle'
 
 // MetaDeta
 export const metadata = {

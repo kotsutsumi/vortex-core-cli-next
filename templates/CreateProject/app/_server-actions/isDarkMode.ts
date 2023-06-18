@@ -2,7 +2,7 @@
 
 'use server'
 
-import isDarkModeOnServer from '@/app/_libs/server/isDarkMode'
+import isDarkModeOnServer from '@/app/_libs/vortexcore/server/isDarkMode'
 
 export default async function isDarkMode() {
     //

@@ -6,11 +6,10 @@
 //  Client Component
 // ------------------------------------------------------------------------
 
+import isProduction from '@/app/_libs/vortexcore/isProduction'
 import { dictAtom } from '@/app/_atoms/dict'
-import { parseCookies } from 'nookies'
 import { useEffect, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
-import isProduction from '../_libs/isProduction'
 
 // DictionaryProvider
 export default function DictionaryProvider({

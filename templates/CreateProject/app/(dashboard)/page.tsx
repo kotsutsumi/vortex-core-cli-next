@@ -6,7 +6,7 @@
 
 import DashboardProvider from '@/app/_providers/DashboardProvider'
 import ServerAuthProvider from '@/app/_providers/ServerAuthProvider'
-import isDarkMode from '@/app/_libs/server/isDarkMode'
+import isDarkMode from '@/app/_libs/vortexcore/server/isDarkMode'
 
 // IndexPage
 export default async function IndexPage({

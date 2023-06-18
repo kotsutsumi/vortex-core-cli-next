@@ -6,7 +6,7 @@
 //  Client Component
 // ------------------------------------------------------------------------
 
-import getTranslation from '@/app/_libs/getTranslation'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
 import { Button } from 'primereact/button'
 import { MouseEventHandler } from 'react'
 

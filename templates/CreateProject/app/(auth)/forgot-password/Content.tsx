@@ -9,12 +9,13 @@
 import Cover from '@/app/_components/Cover'
 import Email from '../_conponents/Email'
 import ErrorMessage from './ErrorMessage'
+import FormContainer from '../_conponents/FormContainer'
 import Logo from '../_conponents/Logo'
 import Menu from '../_conponents/Menu'
 import SubmitButton from './SubmitButton'
 import WelcomeMessage from './WelcomeMessage'
-import getBaseUrl from '@/app/_libs/getBaseUrl'
-import getTranslation from '@/app/_libs/getTranslation'
+import getBaseUrl from '@/app/_libs/vortexcore/getBaseUrl'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
 import { Message } from 'primereact/message'
 import { auth } from '@/app/_libs/firebase/client'
 import { darkModeAtom } from '@/app/_atoms/dark-mode'
@@ -136,7 +137,10 @@ export default function Content({ initDarkMode }: { initDarkMode: boolean }) {
     }
 
     // enter key event handler process
-    useKeyboardShortcut(['enter'], onSubmit)
+    useKeyboardShortcut(['enter'], () => {
+        onSubmit()
+        return true
+    })
 
     // ------------------------------------------------------------------------
 
@@ -149,7 +153,7 @@ export default function Content({ initDarkMode }: { initDarkMode: boolean }) {
             <Menu initDarkMode={initDarkMode} />
 
             {/* Form */}
-            <div className="surface-card p-4 shadow-2 border-round w-full max-w-28rem">
+            <FormContainer>
                 <div className="text-center mb-5">
                     {/* Logo */}
                     <Logo initDarkMode={initDarkMode} />
@@ -206,7 +210,7 @@ export default function Content({ initDarkMode }: { initDarkMode: boolean }) {
                         onClick={onSubmit}
                     />
                 )}
-            </div>
+            </FormContainer>
         </>
     )
 

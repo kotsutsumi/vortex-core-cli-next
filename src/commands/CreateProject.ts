@@ -1,7 +1,6 @@
 // CreateProject.ts
 
 import CreateNextApp from '../actions/CreateNextApp'
-import Jest from '../actions/Jest'
 import chalk from 'chalk'
 import fs from 'fs'
 import path from 'path'
