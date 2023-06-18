@@ -9,7 +9,7 @@
 import DarkModeSwitcher from './DarkModeSwitcher'
 import LanguageSwitcher from './LanguageSwitcher'
 import Link from 'next/link'
-import getTranslation from '../_libs/getTranslation'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
 import { Badge } from 'primereact/badge'
 import { Button } from 'primereact/button'
 import { InputText } from 'primereact/inputtext'

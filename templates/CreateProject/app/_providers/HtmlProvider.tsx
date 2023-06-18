@@ -6,9 +6,9 @@
 
 import '@/app/_styles/globals.scss'
 import AppProvider, { PrimeReactConfig } from '@/app/_providers/AppProvider'
-import getNextConfig from '@/app/_libs/server/getNextConfig'
-import getPreferredLang from '@/app/_libs/server/getPreferredLang'
-import isDarkMode from '@/app/_libs/server/isDarkMode'
+import getNextConfig from '@/app/_libs/vortexcore/server/getNextConfig'
+import getPreferredLang from '@/app/_libs/vortexcore/server/getPreferredLang'
+import isDarkMode from '@/app/_libs/vortexcore/server/isDarkMode'
 import { Inter } from 'next/font/google'
 
 // MetaData
@@ -35,7 +35,11 @@ export default async function HtmlProvider({
     //
 
     // set body tag classes
-    const bodyClasses = [inter.className, isDarkMode() && 'dark-mode'].join(' ')
+    const bodyClasses = [
+        inter.className,
+        'surface-ground',
+        isDarkMode() && 'dark-mode'
+    ].join(' ')
 
     // set preferred lang
     const lang = getPreferredLang()
@@ -65,6 +69,10 @@ export default async function HtmlProvider({
     return (
         <>
             <html lang={lang}>
+                <script
+                    src="https://embed.zenn.studio/js/listen-embed-event.js"
+                    async
+                ></script>
                 <body className={bodyClasses}>
                     {/* AppProvider */}
                     <AppProvider
