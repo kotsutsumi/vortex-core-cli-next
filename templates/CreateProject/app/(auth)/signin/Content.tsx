@@ -10,6 +10,7 @@ import Cover from '@/app/_components/Cover'
 import Email from '../_conponents/Email'
 import ErrorMessage from './ErrorMessage'
 import ForgotPassword from '../_conponents/ForgotPassword'
+import FormContainer from '../_conponents/FormContainer'
 import Logo from '../_conponents/Logo'
 import Menu from '../_conponents/Menu'
 import Password from '../_conponents/Password'
@@ -137,7 +138,10 @@ export default function Content({ initDarkMode }: { initDarkMode: boolean }) {
     }
 
     // enter key event handler process
-    useKeyboardShortcut(['enter'], onSubmit)
+    useKeyboardShortcut(['enter'], () => {
+        onSubmit()
+        return true
+    })
 
     // ------------------------------------------------------------------------
 
@@ -150,7 +154,7 @@ export default function Content({ initDarkMode }: { initDarkMode: boolean }) {
             <Menu initDarkMode={initDarkMode} />
 
             {/* Form */}
-            <div className="surface-card p-4 shadow-2 border-round w-full max-w-28rem mb-8">
+            <FormContainer>
                 <div className="text-center mb-5">
                     {/* Logo */}
                     <Logo initDarkMode={initDarkMode} />
@@ -182,7 +186,7 @@ export default function Content({ initDarkMode }: { initDarkMode: boolean }) {
                     disabled={disableSubmitButton}
                     onClick={onSubmit}
                 />
-            </div>
+            </FormContainer>
         </>
     )
 

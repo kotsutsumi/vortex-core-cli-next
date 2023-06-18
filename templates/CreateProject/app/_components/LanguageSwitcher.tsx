@@ -1,8 +1,8 @@
 // LanguageSwitcher.tsx
 
 import React, { useState } from 'react'
-import getLang from '../_libs/getLang'
-import getTranslation from '@/app/_libs/getTranslation'
+import getLang from '@/app/_libs/vortexcore/getLang'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
 import { Dropdown, DropdownChangeEvent } from 'primereact/dropdown'
 import { setCookie } from 'nookies'
 

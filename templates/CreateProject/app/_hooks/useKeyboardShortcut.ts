@@ -4,7 +4,10 @@ import { useEffect } from 'react'
 
 type Key = 'ctrl' | 'shift' | 'alt' | string
 
-export const useKeyboardShortcut = (keys: Key[], callback: () => void) => {
+export const useKeyboardShortcut = (
+    keys: Key[],
+    callback: () => boolean | undefined
+) => {
     //
 
     // useEffect is a React hook that runs a function when the component is
@@ -20,7 +23,9 @@ export const useKeyboardShortcut = (keys: Key[], callback: () => void) => {
                             event.key?.toLowerCase() === key)
                 )
             ) {
-                callback()
+                if (callback() === false) {
+                    event.preventDefault()
+                }
             }
         }
 

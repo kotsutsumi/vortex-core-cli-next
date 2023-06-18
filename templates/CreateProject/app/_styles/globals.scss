@@ -4,11 +4,11 @@
 @import 'primeflex/_primeflex.scss';
 @import 'primeicons/primeicons.css';
 @import 'primereact/resources/primereact.css';
-@import '_variables.scss';
-@import '_button.scss';
-@import '_card-container.scss';
-@import '_color-box.scss';
-@import 'layout/_flex.scss';
+@import 'vortexcore/_variables.scss';
+@import 'vortexcore/_button.scss';
+@import 'vortexcore/_card-container.scss';
+@import 'vortexcore/_color-box.scss';
+@import 'vortexcore/layout/_flex.scss';
 
 /*
 :root {

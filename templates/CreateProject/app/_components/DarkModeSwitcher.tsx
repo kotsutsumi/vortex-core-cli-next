@@ -6,9 +6,9 @@
 //  Client Component
 // ------------------------------------------------------------------------
 
-import getTranslation from '@/app/_libs/getTranslation'
-import isDarkMode from '@/app/_libs/isDarkMode'
-import toggleDarkMode from '@/app/_libs/toggleDarkMode'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
+import isDarkMode from '@/app/_libs/vortexcore/isDarkMode'
+import toggleDarkMode from '@/app/_libs/vortexcore/toggleDarkMode'
 import { Button } from 'primereact/button'
 import { darkModeAtom } from '@/app/_atoms/dark-mode'
 import { parseCookies, setCookie } from 'nookies'

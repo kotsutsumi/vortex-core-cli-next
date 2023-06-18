@@ -7,7 +7,7 @@
 import DashboardProvider from '@/app/_providers/DashboardProvider'
 import HtmlProvider from '@/app/_providers/HtmlProvider'
 import ServerAuthProvider from '@/app/_providers/ServerAuthProvider'
-import isDarkMode from '@/app/_libs/isDarkMode'
+import isDarkMode from '@/app/_libs/vortexcore/isDarkMode'
 
 // DashboardLayout
 export default async function DashboardLayout({

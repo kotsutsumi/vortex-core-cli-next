@@ -62,7 +62,7 @@ export default function DashboardProvider({
                 <Header initDarkMode={initDarkMode} />
 
                 {/* @ts-ignore */}
-                <main className="p-5">{children}</main>
+                <div className="px-5">{children}</div>
             </div>
         </div>
     )

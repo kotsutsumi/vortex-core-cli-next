@@ -1,6 +1,6 @@
 // index.ts
 
-import * as Eta from 'eta'
+import { Eta } from 'eta'
 import chalk from 'chalk'
 import fs from 'fs'
 import glob from 'glob'
@@ -200,9 +200,9 @@ export const deployFiles = async (
                         }
                         fs.writeFileSync(
                             destPath,
-                            Eta.compile(fs.readFileSync(file, 'utf8'))(
-                                templateOpts,
-                                Eta.config
+                            new Eta({}).renderString(
+                                fs.readFileSync(file, 'utf8'),
+                                templateOpts
                             )
                         )
                     } else {

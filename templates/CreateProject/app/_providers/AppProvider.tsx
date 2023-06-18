@@ -73,7 +73,7 @@ export default function AppProvider({
                 <DarkModeProvider darkMode={darkMode} />
 
                 {/* main */}
-                <main>{children}</main>
+                <main className="h-full">{children}</main>
             </RecoilRoot>
         </SessionProvider>
     )

@@ -7,7 +7,7 @@
 // ------------------------------------------------------------------------
 
 import Link from 'next/link'
-import getTranslation from '@/app/_libs/getTranslation'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
 
 // ForgotPassword
 export default function ForgotPassword({ className }: { className?: string }) {

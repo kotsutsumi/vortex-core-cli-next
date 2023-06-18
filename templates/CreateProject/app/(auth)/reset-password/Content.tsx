@@ -8,14 +8,14 @@
 
 import Cover from '@/app/_components/Cover'
 import ErrorMessage from './ErrorMessage'
+import FormContainer from '../_conponents/FormContainer'
 import Logo from '../_conponents/Logo'
 import Menu from '../_conponents/Menu'
 import Password from '../_conponents/Password'
 import SubmitButton from './SubmitButton'
 import { auth } from '@/app/_libs/firebase/client'
-import { redirect, useSearchParams } from 'next/navigation'
-import { useState } from 'react'
 import { useKeyboardShortcut } from '@/app/_hooks/useKeyboardShortcut'
+import { useState } from 'react'
 import { verifyPasswordResetCode, confirmPasswordReset } from 'firebase/auth'
 
 // define Data type
@@ -143,7 +143,10 @@ export default function Content({
     }
 
     // enter key event handler process
-    useKeyboardShortcut(['enter'], onSubmit)
+    useKeyboardShortcut(['enter'], () => {
+        onSubmit()
+        return true
+    })
 
     // ------------------------------------------------------------------------
 
@@ -156,7 +159,7 @@ export default function Content({
             <Menu initDarkMode={initDarkMode} />
 
             {/* Form */}
-            <div className="surface-card p-4 shadow-2 border-round w-full max-w-28rem">
+            <FormContainer>
                 <div className="text-center mb-5">
                     {/* Logo */}
                     <Logo initDarkMode={initDarkMode} />
@@ -178,7 +181,7 @@ export default function Content({
                         onClick={onSubmit}
                     />
                 )}
-            </div>
+            </FormContainer>
         </>
     )
 

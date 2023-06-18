@@ -9,7 +9,7 @@ export const dictAtom = atom({
     key: 'app-dict',
 
     // default value
-    default: {}
+    default: require('../_dictionaries/ja.json')
 
     //
 })

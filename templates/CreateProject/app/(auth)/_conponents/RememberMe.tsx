@@ -6,7 +6,7 @@
 //  Client Component
 // ------------------------------------------------------------------------
 
-import getTranslation from '@/app/_libs/getTranslation'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
 import { Checkbox, CheckboxChangeEvent } from 'primereact/checkbox'
 import { darkModeAtom } from '@/app/_atoms/dark-mode'
 import { useRecoilValue } from 'recoil'

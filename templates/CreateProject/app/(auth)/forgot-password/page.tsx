@@ -5,7 +5,7 @@
 // ------------------------------------------------------------------------
 
 import Content from './Content'
-import isDarkMode from '@/app/_libs/server/isDarkMode'
+import isDarkMode from '@/app/_libs/vortexcore/server/isDarkMode'
 
 // ForgotPasswordPage
 export default function ForgotPasswordPage({

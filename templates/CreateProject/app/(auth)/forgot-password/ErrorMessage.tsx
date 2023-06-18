@@ -6,7 +6,7 @@
 //  Client Component
 // ------------------------------------------------------------------------
 
-import getTranslation from '@/app/_libs/getTranslation'
+import getTranslation from '@/app/_libs/vortexcore/getTranslation'
 import { Message } from 'primereact/message'
 
 // ErrorMessage
